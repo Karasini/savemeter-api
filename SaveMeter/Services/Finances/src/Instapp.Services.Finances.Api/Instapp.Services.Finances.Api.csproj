@@ -4,9 +4,6 @@
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>97bffdcb-248c-4f96-8d08-e3ab6ee4bb71</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\..\..\..</DockerfileContext>
-    <DockerfileRunArguments>--network instapp-network</DockerfileRunArguments>
-    <DockerComposeProjectPath>..\..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
