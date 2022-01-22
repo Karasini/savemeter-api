@@ -24,8 +24,9 @@ namespace SaveMeter.Services.Finances.Infrastructure
                 .Services
                     .AddCqrs(typeof(Extensions).Assembly, typeof(Application.Extensions).Assembly)
                     .AddScoped<ICategoryRepository, CategoryRepository>()
-                    .AddScoped<ITransactionRepository, TransactionRepository>()
+                    .AddScoped<IBankTransactionRepository, BankTransactionRepository>()
                     .AddScoped<ICategoryReferenceRepository, CategoryReferenceRepository>()
+                    .AddScoped<BankTransactionReadRepository>()
                     .AddSingleton(machineLearningOptions)
                     .AddScoped<MongoSeed>();
 

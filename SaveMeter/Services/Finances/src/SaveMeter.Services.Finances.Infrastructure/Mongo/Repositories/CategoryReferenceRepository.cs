@@ -26,7 +26,8 @@ namespace SaveMeter.Services.Finances.Infrastructure.Mongo.Repositories
                 .Replace("[", string.Empty)
                 .Replace("]", string.Empty)
                 .Replace("(", string.Empty)
-                .Replace(")", string.Empty);
+                .Replace(")", string.Empty)
+                .Replace("*", string.Empty);
             var splitted = string.Join("|", preparedString.Split(" ").Select(x => $"({x})").ToList().Where(x => !string.IsNullOrEmpty(x)));
             var regex = new BsonRegularExpression(splitted, "/i");
 

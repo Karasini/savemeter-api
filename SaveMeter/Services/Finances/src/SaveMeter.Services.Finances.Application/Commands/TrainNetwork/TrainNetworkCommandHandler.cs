@@ -23,13 +23,13 @@ namespace SaveMeter.Services.Finances.Application.Commands.TrainNetwork
         }
 
         private MLContext _mlContext;
-        private ITransactionRepository _transactionRepository;
+        private IBankTransactionRepository _transactionRepository;
         private ITransformer _trainedModel;
         private PredictionEngine<BankTransactionForNetwork, CategoryPrediction> _predEngine;
         private List<BankTransactionForNetwork> _testData;
         private readonly ILogger _logger;
 
-        public TrainNetworkCommandHandler(ITransactionRepository transactionRepository, ILogger logger)
+        public TrainNetworkCommandHandler(IBankTransactionRepository transactionRepository, ILogger logger)
         {
             _transactionRepository = transactionRepository;
             _logger = logger;

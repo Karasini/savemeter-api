@@ -10,6 +10,7 @@ using CsvHelper;
 using CsvHelper.Configuration;
 using SaveMeter.Services.Finances.Api.Csv;
 using SaveMeter.Services.Finances.Application.Commands.CreateTransaction;
+using SaveMeter.Services.Finances.Application.Queries;
 
 namespace SaveMeter.Services.Finances.Api.Controllers
 {
@@ -38,6 +39,11 @@ namespace SaveMeter.Services.Finances.Api.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetBankTransactionsByFilter([FromQuery] GetBankTransactionsByFilterQuery query) 
+        {
+            return Ok(await _mediator.Send(query));
+        }
     }
 }
 

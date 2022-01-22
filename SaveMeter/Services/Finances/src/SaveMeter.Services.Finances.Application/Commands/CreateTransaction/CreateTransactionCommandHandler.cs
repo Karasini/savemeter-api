@@ -7,10 +7,10 @@ namespace SaveMeter.Services.Finances.Application.Commands.CreateTransaction
 {
     class CreateTransactionCommandHandler : ICommandHandler<CreateTransactionCommand>
     {
-        private readonly ITransactionRepository _transactionRepository;
+        private readonly IBankTransactionRepository _transactionRepository;
         private readonly ICategoryReferenceRepository _categoryReferenceRepository;
 
-        public CreateTransactionCommandHandler(ITransactionRepository transactionRepository, ICategoryReferenceRepository categoryReferenceRepository)
+        public CreateTransactionCommandHandler(IBankTransactionRepository transactionRepository, ICategoryReferenceRepository categoryReferenceRepository)
         {
             _transactionRepository = transactionRepository;
             _categoryReferenceRepository = categoryReferenceRepository;

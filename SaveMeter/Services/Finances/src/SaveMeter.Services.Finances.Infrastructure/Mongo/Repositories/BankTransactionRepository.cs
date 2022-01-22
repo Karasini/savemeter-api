@@ -10,9 +10,9 @@ using SaveMeter.Services.Finances.Domain.Repositories;
 
 namespace SaveMeter.Services.Finances.Infrastructure.Mongo.Repositories
 {
-    class TransactionRepository : BaseRepository<BankTransaction>, ITransactionRepository
+    class BankTransactionRepository : BaseRepository<BankTransaction>, IBankTransactionRepository
     {
-        public TransactionRepository(IMongoContext context) : base(context)
+        public BankTransactionRepository(IMongoContext context) : base(context)
         {
         }
 
