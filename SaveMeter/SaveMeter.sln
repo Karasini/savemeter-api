@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{4A0DC8AC-B2E1-4DB3-A5A9-71E2601D1E6F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Finances", "Finances", "{21F497BF-63C8-4B05-94FA-52635F827EB2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FCE6E3C1-5099-46E8-94E0-C7AAF01D4649}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Instapp.Services.Finances.Api", "Services\Finances\src\Instapp.Services.Finances.Api\Instapp.Services.Finances.Api.csproj", "{D5E96679-E4EF-4E99-B7C4-7A5322624D8B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Instapp.Services.Finances.Application", "Services\Finances\src\Instapp.Services.Finances.Application\Instapp.Services.Finances.Application.csproj", "{6A3127ED-A7DA-4E2D-8CBC-0DCC5284B52E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Instapp.Services.Finances.Domain", "Services\Finances\src\Instapp.Services.Finances.Domain\Instapp.Services.Finances.Domain.csproj", "{B349D5FA-94F5-4BB6-AF61-35802A0FF5A3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Instapp.Services.Finances.Infrastructure", "Services\Finances\src\Instapp.Services.Finances.Infrastructure\Instapp.Services.Finances.Infrastructure.csproj", "{935DA7A5-64B1-4C68-9D56-4C1721E51F02}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D5E96679-E4EF-4E99-B7C4-7A5322624D8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5E96679-E4EF-4E99-B7C4-7A5322624D8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5E96679-E4EF-4E99-B7C4-7A5322624D8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5E96679-E4EF-4E99-B7C4-7A5322624D8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A3127ED-A7DA-4E2D-8CBC-0DCC5284B52E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A3127ED-A7DA-4E2D-8CBC-0DCC5284B52E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A3127ED-A7DA-4E2D-8CBC-0DCC5284B52E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A3127ED-A7DA-4E2D-8CBC-0DCC5284B52E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B349D5FA-94F5-4BB6-AF61-35802A0FF5A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B349D5FA-94F5-4BB6-AF61-35802A0FF5A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B349D5FA-94F5-4BB6-AF61-35802A0FF5A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B349D5FA-94F5-4BB6-AF61-35802A0FF5A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{935DA7A5-64B1-4C68-9D56-4C1721E51F02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{935DA7A5-64B1-4C68-9D56-4C1721E51F02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{935DA7A5-64B1-4C68-9D56-4C1721E51F02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{935DA7A5-64B1-4C68-9D56-4C1721E51F02}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{21F497BF-63C8-4B05-94FA-52635F827EB2} = {4A0DC8AC-B2E1-4DB3-A5A9-71E2601D1E6F}
+		{FCE6E3C1-5099-46E8-94E0-C7AAF01D4649} = {21F497BF-63C8-4B05-94FA-52635F827EB2}
+		{D5E96679-E4EF-4E99-B7C4-7A5322624D8B} = {FCE6E3C1-5099-46E8-94E0-C7AAF01D4649}
+		{6A3127ED-A7DA-4E2D-8CBC-0DCC5284B52E} = {FCE6E3C1-5099-46E8-94E0-C7AAF01D4649}
+		{B349D5FA-94F5-4BB6-AF61-35802A0FF5A3} = {FCE6E3C1-5099-46E8-94E0-C7AAF01D4649}
+		{935DA7A5-64B1-4C68-9D56-4C1721E51F02} = {FCE6E3C1-5099-46E8-94E0-C7AAF01D4649}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {58C019AA-79AA-4897-B728-364E1E254E0B}
+	EndGlobalSection
+EndGlobal

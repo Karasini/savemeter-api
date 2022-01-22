@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Exceptions\**" />
+    <EmbeddedResource Remove="Exceptions\**" />
+    <None Remove="Exceptions\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Convey" Version="0.5.433" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Instapp.Common\Instapp.Common.Cqrs\Instapp.Common.Cqrs.csproj" />
+    <ProjectReference Include="..\..\..\..\Instapp.Common\Instapp.Common.Infrastructure\Instapp.Common.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\..\Instapp.Common\Instapp.Common.MongoDb\Instapp.Common.MongoDb.csproj" />
+    <ProjectReference Include="..\Instapp.Services.Finances.Application\Instapp.Services.Finances.Application.csproj" />
+    <ProjectReference Include="..\Instapp.Services.Finances.Domain\Instapp.Services.Finances.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
