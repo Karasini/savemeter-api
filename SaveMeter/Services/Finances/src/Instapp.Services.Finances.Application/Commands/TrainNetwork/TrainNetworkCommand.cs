@@ -9,7 +9,7 @@ namespace Instapp.Services.Finances.Application.Commands.TrainNetwork
 {
     public class TrainNetworkCommand : CommandBase<string>
     {
-        public string Customer { get; set; }
-        public string Description { get; set; }
+        public string? Customer { get; set; }
+        public string? Description { get; set; }
     }
 }

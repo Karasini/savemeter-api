@@ -9,7 +9,7 @@ namespace Instapp.Services.Finances.Application.Commands.CreateTransaction
 {
     public class CreateTransactionCommand : CommandBase
     {
-        public string AccountNumber { get; set; }
+        public string? AccountNumber { get; set; }
         public DateTime TransactionDate { get; set; }
         public DateTime SettlementDate { get; set; }
         public string RelatedAccountNumber { get; set; }

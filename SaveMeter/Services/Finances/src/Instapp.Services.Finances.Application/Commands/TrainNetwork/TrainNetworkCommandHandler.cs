@@ -17,10 +17,6 @@ namespace Instapp.Services.Finances.Application.Commands.TrainNetwork
 {
     class TrainNetworkCommandHandler : ICommandHandler<TrainNetworkCommand, string>
     {
-        private static string _appPath => Path.GetDirectoryName(Environment.GetCommandLineArgs()[0]);
-        private static string _trainDataPath => Path.Combine(_appPath, "..", "..", "..", "Data", "issues_train.tsv");
-        private static string _testDataPath => Path.Combine(_appPath, "..", "..", "..", "Data", "issues_test.tsv");
-        private static string _modelPath => Path.Combine(_appPath, "..", "..", "..", "Models", "model.zip");
 
         class CategoryPrediction
         {
@@ -128,10 +124,10 @@ namespace Instapp.Services.Finances.Application.Commands.TrainNetwork
         private static void SaveModelAsFile(MLContext mlContext, DataViewSchema trainingDataViewSchema, ITransformer model)
         {
             // <SnippetSaveModel>
-            mlContext.Model.Save(model, trainingDataViewSchema, _modelPath);
+            //mlContext.Model.Save(model, trainingDataViewSchema, _modelPath);
             // </SnippetSaveModel>
 
-            Console.WriteLine("The model is saved to {0}", _modelPath);
+            //Console.WriteLine("The model is saved to {0}", _modelPath);
         }
     }
 }

@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Instapp.Services.Finances.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Instapp.Services.Finances.Infrastructure", "Services\Finances\src\Instapp.Services.Finances.Infrastructure\Instapp.Services.Finances.Infrastructure.csproj", "{935DA7A5-64B1-4C68-9D56-4C1721E51F02}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Instapp.Services.Finances.Api", "Services\Finances\src\Instapp.Services.Finances.Api\Instapp.Services.Finances.Api.csproj", "{FD1AA689-4B6C-47F3-BA8F-D48EB21C05DA}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveMeter.Services.Finances.Api", "Services\Finances\src\SaveMeter.Services.Finances.Api\SaveMeter.Services.Finances.Api.csproj", "{1B986602-1B8F-48F3-8A2B-83719BEB2960}"
 EndProject
 Global
@@ -37,10 +35,6 @@ Global
 		{935DA7A5-64B1-4C68-9D56-4C1721E51F02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{935DA7A5-64B1-4C68-9D56-4C1721E51F02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{935DA7A5-64B1-4C68-9D56-4C1721E51F02}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FD1AA689-4B6C-47F3-BA8F-D48EB21C05DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FD1AA689-4B6C-47F3-BA8F-D48EB21C05DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FD1AA689-4B6C-47F3-BA8F-D48EB21C05DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FD1AA689-4B6C-47F3-BA8F-D48EB21C05DA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1B986602-1B8F-48F3-8A2B-83719BEB2960}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1B986602-1B8F-48F3-8A2B-83719BEB2960}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B986602-1B8F-48F3-8A2B-83719BEB2960}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -55,7 +49,6 @@ Global
 		{6A3127ED-A7DA-4E2D-8CBC-0DCC5284B52E} = {FCE6E3C1-5099-46E8-94E0-C7AAF01D4649}
 		{B349D5FA-94F5-4BB6-AF61-35802A0FF5A3} = {FCE6E3C1-5099-46E8-94E0-C7AAF01D4649}
 		{935DA7A5-64B1-4C68-9D56-4C1721E51F02} = {FCE6E3C1-5099-46E8-94E0-C7AAF01D4649}
-		{FD1AA689-4B6C-47F3-BA8F-D48EB21C05DA} = {FCE6E3C1-5099-46E8-94E0-C7AAF01D4649}
 		{1B986602-1B8F-48F3-8A2B-83719BEB2960} = {FCE6E3C1-5099-46E8-94E0-C7AAF01D4649}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

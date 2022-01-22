@@ -9,6 +9,6 @@ namespace Instapp.Services.Finances.Application.Commands
 {
     public class TestCommand<Guid> : CommandBase<Guid>
     {
-        public string TestProperty { get; set; }
+        public string? TestProperty { get; set; }
     }
 }
