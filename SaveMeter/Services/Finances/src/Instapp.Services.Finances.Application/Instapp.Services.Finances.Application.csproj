@@ -6,16 +6,16 @@
 
   <ItemGroup>
     <PackageReference Include="Convey" Version="0.5.433" />
+    <PackageReference Include="Instapp.Common.Application" Version="1.0.1" />
+    <PackageReference Include="Instapp.Common.Cqrs" Version="1.0.1" />
     <PackageReference Include="Microsoft.ML" Version="1.7.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Instapp.Common\Instapp.Common.Application\Instapp.Common.Application.csproj" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Instapp.Common\Instapp.Common.Cqrs\Instapp.Common.Cqrs.csproj" />
     <ProjectReference Include="..\Instapp.Services.Finances.Domain\Instapp.Services.Finances.Domain.csproj" />
   </ItemGroup>
 

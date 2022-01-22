@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Instapp.Common\Instapp.Common.MongoDb\Instapp.Common.MongoDb.csproj" />
+    <PackageReference Include="Instapp.Common.MongoDb" Version="1.0.1" />
   </ItemGroup>
 
 </Project>

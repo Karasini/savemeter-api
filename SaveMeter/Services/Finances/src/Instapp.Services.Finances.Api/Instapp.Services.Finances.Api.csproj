@@ -11,6 +11,8 @@
 
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="27.2.1" />
+    <PackageReference Include="Instapp.Common.Logger" Version="1.0.1" />
+    <PackageReference Include="Instapp.Common.WebApi" Version="1.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
   </ItemGroup>
 
