@@ -9,11 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Finances", "Finances", "{21
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FCE6E3C1-5099-46E8-94E0-C7AAF01D4649}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Instapp.Services.Finances.Application", "Services\Finances\src\Instapp.Services.Finances.Application\Instapp.Services.Finances.Application.csproj", "{6A3127ED-A7DA-4E2D-8CBC-0DCC5284B52E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaveMeter.Services.Finances.Application", "Services\Finances\src\SaveMeter.Services.Finances.Application\SaveMeter.Services.Finances.Application.csproj", "{6A3127ED-A7DA-4E2D-8CBC-0DCC5284B52E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Instapp.Services.Finances.Domain", "Services\Finances\src\Instapp.Services.Finances.Domain\Instapp.Services.Finances.Domain.csproj", "{B349D5FA-94F5-4BB6-AF61-35802A0FF5A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaveMeter.Services.Finances.Domain", "Services\Finances\src\SaveMeter.Services.Finances.Domain\SaveMeter.Services.Finances.Domain.csproj", "{B349D5FA-94F5-4BB6-AF61-35802A0FF5A3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Instapp.Services.Finances.Infrastructure", "Services\Finances\src\Instapp.Services.Finances.Infrastructure\Instapp.Services.Finances.Infrastructure.csproj", "{935DA7A5-64B1-4C68-9D56-4C1721E51F02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaveMeter.Services.Finances.Infrastructure", "Services\Finances\src\SaveMeter.Services.Finances.Infrastructure\SaveMeter.Services.Finances.Infrastructure.csproj", "{935DA7A5-64B1-4C68-9D56-4C1721E51F02}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveMeter.Services.Finances.Api", "Services\Finances\src\SaveMeter.Services.Finances.Api\SaveMeter.Services.Finances.Api.csproj", "{1B986602-1B8F-48F3-8A2B-83719BEB2960}"
 EndProject

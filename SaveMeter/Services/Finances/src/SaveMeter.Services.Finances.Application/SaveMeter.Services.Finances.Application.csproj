@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFramework>net6.0</TargetFramework>
+	  <Nullable>enable</Nullable>
+	  <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Convey" Version="0.5.433" />
+    <PackageReference Include="Instapp.Common.Application" Version="1.0.1" />
+    <PackageReference Include="Instapp.Common.Cqrs" Version="1.0.1" />
+    <PackageReference Include="Microsoft.ML" Version="1.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SaveMeter.Services.Finances.Domain\SaveMeter.Services.Finances.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

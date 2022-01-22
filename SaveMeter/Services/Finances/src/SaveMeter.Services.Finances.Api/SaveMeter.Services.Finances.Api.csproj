@@ -13,8 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Instapp.Services.Finances.Application\Instapp.Services.Finances.Application.csproj" />
-    <ProjectReference Include="..\Instapp.Services.Finances.Infrastructure\Instapp.Services.Finances.Infrastructure.csproj" />
+    <ProjectReference Include="..\SaveMeter.Services.Finances.Application\SaveMeter.Services.Finances.Application.csproj" />
+    <ProjectReference Include="..\SaveMeter.Services.Finances.Infrastructure\SaveMeter.Services.Finances.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

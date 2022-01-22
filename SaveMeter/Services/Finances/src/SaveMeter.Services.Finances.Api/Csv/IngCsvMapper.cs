@@ -1,5 +1,5 @@
 ﻿using CsvHelper.Configuration;
-using Instapp.Services.Finances.Application.Commands.CreateTransaction;
+using SaveMeter.Services.Finances.Application.Commands.CreateTransaction;
 
 namespace SaveMeter.Services.Finances.Api.Csv
 {

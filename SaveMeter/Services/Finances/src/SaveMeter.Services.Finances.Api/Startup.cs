@@ -13,11 +13,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Instapp.Common.WebApi;
-using Instapp.Services.Finances.Application;
-using Instapp.Services.Finances.Infrastructure;
 using Serilog.Context;
 using Serilog.Core.Enrichers;
 using SerilogTimings;
+using SaveMeter.Services.Finances.Application;
+using SaveMeter.Services.Finances.Infrastructure;
 
 namespace SaveMeter.Services.Finances.Api
 {

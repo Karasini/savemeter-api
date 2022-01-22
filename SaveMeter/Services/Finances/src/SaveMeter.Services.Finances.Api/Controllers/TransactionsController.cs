@@ -1,5 +1,4 @@
-﻿using Instapp.Services.Finances.Application.Commands;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,8 +8,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using CsvHelper;
 using CsvHelper.Configuration;
-using Instapp.Services.Finances.Application.Commands.CreateTransaction;
 using SaveMeter.Services.Finances.Api.Csv;
+using SaveMeter.Services.Finances.Application.Commands.CreateTransaction;
 
 namespace SaveMeter.Services.Finances.Api.Controllers
 {
