@@ -14,6 +14,7 @@ namespace SaveMeter.Services.Finances.Application.DTO
         public string Description { get; init; }
         public decimal Value { get; init; }
         public Guid? CategoryId { get; init; }
+        public string? CategoryName { get; init; }
         public bool SkipAnalysis { get; init; }
     }
 }

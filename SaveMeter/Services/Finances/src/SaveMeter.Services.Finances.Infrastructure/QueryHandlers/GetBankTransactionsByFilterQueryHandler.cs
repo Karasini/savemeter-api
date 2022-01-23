@@ -11,6 +11,7 @@ using LinqKit;
 using MongoDB.Driver;
 using SaveMeter.Services.Finances.Application.DTO;
 using SaveMeter.Services.Finances.Application.Queries;
+using SaveMeter.Services.Finances.Domain.Aggregates.CategoryAggregate;
 using SaveMeter.Services.Finances.Domain.Aggregates.Transaction;
 using SaveMeter.Services.Finances.Infrastructure.Mongo;
 using SaveMeter.Services.Finances.Infrastructure.Mongo.Repositories;
@@ -21,10 +22,12 @@ namespace SaveMeter.Services.Finances.Infrastructure.QueryHandlers
     internal class GetBankTransactionsByFilterQueryHandler : IQueryHandler<GetBankTransactionsByFilterQuery, PaginatedDto<BankTransactionDto>>
     {
         private readonly BankTransactionReadRepository _repository;
+        private readonly CategoryReadRepository _categoryReadRepository;
 
-        public GetBankTransactionsByFilterQueryHandler(BankTransactionReadRepository bankTransactionReadRepository)
+        public GetBankTransactionsByFilterQueryHandler(BankTransactionReadRepository bankTransactionReadRepository, CategoryReadRepository categoryReadRepository)
         {
             _repository = bankTransactionReadRepository;
+            _categoryReadRepository = categoryReadRepository;
         }
 
         public async Task<PaginatedDto<BankTransactionDto>> Handle(GetBankTransactionsByFilterQuery request, CancellationToken cancellationToken)
@@ -37,16 +40,62 @@ namespace SaveMeter.Services.Finances.Infrastructure.QueryHandlers
 
             var count = await _repository.Find(filter.Expand()).CountDocumentsAsync();
 
-            var bankTransactions = await _repository.Find(filter.Expand())
-                .ProjectToBankTransactionDto()
+            //TODO: Optimize getting count off all documents
+            //var countFacet = AggregateFacet.Create("count", PipelineDefinition<BankTransaction, AggregateCountResult>.Create(new[]
+            //{
+            //    PipelineStageDefinitionBuilder.Count<BankTransaction>()
+            //}));
+
+            //var dataFacet = AggregateFacet.Create("dataFacet",
+            //PipelineDefinition<BankTransaction, BankTransaction>.Create(new[]
+            //{
+            //    PipelineStageDefinitionBuilder.Sort(Builders<BankTransaction>.Sort.Ascending(x => x.TransactionDate)),
+            //    PipelineStageDefinitionBuilder.Skip<BankTransaction>((pageNumber - 1) * pageSize),
+            //    PipelineStageDefinitionBuilder.Limit<BankTransaction>(pageSize),
+            //}));
+
+            //var lookupFacet = AggregateFacet.Create("lookupFacet",
+            //PipelineDefinition<BankTransaction, BankTransactionDto>.Create(new[]
+            //{
+            //    PipelineStageDefinitionBuilder.Lookup<BankTransaction, Category, BankTransaction>(_categoryReadRepository.Collection, x => x.CategoryId, x => x.Id, x => x.Categories).,
+            //    PipelineStageDefinitionBuilder.Project(BankTransactionProjections.Projection),
+            //}));
+
+            //var projectFacet = AggregateFacet.Create("projectFacet",
+            //PipelineDefinition<BankTransaction, BankTransactionDto>.Create(new[]
+            //{
+            //    PipelineStageDefinitionBuilder.Project(BankTransactionProjections.Projection),
+            //}));
+
+            //var aggregation = await _repository.Collection.Aggregate()
+            //    .Match(filter.Expand())
+            //    .Facet(countFacet, dataFacet, lookupFacet, projectFacet)
+            //    .ToListAsync();
+
+            //var count = aggregation.First()
+            //    .Facets.First(x => x.Name == "count")
+            //    .Output<AggregateCountResult>()
+            //    ?.FirstOrDefault()
+            //    ?.Count ?? 0;
+
+            //var data = aggregation.First()
+            //    .Facets.First(x => x.Name == "projectFacet")
+            //    .Output<BankTransactionDto>();
+
+            var bankTransactions = await _repository.Collection.Aggregate()
+                .Match(filter.Expand())
                 .Skip((pageNumber - 1) * pageSize)
                 .Limit(pageSize)
+                .SortByDescending(x => x.TransactionDate)
+                .Lookup<BankTransaction, Category, BankTransaction>(_categoryReadRepository.Collection, x => x.CategoryId, x => x.Id, x => x.Categories)
+                .ProjectToBankTransactionDto()
                 .ToListAsync();
+
 
             return new PaginatedDto<BankTransactionDto>
             {
                 CurrentPage = pageNumber,
-                Items = bankTransactions,
+                Items = bankTransactions.ToList(),
                 PageSize = pageSize,
                 TotalCount = count,
                 TotalPages = (int)Math.Ceiling(count / (double)pageSize)

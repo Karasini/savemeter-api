@@ -2,7 +2,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
-using SaveMeter.Services.Finances.Domain.Aggregates.Category;
+using SaveMeter.Services.Finances.Domain.Aggregates.CategoryAggregate;
 using SaveMeter.Services.Finances.Domain.Aggregates.Transaction;
 
 namespace SaveMeter.Services.Finances.Infrastructure.Mongo

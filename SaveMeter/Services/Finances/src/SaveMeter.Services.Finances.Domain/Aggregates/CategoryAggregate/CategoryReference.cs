@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Instapp.Common.MongoDb.Models;
 
-namespace SaveMeter.Services.Finances.Domain.Aggregates.Category
+namespace SaveMeter.Services.Finances.Domain.Aggregates.CategoryAggregate
 {
     public class CategoryReference : Entity
     {

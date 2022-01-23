@@ -21,9 +21,15 @@ namespace SaveMeter.Services.Finances.Infrastructure.Mongo
         SkipAnalysis = bankTransaction.SkipAnalysis,
         TransactionDate = bankTransaction.TransactionDate,
         Value = bankTransaction.Value,
+        CategoryName = bankTransaction.Categories.Count > 0 ? bankTransaction.Categories.First().Name : null
     });
 
         public static IFindFluent<BankTransaction, BankTransactionDto> ProjectToBankTransactionDto(this IFindFluent<BankTransaction, BankTransaction> fluent)
+        {
+            return fluent.Project(Projection);
+        }
+
+        public static IAggregateFluent<BankTransactionDto> ProjectToBankTransactionDto(this IAggregateFluent<BankTransaction> fluent)
         {
             return fluent.Project(Projection);
         }

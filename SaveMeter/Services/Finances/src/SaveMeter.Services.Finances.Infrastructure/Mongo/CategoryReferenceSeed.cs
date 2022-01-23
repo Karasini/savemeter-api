@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SaveMeter.Services.Finances.Domain.Aggregates.Category;
+using SaveMeter.Services.Finances.Domain.Aggregates.CategoryAggregate;
 
 namespace SaveMeter.Services.Finances.Infrastructure.Mongo
 {

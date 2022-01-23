@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SaveMeter.Services.Finances.Domain.Aggregates.Category
+namespace SaveMeter.Services.Finances.Domain.Aggregates.CategoryAggregate
 {
     interface ICategoryPredictor
     {

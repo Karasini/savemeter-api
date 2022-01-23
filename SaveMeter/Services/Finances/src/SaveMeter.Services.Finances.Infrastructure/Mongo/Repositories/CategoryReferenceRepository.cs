@@ -8,7 +8,7 @@ using Instapp.Common.MongoDb.Context;
 using Instapp.Common.MongoDb.Repository;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using SaveMeter.Services.Finances.Domain.Aggregates.Category;
+using SaveMeter.Services.Finances.Domain.Aggregates.CategoryAggregate;
 using SaveMeter.Services.Finances.Domain.Repositories;
 
 namespace SaveMeter.Services.Finances.Infrastructure.Mongo.Repositories
