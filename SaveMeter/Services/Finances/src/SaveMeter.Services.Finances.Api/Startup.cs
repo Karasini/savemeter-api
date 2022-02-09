@@ -38,6 +38,15 @@ namespace SaveMeter.Services.Finances.Api
             services.AddWebApi(Configuration)
                 .AddApplication()
                 .AddInfrastructure();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAnyOrigin",
+                    builder => builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,7 +62,7 @@ namespace SaveMeter.Services.Finances.Api
                 .UseApplication();
 
             app.UseRouting();
-
+            app.UseCors("AllowAnyOrigin");
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

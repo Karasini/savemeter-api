@@ -10,6 +10,7 @@ using CsvHelper;
 using CsvHelper.Configuration;
 using SaveMeter.Services.Finances.Api.Csv;
 using SaveMeter.Services.Finances.Application.Commands.CreateTransaction;
+using SaveMeter.Services.Finances.Application.Commands.UpdateTransaction;
 using SaveMeter.Services.Finances.Application.Queries;
 
 namespace SaveMeter.Services.Finances.Api.Controllers
@@ -25,8 +26,8 @@ namespace SaveMeter.Services.Finances.Api.Controllers
             _mediator = mediator;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Post()
+        [HttpPost("csv")]
+        public async Task<IActionResult> PostCsv()
         {
             using var reader = new StreamReader(Request.Body);
             using var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture) { BadDataFound = null });
@@ -37,6 +38,13 @@ namespace SaveMeter.Services.Finances.Api.Controllers
                 await _mediator.Send(command);
             }
             return Ok();
+        }
+
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> UpdateTransaction([FromBody] UpdateTransactionCommand command, Guid id)
+        {
+            command.Id = id;
+            return Ok(await _mediator.Send(command));
         }
 
         [HttpGet]
