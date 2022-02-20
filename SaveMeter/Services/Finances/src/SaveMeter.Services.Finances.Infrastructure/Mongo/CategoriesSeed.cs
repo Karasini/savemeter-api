@@ -25,10 +25,11 @@ namespace SaveMeter.Services.Finances.Infrastructure.Mongo
         public const string Computer = "Komputer";
         public const string Entertainment = "Rozrywka";
         public const string Car = "Samochód";
-        public const string Apartment = "Samochód";
+        public const string Apartment = "Mieszkanie";
         public const string Phone = "Telefon";
         public const string Evolution = "Rozwój";
         public const string Renovation = "Remont";
+        public const string Income = "Przychód";
         private static List<Category> _categories =>
             new List<Category>()
             {
@@ -52,6 +53,7 @@ namespace SaveMeter.Services.Finances.Infrastructure.Mongo
                 Category.Create("B7F32D36-37E4-4E56-9637-08E6A2CC9A0E", Phone),
                 Category.Create("48971A94-2F04-4C17-AD42-E3C80541DE48", Evolution),
                 Category.Create("E124C393-F0E7-4663-BFBE-C53B906177C2", Renovation),
+                Category.Create("5820CC56-2EE2-44F2-A23C-3E8E6AA6E187", Income),
             };
 
         public static IReadOnlyList<Category> Categories => _categories;

@@ -84,9 +84,9 @@ namespace SaveMeter.Services.Finances.Infrastructure.QueryHandlers
 
             var bankTransactions = await _repository.Collection.Aggregate()
                 .Match(filter.Expand())
+                .SortByDescending(x => x.TransactionDate)
                 .Skip((pageNumber - 1) * pageSize)
                 .Limit(pageSize)
-                .SortByDescending(x => x.TransactionDate)
                 .Lookup<BankTransaction, Category, BankTransaction>(_categoryReadRepository.Collection, x => x.CategoryId, x => x.Id, x => x.Categories)
                 .ProjectToBankTransactionDto()
                 .ToListAsync();

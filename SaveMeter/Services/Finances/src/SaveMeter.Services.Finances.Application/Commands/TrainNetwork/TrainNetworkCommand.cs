@@ -2,9 +2,7 @@
 
 namespace SaveMeter.Services.Finances.Application.Commands.TrainNetwork
 {
-    public class TrainNetworkCommand : CommandBase<string>
+    public class TrainNetworkCommand : CommandBase
     {
-        public string? Customer { get; set; }
-        public string? Description { get; set; }
     }
 }

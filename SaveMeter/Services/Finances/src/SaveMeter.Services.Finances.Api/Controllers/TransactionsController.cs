@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using CsvHelper;
 using CsvHelper.Configuration;
@@ -29,11 +30,17 @@ namespace SaveMeter.Services.Finances.Api.Controllers
         [HttpPost("csv")]
         public async Task<IActionResult> PostCsv()
         {
-            using var reader = new StreamReader(Request.Body);
-            using var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture) { BadDataFound = null });
-            csv.Context.RegisterClassMap<MillenniumCsvMapper>();
-            var records = csv.GetRecords<CreateTransactionCommand>().ToList();
-            foreach (var command in records)
+            using var reader = new StreamReader(Request.Body, Encoding.UTF8);
+            using var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture) { BadDataFound = null, DetectDelimiter = true});
+            await csv.ReadAsync();
+            csv.ReadHeader();
+
+            if (csv.CanRead<IngCsvMapper>()) csv.Context.RegisterClassMap<IngCsvMapper>();
+            if (csv.CanRead<MillenniumCsvMapper>()) csv.Context.RegisterClassMap<MillenniumCsvMapper>();
+
+            var records = csv.GetRecordsAsync<CreateTransactionCommand>();
+
+            await foreach (var command in records)
             {
                 await _mediator.Send(command);
             }

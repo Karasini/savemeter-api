@@ -10,5 +10,6 @@ namespace SaveMeter.Services.Finances.Domain.Repositories
 {
     public interface ICategoryRepository : IRepository<Category>
     {
+        Task<Category> GetByCategoryName(string categoryName);
     }
 }

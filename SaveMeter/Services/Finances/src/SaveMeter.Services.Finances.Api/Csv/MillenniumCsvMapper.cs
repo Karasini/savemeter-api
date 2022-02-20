@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Globalization;
+using System.Text.RegularExpressions;
 using CsvHelper.Configuration;
 using SaveMeter.Services.Finances.Application.Commands.CreateTransaction;
 
@@ -10,7 +11,6 @@ namespace SaveMeter.Services.Finances.Api.Csv
         {
             Map(x => x.AccountNumber).Name("Numer rachunku/karty");
             Map(x => x.TransactionDate).Name("Data transakcji");
-            Map(x => x.SettlementDate).Name("Data rozliczenia");
             Map(x => x.RelatedAccountNumber).Name("Na konto/Z konta");
             Map(x => x.Customer).Convert(args =>
             {
