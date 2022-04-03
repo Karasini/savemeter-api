@@ -23,14 +23,25 @@ namespace SaveMeter.Services.Finances.Infrastructure.Mongo
 
         public async Task Seed()
         {
-            if (await _categoryRepository.Exists(x => x.Name != ""))
-            {
-                return;
-            }
 
             foreach (var category in CategoriesSeed.Categories)
             {
-                _categoryRepository.Add(category);
+                var exists = await _categoryRepository.Exists(x => x.Id == category.Id);
+                if (exists)
+                {
+                    _categoryRepository.Update(category);
+                }
+                else
+                {
+                    _categoryRepository.Add(category);
+                }
+            }
+
+            await _unitOfWork.Commit();
+
+            if (await _categoryReferenceRepository.Exists(x => x.Key != ""))
+            {
+                return;
             }
 
             foreach (var categoryReference in CategoryReferenceSeed.GenerateSeeds())

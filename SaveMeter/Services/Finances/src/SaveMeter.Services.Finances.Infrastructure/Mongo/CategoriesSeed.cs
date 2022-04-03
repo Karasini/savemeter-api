@@ -9,7 +9,7 @@ namespace SaveMeter.Services.Finances.Infrastructure.Mongo
 {
     class CategoriesSeed
     {
-        public const string Bus = "Autobus";
+        public const string Bus = "Autobus/Taxi";
         public const string Hairdresser = "Fryzjer";
         public const string Book = "Książka";
         public const string Fuel = "Paliwo";
@@ -30,6 +30,9 @@ namespace SaveMeter.Services.Finances.Infrastructure.Mongo
         public const string Evolution = "Rozwój";
         public const string Renovation = "Remont";
         public const string Income = "Przychód";
+        public const string Business = "Firma";
+        public const string InternalTransfer = "Przelew wewnętrzny";
+        public const string Skip = "Brak analizy";
         private static List<Category> _categories =>
             new List<Category>()
             {
@@ -54,6 +57,9 @@ namespace SaveMeter.Services.Finances.Infrastructure.Mongo
                 Category.Create("48971A94-2F04-4C17-AD42-E3C80541DE48", Evolution),
                 Category.Create("E124C393-F0E7-4663-BFBE-C53B906177C2", Renovation),
                 Category.Create("5820CC56-2EE2-44F2-A23C-3E8E6AA6E187", Income),
+                Category.Create("A1DDC557-9EB0-4F09-8BCB-58F99944602E", Business),
+                Category.Create("4F664D11-310E-46A9-AFAB-19C5DEDF529E", InternalTransfer),
+                Category.Create("D676EA72-09D3-4892-B0EF-1DFDC7E19177", Skip),
             };
 
         public static IReadOnlyList<Category> Categories => _categories;

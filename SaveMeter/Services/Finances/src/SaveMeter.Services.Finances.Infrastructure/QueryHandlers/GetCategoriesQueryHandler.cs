@@ -24,7 +24,7 @@ namespace SaveMeter.Services.Finances.Infrastructure.QueryHandlers
 
         public async Task<List<CategoryDto>> Handle(GetCategoriesQuery request, CancellationToken cancellationToken)
         {
-            return await _categoryReadRepository.Find(x => !string.IsNullOrEmpty(x.Name)).ProjectToCategoryDto().ToListAsync(cancellationToken: cancellationToken);
+            return await _categoryReadRepository.Find(x => !string.IsNullOrEmpty(x.Name)).ProjectToCategoryDto().SortBy(x => x.Name).ToListAsync(cancellationToken: cancellationToken);
         }
     }
 }
