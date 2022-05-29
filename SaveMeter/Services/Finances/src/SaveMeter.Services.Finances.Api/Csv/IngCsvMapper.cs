@@ -3,7 +3,12 @@ using SaveMeter.Services.Finances.Application.Commands.CreateTransaction;
 
 namespace SaveMeter.Services.Finances.Api.Csv
 {
-    public sealed class IngCsvMapper : ClassMap<CreateTransactionCommand>
+    public class IngTransactionCommand : CreateTransactionCommand
+    {
+    }
+
+
+    public sealed class IngCsvMapper : ClassMap<IngTransactionCommand>
     {
         public IngCsvMapper()
         {

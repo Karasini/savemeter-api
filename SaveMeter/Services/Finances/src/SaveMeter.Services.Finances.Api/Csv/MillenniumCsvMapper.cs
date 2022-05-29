@@ -5,7 +5,11 @@ using SaveMeter.Services.Finances.Application.Commands.CreateTransaction;
 
 namespace SaveMeter.Services.Finances.Api.Csv
 {
-    public sealed class MillenniumCsvMapper : ClassMap<CreateTransactionCommand>
+    public class MillenniumTransactionCommand : CreateTransactionCommand
+    {
+    }
+
+    public sealed class MillenniumCsvMapper : ClassMap<MillenniumTransactionCommand>
     {
         public MillenniumCsvMapper()
         {
