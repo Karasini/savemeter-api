@@ -33,34 +33,13 @@ namespace SaveMeter.Services.Finances.Api.Controllers
         {
             foreach (var formFile in file)
             {
-                await CreateTransactionsFromFile(formFile);
-            }
-
-            return Ok();
-
-            var encodingType = CharsetDetector.DetectFromStream(Request.Body);
-            Request.Body.Position = 0;
-
-            using var streamReader = new StreamReader(Request.Body, encodingType.Detected.Encoding);
-            using var csv = new CsvReader(streamReader, new CsvConfiguration(CultureInfo.InvariantCulture) { BadDataFound = null, DetectDelimiter = true });
-            await csv.ReadAsync();
-
-            csv.ReadHeader();
-
-            if (csv.CanRead<IngCsvMapper>()) csv.Context.RegisterClassMap<IngCsvMapper>();
-            if (csv.CanRead<MillenniumCsvMapper>()) csv.Context.RegisterClassMap<MillenniumCsvMapper>();
-
-            var records = csv.GetRecordsAsync<CreateTransactionCommand>();
-
-            await foreach (var command in records)
-            {
-                await _mediator.Send(command);
+                await TransactionsFromFile(formFile);
             }
 
             return Ok();
         }
 
-        private async Task CreateTransactionsFromFile(IFormFile obj)
+        private async Task TransactionsFromFile(IFormFile obj)
         {
             var encodingType = CharsetDetector.DetectFromStream(obj.OpenReadStream());
             using var reader = new StreamReader(obj.OpenReadStream(), encodingType.Detected.Encoding);
@@ -84,9 +63,9 @@ namespace SaveMeter.Services.Finances.Api.Controllers
                             fooRecords.Add(record);
                         }
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
-
+                        // ignored
                     }
 
                     reading = false;
@@ -102,10 +81,11 @@ namespace SaveMeter.Services.Finances.Api.Controllers
                             fooRecords.Add(record);
                         }
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
-
+                        // ignored
                     }
+
                     reading = false;
                 }
             }
