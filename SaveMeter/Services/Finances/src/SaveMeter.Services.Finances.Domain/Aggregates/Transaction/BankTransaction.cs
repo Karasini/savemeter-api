@@ -17,5 +17,6 @@ namespace SaveMeter.Services.Finances.Domain.Aggregates.Transaction
         public Guid? CategoryId { get; set; }
         public List<Category> Categories { get; set; }
         public bool SkipAnalysis { get; set; }
+        public string BankName { get; set; }
     }
 }

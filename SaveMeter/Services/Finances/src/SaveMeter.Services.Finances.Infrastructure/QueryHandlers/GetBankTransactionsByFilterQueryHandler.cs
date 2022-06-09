@@ -49,7 +49,7 @@ namespace SaveMeter.Services.Finances.Infrastructure.QueryHandlers
             //var dataFacet = AggregateFacet.Create("dataFacet",
             //PipelineDefinition<BankTransaction, BankTransaction>.Create(new[]
             //{
-            //    PipelineStageDefinitionBuilder.Sort(Builders<BankTransaction>.Sort.Ascending(x => x.TransactionDate)),
+            //    PipelineStageDefinitionBuilder.Sort(Builders<BankTransaction>.Sort.Ascending(x => x.TransactionDateUtc)),
             //    PipelineStageDefinitionBuilder.Skip<BankTransaction>((pageNumber - 1) * pageSize),
             //    PipelineStageDefinitionBuilder.Limit<BankTransaction>(pageSize),
             //}));

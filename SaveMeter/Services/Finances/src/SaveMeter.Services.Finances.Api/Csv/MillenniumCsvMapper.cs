@@ -14,7 +14,7 @@ namespace SaveMeter.Services.Finances.Api.Csv
         public MillenniumCsvMapper()
         {
             Map(x => x.AccountNumber).Name("Numer rachunku/karty");
-            Map(x => x.TransactionDate).Name("Data transakcji");
+            Map(x => x.TransactionDateUtc).Name("Data transakcji");
             Map(x => x.RelatedAccountNumber).Name("Na konto/Z konta");
             Map(x => x.Customer).Convert(args =>
             {

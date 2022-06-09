@@ -8,21 +8,17 @@ namespace SaveMeter.Services.Finances.Application.Commands.CreateTransaction
     class CreateTransactionCommandHandler : ICommandHandler<CreateTransactionCommand>
     {
         private readonly IBankTransactionRepository _transactionRepository;
-        private readonly ICategoryReferenceRepository _categoryReferenceRepository;
-        private readonly ICategoryRepository _categoryRepository;
         private readonly IBankTransactionMlContext _mlContext;
 
         public CreateTransactionCommandHandler(IBankTransactionRepository transactionRepository, ICategoryReferenceRepository categoryReferenceRepository, IBankTransactionMlContext mlContext, ICategoryRepository categoryRepository)
         {
             _transactionRepository = transactionRepository;
-            _categoryReferenceRepository = categoryReferenceRepository;
             _mlContext = mlContext;
-            _categoryRepository = categoryRepository;
         }
 
         public async Task<Unit> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
         {
-            if (await _transactionRepository.TransactionExists(request.TransactionDate, request.Value))
+            if (await _transactionRepository.TransactionExists(request.TransactionDateUtc, request.Value))
                 return Unit.Value;
 
             var categoryId = _mlContext.Predicate(request.Customer, request.Description);
@@ -32,8 +28,9 @@ namespace SaveMeter.Services.Finances.Application.Commands.CreateTransaction
                 Value = request.Value,
                 Customer = request.Customer,
                 Description = request.Description,
-                TransactionDate = request.TransactionDate,
+                TransactionDate = request.TransactionDateUtc,
                 CategoryId = categoryId != "" ? Guid.Parse(categoryId) : null,
+                BankName = request.BankName
             };
             _transactionRepository.Add(transaction);
             return Unit.Value;

@@ -95,15 +95,26 @@ namespace SaveMeter.Services.Finances.Api.Controllers
                 await _mediator.Send(new CreateTransactionCommand
                 {
                     AccountNumber = command.AccountNumber,
-                    TransactionDate = command.TransactionDate,
+                    TransactionDateUtc = DateTime.SpecifyKind(command.TransactionDateUtc, DateTimeKind.Utc),
                     RelatedAccountNumber = command.RelatedAccountNumber,
                     Customer = command.Customer,
                     Description = command.Description,
                     Value = command.Value,
-                    AccountBalance = command.AccountBalance
+                    AccountBalance = command.AccountBalance,
+                    BankName = GetBankName(command)
                 });
             }
 
+        }
+
+        private string GetBankName(CreateTransactionCommand command)
+        {
+            return command switch
+            {
+                MillenniumTransactionCommand => "Millennium",
+                IngTransactionCommand => "Ing",
+                _ => ""
+            };
         }
 
         [HttpPut("{id:guid}")]

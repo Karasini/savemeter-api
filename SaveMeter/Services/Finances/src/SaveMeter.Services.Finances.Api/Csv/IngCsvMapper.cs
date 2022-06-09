@@ -12,7 +12,7 @@ namespace SaveMeter.Services.Finances.Api.Csv
     {
         public IngCsvMapper()
         {
-            Map(x => x.TransactionDate).Name("Data transakcji");
+            Map(x => x.TransactionDateUtc).Name("Data transakcji");
             Map(x => x.RelatedAccountNumber).Name("Nr rachunku");
             Map(x => x.Customer).Name("Dane kontrahenta");
             Map(x => x.Description).Name("Tytuł");
