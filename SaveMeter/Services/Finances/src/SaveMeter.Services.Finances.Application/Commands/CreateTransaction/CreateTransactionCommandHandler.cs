@@ -1,11 +1,13 @@
 ﻿using Instapp.Common.Cqrs.Commands;
+using Instapp.Common.Exception.Guards;
 using MediatR;
+using SaveMeter.Services.Finances.Application.Exceptions;
 using SaveMeter.Services.Finances.Domain.Aggregates.Transaction;
 using SaveMeter.Services.Finances.Domain.Repositories;
 
 namespace SaveMeter.Services.Finances.Application.Commands.CreateTransaction
 {
-    class CreateTransactionCommandHandler : ICommandHandler<CreateTransactionCommand>
+    class CreateTransactionCommandHandler : ICommandHandler<CreateTransactionCommand, BankTransaction>
     {
         private readonly IBankTransactionRepository _transactionRepository;
         private readonly IBankTransactionMlContext _mlContext;
@@ -16,10 +18,10 @@ namespace SaveMeter.Services.Finances.Application.Commands.CreateTransaction
             _mlContext = mlContext;
         }
 
-        public async Task<Unit> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
+        public async Task<BankTransaction> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
         {
-            if (await _transactionRepository.TransactionExists(request.TransactionDateUtc, request.Value))
-                return Unit.Value;
+            var transactionExists = await _transactionRepository.TransactionExists(request.TransactionDateUtc, request.Value);
+            Guard.Against<BankTransactionAlreadyExistsException>(transactionExists);
 
             var categoryId = _mlContext.Predicate(request.Customer, request.Description);
 
@@ -33,7 +35,7 @@ namespace SaveMeter.Services.Finances.Application.Commands.CreateTransaction
                 BankName = request.BankName
             };
             _transactionRepository.Add(transaction);
-            return Unit.Value;
+            return transaction;
         }
     }
 }

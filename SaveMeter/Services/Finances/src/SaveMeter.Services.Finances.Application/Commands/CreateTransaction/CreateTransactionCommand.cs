@@ -1,8 +1,9 @@
 ﻿using Instapp.Common.Cqrs.Commands;
+using SaveMeter.Services.Finances.Domain.Aggregates.Transaction;
 
 namespace SaveMeter.Services.Finances.Application.Commands.CreateTransaction
 {
-    public class CreateTransactionCommand : CommandBase
+    public class CreateTransactionCommand : CommandBase<BankTransaction>
     {
         public string? AccountNumber { get; set; }
         public DateTime TransactionDateUtc { get; set; }

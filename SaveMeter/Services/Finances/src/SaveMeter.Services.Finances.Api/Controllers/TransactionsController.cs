@@ -11,6 +11,7 @@ using CsvHelper;
 using CsvHelper.Configuration;
 using SaveMeter.Services.Finances.Api.Csv;
 using SaveMeter.Services.Finances.Application.Commands.CreateTransaction;
+using SaveMeter.Services.Finances.Application.Commands.ImportTransactions;
 using SaveMeter.Services.Finances.Application.Commands.UpdateTransaction;
 using SaveMeter.Services.Finances.Application.Queries;
 using UtfUnknown;
@@ -90,9 +91,9 @@ namespace SaveMeter.Services.Finances.Api.Controllers
                 }
             }
 
-            foreach (var command in fooRecords)
+            var importTransactionCommand = new ImportTransactionCommand
             {
-                await _mediator.Send(new CreateTransactionCommand
+                Transactions = fooRecords.Select(command => new ImportTransactionCommand.Transaction
                 {
                     AccountNumber = command.AccountNumber,
                     TransactionDateUtc = DateTime.SpecifyKind(command.TransactionDateUtc, DateTimeKind.Utc),
@@ -102,8 +103,10 @@ namespace SaveMeter.Services.Finances.Api.Controllers
                     Value = command.Value,
                     AccountBalance = command.AccountBalance,
                     BankName = GetBankName(command)
-                });
-            }
+                }).ToList()
+            };
+
+            await _mediator.Send(importTransactionCommand);
 
         }
 

@@ -3,6 +3,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using SaveMeter.Services.Finances.Domain.Aggregates.CategoryAggregate;
+using SaveMeter.Services.Finances.Domain.Aggregates.MoneySourceAggregate;
 using SaveMeter.Services.Finances.Domain.Aggregates.Transaction;
 
 namespace SaveMeter.Services.Finances.Infrastructure.Mongo
@@ -30,6 +31,12 @@ namespace SaveMeter.Services.Finances.Infrastructure.Mongo
                 map.AutoMap();
                 map.SetIgnoreExtraElements(true);
                 map.MapMember(x => x.Value).SetSerializer(new DecimalSerializer(BsonType.Decimal128));
+            });
+
+            BsonClassMap.RegisterClassMap<MoneySource>(map =>
+            {
+                map.AutoMap();
+                map.SetIgnoreExtraElements(true);
             });
         }
     }

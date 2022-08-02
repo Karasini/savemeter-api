@@ -44,7 +44,7 @@ namespace SaveMeter.Services.Finances.Infrastructure.MachineLearning
             {
                 Description = x.Description,
                 Customer = x.Customer,
-                Category = x.CategoryId.ToString()
+                Category = x.CategoryId.ToString() ?? string.Empty
             }).ToList();
 
             _mlContext = new MLContext(seed: 0);
