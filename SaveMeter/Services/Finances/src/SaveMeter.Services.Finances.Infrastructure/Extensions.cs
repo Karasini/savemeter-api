@@ -28,6 +28,7 @@ namespace SaveMeter.Services.Finances.Infrastructure
                     .AddScoped<ICategoryReferenceRepository, CategoryReferenceRepository>()
                     .AddScoped<BankTransactionReadRepository>()
                     .AddScoped<CategoryReadRepository>()
+                    .AddScoped<MoneySourceReadRepository>()
                     .AddScoped<IMoneySourceRepository, MoneySourceRepository>()
                     .AddScoped<IBankTransactionMlContext, BankTransactionMlContext>()
                 .AddScoped<MongoSeed>();
