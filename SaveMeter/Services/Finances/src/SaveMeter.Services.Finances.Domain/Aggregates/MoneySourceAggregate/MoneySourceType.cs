@@ -10,7 +10,6 @@ namespace SaveMeter.Services.Finances.Domain.Aggregates.MoneySourceAggregate
     {
         Ing,
         Millennium,
-        Cash,
         Custom
     }
 }

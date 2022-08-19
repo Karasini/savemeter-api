@@ -18,5 +18,18 @@ namespace SaveMeter.Services.Finances.Domain.Aggregates.MoneySourceAggregate
             NativeAmount += cost;
             StatusDate = DateTime.UtcNow;
         }
+
+        public static MoneySource CreateCustom(string title, decimal amount, string currency, decimal nativeAmount,
+            string nativeCurrency) =>
+            new MoneySource()
+            {
+                Title = title,
+                Type = MoneySourceType.Custom,
+                Amount = amount,
+                Currency = currency,
+                NativeAmount = nativeAmount,
+                NativeCurrency = nativeCurrency,
+                StatusDate = DateTime.UtcNow,
+            };
     }
 }

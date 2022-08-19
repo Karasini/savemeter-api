@@ -81,9 +81,7 @@ namespace SaveMeter.Services.Finances.Infrastructure.MachineLearning
                 .Append(_mlContext.Transforms.Concatenate("Features", "CustomerFeaturized", "DescriptionFeaturized"))
                 .AppendCacheCheckpoint(_mlContext);
 
-            // <SnippetReturnPipeline>
             return pipeline;
-            // </SnippetReturnPipeline>
         }
 
         IEstimator<ITransformer> BuildAndTrainModel(IDataView trainingDataView, IEstimator<ITransformer> pipeline)
