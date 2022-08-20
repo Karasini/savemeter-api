@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.ML;
 using Microsoft.ML.Data;
+using Microsoft.ML.Trainers;
 using SaveMeter.Services.Finances.Domain.Aggregates.Transaction;
 using SaveMeter.Services.Finances.Domain.Repositories;
 using Serilog;
@@ -21,7 +22,7 @@ namespace SaveMeter.Services.Finances.Infrastructure.MachineLearning
 
         public class BankTransactionForNetwork
         {
-            public string Category { get; set; }
+            public string CategoryId { get; set; }
             public string Customer { get; set; }
             public string Description { get; set; }
         }
@@ -29,7 +30,8 @@ namespace SaveMeter.Services.Finances.Infrastructure.MachineLearning
         private MLContext _mlContext;
         private ITransformer _trainedModel;
         private PredictionEngine<BankTransactionForNetwork, CategoryPrediction> _predEngine;
-        private List<BankTransactionForNetwork> _testData;
+        private List<BankTransactionForNetwork> _trainingData;
+
         private readonly ILogger _logger;
         private string _modelPath => "mlModel.zip";
 
@@ -40,22 +42,22 @@ namespace SaveMeter.Services.Finances.Infrastructure.MachineLearning
 
         public void TrainModel(IEnumerable<BankTransaction> bankTransactions)
         {
-            _testData = bankTransactions.Select(x => new BankTransactionForNetwork()
+            var _trainingData = bankTransactions.Select(x => new BankTransactionForNetwork()
             {
                 Description = x.Description,
                 Customer = x.Customer,
-                Category = x.CategoryId.ToString() ?? string.Empty
+                CategoryId = x.CategoryId.ToString() ?? string.Empty,
             }).ToList();
 
-            _mlContext = new MLContext(seed: 0);
+            _mlContext = new MLContext();
 
-            var trainingDataView = _mlContext.Data.LoadFromEnumerable(_testData);
+            var trainingDataView = _mlContext.Data.LoadFromEnumerable(_trainingData);
 
             var pipeline = ProcessData();
 
-            var trainingPipeline = BuildAndTrainModel(trainingDataView, pipeline);
+            BuildAndTrainModel(trainingDataView, pipeline);
 
-            Evaluate(trainingDataView.Schema);
+            EvaluateAndSave(trainingDataView.Schema);
         }
 
         public string Predicate(string customer, string description)
@@ -75,36 +77,24 @@ namespace SaveMeter.Services.Finances.Infrastructure.MachineLearning
 
         IEstimator<ITransformer> ProcessData()
         {
-            var pipeline = _mlContext.Transforms.Conversion.MapValueToKey(inputColumnName: "Category", outputColumnName: "Label")
-                .Append(_mlContext.Transforms.Text.FeaturizeText(inputColumnName: "Customer", outputColumnName: "CustomerFeaturized"))
-                .Append(_mlContext.Transforms.Text.FeaturizeText(inputColumnName: "Description", outputColumnName: "DescriptionFeaturized"))
-                .Append(_mlContext.Transforms.Concatenate("Features", "CustomerFeaturized", "DescriptionFeaturized"))
-                .AppendCacheCheckpoint(_mlContext);
+            var pipeline = _mlContext.Transforms.Text.FeaturizeText(inputColumnName: @"Customer", outputColumnName: @"Customer")
+                                    .Append(_mlContext.Transforms.Text.FeaturizeText(inputColumnName: @"Description", outputColumnName: @"Description"))
+                                    .Append(_mlContext.Transforms.Concatenate(@"Features", new[] { @"Customer", @"Description" }))
+                                    .Append(_mlContext.Transforms.Conversion.MapValueToKey(outputColumnName: @"CategoryId", inputColumnName: @"CategoryId"))
+                                    .Append(_mlContext.Transforms.NormalizeMinMax(@"Features", @"Features"))
+                                    .Append(_mlContext.MulticlassClassification.Trainers.OneVersusAll(binaryEstimator: _mlContext.BinaryClassification.Trainers.LbfgsLogisticRegression(new LbfgsLogisticRegressionBinaryTrainer.Options() { L1Regularization = 0.03125F, L2Regularization = 1.093764F, LabelColumnName = @"CategoryId", FeatureColumnName = @"Features" }), labelColumnName: @"CategoryId"))
+                                    .Append(_mlContext.Transforms.Conversion.MapKeyToValue(outputColumnName: @"PredictedLabel", inputColumnName: @"PredictedLabel"));
 
             return pipeline;
         }
 
-        IEstimator<ITransformer> BuildAndTrainModel(IDataView trainingDataView, IEstimator<ITransformer> pipeline)
+        void BuildAndTrainModel(IDataView trainingDataView, IEstimator<ITransformer> pipeline)
         {
-            var trainingPipeline = pipeline.Append(_mlContext.MulticlassClassification.Trainers.SdcaMaximumEntropy("Label", "Features"))
-                .Append(_mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel"));
-
-            _trainedModel = trainingPipeline.Fit(trainingDataView);
+            _trainedModel = pipeline.Fit(trainingDataView);
             _predEngine = _mlContext.Model.CreatePredictionEngine<BankTransactionForNetwork, CategoryPrediction>(_trainedModel);
-
-            var bankTransaction = new BankTransactionForNetwork()
-            {
-                Customer = "pyszne.pl PayU Grunwaldzka 186 60-166 Poznan",
-                Description = "XX1231231301XX Pyszne.pl zamówienie nr EI45MT PayU S.A."
-            };
-
-            var prediction = _predEngine.Predict(bankTransaction);
-
-            _logger.Information($"=============== Single Prediction just-trained-model - Result: {prediction.Category} ===============");
-            return trainingPipeline;
         }
 
-        void Evaluate(DataViewSchema trainingDataViewSchema)
+        void EvaluateAndSave(DataViewSchema trainingDataViewSchema)
         {
             SaveModelAsFile(_mlContext, trainingDataViewSchema, _trainedModel);
         }

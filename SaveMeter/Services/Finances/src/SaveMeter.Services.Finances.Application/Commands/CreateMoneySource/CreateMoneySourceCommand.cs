@@ -4,7 +4,7 @@ using SaveMeter.Services.Finances.Domain.Aggregates.MoneySourceAggregate;
 
 namespace SaveMeter.Services.Finances.Application.Commands.CreateMoneySource
 {
-    public class UpdateMoneySourceCommand : CommandBase<MoneySourceDto>
+    public class CreateMoneySourceCommand : CommandBase<MoneySourceDto>
     {
         public string Title { get; set; }
         public decimal Amount { get; set; }

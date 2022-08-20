@@ -89,7 +89,7 @@ namespace SaveMeter_Services_Finances_Infrastructure
             public string UpdatedAt { get; set; }
 
             [ColumnName(@"Value")]
-            public float[] Value { get; set; }
+            public string Value { get; set; }
 
             [ColumnName(@"_id")]
             public string __id { get; set; }

@@ -11,16 +11,16 @@ using SaveMeter.Services.Finances.Domain.Repositories;
 
 namespace SaveMeter.Services.Finances.Application.Commands.CreateMoneySource
 {
-    internal class UpdateMoneySourceCommandHandler : ICommandHandler<UpdateMoneySourceCommand, MoneySourceDto>
+    internal class CreateMoneySourceCommandHandler : ICommandHandler<CreateMoneySourceCommand, MoneySourceDto>
     {
         private readonly IMoneySourceRepository _repository;
 
-        public UpdateMoneySourceCommandHandler(IMoneySourceRepository repository)
+        public CreateMoneySourceCommandHandler(IMoneySourceRepository repository)
         {
             _repository = repository;
         }
 
-        public Task<MoneySourceDto> Handle(UpdateMoneySourceCommand request, CancellationToken cancellationToken)
+        public Task<MoneySourceDto> Handle(CreateMoneySourceCommand request, CancellationToken cancellationToken)
         {
             var moneySource = MoneySource.CreateCustom(request.Title, request.Amount, request.Currency,
                 request.NativeAmount, request.NativeCurrency);

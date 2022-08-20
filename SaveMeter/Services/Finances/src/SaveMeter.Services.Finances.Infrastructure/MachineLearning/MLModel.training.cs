@@ -36,11 +36,10 @@ namespace SaveMeter_Services_Finances_Infrastructure
             // Data process configuration with pipeline data transformations
             var pipeline = mlContext.Transforms.Text.FeaturizeText(inputColumnName:@"Customer",outputColumnName:@"Customer")      
                                     .Append(mlContext.Transforms.Text.FeaturizeText(inputColumnName:@"Description",outputColumnName:@"Description"))      
-                                    .Append(mlContext.Transforms.Text.FeaturizeText(inputColumnName:@"Value",outputColumnName:@"Value"))      
-                                    .Append(mlContext.Transforms.Concatenate(@"Features", new []{@"Customer",@"Description",@"Value"}))      
+                                    .Append(mlContext.Transforms.Concatenate(@"Features", new []{@"Customer",@"Description"}))      
                                     .Append(mlContext.Transforms.Conversion.MapValueToKey(outputColumnName:@"CategoryId",inputColumnName:@"CategoryId"))      
                                     .Append(mlContext.Transforms.NormalizeMinMax(@"Features", @"Features"))      
-                                    .Append(mlContext.MulticlassClassification.Trainers.LbfgsMaximumEntropy(new LbfgsMaximumEntropyMulticlassTrainer.Options(){L1Regularization=0.03125F,L2Regularization=0.03125F,LabelColumnName=@"CategoryId",FeatureColumnName=@"Features"}))      
+                                    .Append(mlContext.MulticlassClassification.Trainers.OneVersusAll(binaryEstimator: mlContext.BinaryClassification.Trainers.LbfgsLogisticRegression(new LbfgsLogisticRegressionBinaryTrainer.Options(){L1Regularization=0.03125F,L2Regularization=1.093764F,LabelColumnName=@"CategoryId",FeatureColumnName=@"Features"}), labelColumnName:@"CategoryId"))      
                                     .Append(mlContext.Transforms.Conversion.MapKeyToValue(outputColumnName:@"PredictedLabel",inputColumnName:@"PredictedLabel"));
 
             return pipeline;

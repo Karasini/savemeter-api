@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using SaveMeter.Services.Finances.Application.Commands.CreateMoneySource;
+using SaveMeter.Services.Finances.Application.Commands.UpdateTransaction;
 using SaveMeter.Services.Finances.Application.Queries;
 
 namespace SaveMeter.Services.Finances.Api.Controllers
@@ -22,7 +23,7 @@ namespace SaveMeter.Services.Finances.Api.Controllers
             return Ok(await _mediator.Send(query));
         }
 
-        public async Task<IActionResult> CreateMoneySource([FromBody] UpdateMoneySourceCommand command)
+        public async Task<IActionResult> CreateMoneySource([FromBody] CreateMoneySourceCommand command)
         {
             return Ok(await _mediator.Send(command));
         }

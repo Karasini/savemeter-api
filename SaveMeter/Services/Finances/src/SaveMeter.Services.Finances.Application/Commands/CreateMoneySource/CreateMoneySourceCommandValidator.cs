@@ -7,9 +7,9 @@ using FluentValidation;
 
 namespace SaveMeter.Services.Finances.Application.Commands.CreateMoneySource
 {
-    public class UpdateMoneySourceCommandValidator : AbstractValidator<UpdateMoneySourceCommand>
+    public class CreateMoneySourceCommandValidator : AbstractValidator<CreateMoneySourceCommand>
     {
-        public UpdateMoneySourceCommandValidator()
+        public CreateMoneySourceCommandValidator()
         {
             RuleFor(x => x.Title).NotEmpty();
             RuleFor(x => x.Amount).GreaterThanOrEqualTo(0);
