@@ -18,8 +18,8 @@ namespace SaveMeter.Services.Finances.Infrastructure.Mongo
                 Id = category.Id,
                 NativeAmount = category.NativeAmount,
                 StatusDate = category.StatusDate,
-                Amount = category.Amount,
-                Currency = category.Currency,
+                Amount = category.Amount == 0 ? category.NativeAmount : category.Amount,
+                Currency = string.IsNullOrEmpty(category.Currency) ? category.NativeCurrency : category.Currency,
                 NativeCurrency = category.NativeCurrency,
                 Title = category.Title,
                 Type = category.Type.ToString()

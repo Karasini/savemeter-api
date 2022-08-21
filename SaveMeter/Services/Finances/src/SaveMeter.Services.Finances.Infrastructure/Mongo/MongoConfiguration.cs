@@ -37,6 +37,8 @@ namespace SaveMeter.Services.Finances.Infrastructure.Mongo
             {
                 map.AutoMap();
                 map.SetIgnoreExtraElements(true);
+                map.MapMember(x => x.Amount).SetSerializer(new DecimalSerializer(BsonType.Decimal128));
+                map.MapMember(x => x.NativeAmount).SetSerializer(new DecimalSerializer(BsonType.Decimal128));
             });
         }
     }
