@@ -28,5 +28,11 @@ namespace SaveMeter.Services.Finances.Domain.Aggregates.FinancialGoal
                 TotalAmount = goals.Sum(x => x.Amount)
             };
         }
+
+        public void AddGoal(FinancialGoal goal)
+        {
+            Goals.Add(goal);
+            TotalAmount = Goals.Sum(x => x.Amount);
+        }
     }
 }

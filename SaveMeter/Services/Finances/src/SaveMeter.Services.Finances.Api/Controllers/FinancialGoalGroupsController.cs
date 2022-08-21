@@ -1,7 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SaveMeter.Services.Finances.Application.Commands.AddFinancialGoal;
 using SaveMeter.Services.Finances.Application.Commands.CreateFinancialGoalGroup;
 using SaveMeter.Services.Finances.Application.Commands.CreateMoneySource;
+using SaveMeter.Services.Finances.Application.Commands.UpdateMoneySource;
 using SaveMeter.Services.Finances.Application.Queries;
 
 namespace SaveMeter.Services.Finances.Api.Controllers
@@ -27,6 +29,13 @@ namespace SaveMeter.Services.Finances.Api.Controllers
         public async Task<IActionResult> GetMoneySources([FromQuery] GetFinancialGoalGroupsQuery query)
         {
             return Ok(await _mediator.Send(query));
+        }
+
+        [HttpPost("{id:guid}/goals")]
+        public async Task<IActionResult> UpdateTransaction([FromBody] AddFinancialGoalCommand command, Guid id)
+        {
+            command.GoalGroupId = id;
+            return Ok(await _mediator.Send(command));
         }
 
     }
