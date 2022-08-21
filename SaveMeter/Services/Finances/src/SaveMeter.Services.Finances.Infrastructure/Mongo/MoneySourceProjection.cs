@@ -25,7 +25,7 @@ namespace SaveMeter.Services.Finances.Infrastructure.Mongo
                 Type = category.Type.ToString()
             });
 
-        public static IFindFluent<MoneySource, MoneySourceDto> ProjectToCategoryDto(this IFindFluent<MoneySource, MoneySource> fluent)
+        public static IFindFluent<MoneySource, MoneySourceDto> ProjectToMoneySourceDto(this IFindFluent<MoneySource, MoneySource> fluent)
         {
             return fluent.Project(Projection);
         }

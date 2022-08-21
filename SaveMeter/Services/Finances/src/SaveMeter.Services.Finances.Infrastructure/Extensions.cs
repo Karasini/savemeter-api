@@ -30,6 +30,8 @@ namespace SaveMeter.Services.Finances.Infrastructure
                     .AddScoped<CategoryReadRepository>()
                     .AddScoped<MoneySourceReadRepository>()
                     .AddScoped<IMoneySourceRepository, MoneySourceRepository>()
+                    .AddScoped<IFinancialGoalGroupRepository, FinancialGoalGroupRepository>()
+                    .AddScoped<FinancialGoalGroupReadRepository>()
                     .AddScoped<IBankTransactionMlContext, BankTransactionMlContext>()
                 .AddScoped<MongoSeed>();
 

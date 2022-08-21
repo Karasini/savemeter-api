@@ -24,7 +24,7 @@ namespace SaveMeter.Services.Finances.Infrastructure.QueryHandlers
 
         public async Task<List<MoneySourceDto>> Handle(GetMoneySourcesQuery request, CancellationToken cancellationToken)
         {
-            return await _moneySourceReadRepository.Find(x => !string.IsNullOrEmpty(x.Title)).ProjectToCategoryDto().SortByDescending(x => x.NativeAmount).ToListAsync(cancellationToken: cancellationToken);
+            return await _moneySourceReadRepository.Find(x => !string.IsNullOrEmpty(x.Title)).ProjectToMoneySourceDto().SortByDescending(x => x.NativeAmount).ToListAsync(cancellationToken: cancellationToken);
         }
     }
 }
