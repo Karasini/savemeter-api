@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SaveMeter.Services.Finances.Application.Commands.CreateFinancialGoalGroup;
 using SaveMeter.Services.Finances.Application.Commands.CreateMoneySource;
+using SaveMeter.Services.Finances.Application.Queries;
 
 namespace SaveMeter.Services.Finances.Api.Controllers
 {
@@ -21,5 +22,12 @@ namespace SaveMeter.Services.Finances.Api.Controllers
         {
             return Ok(await _mediator.Send(command));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetMoneySources([FromQuery] GetFinancialGoalGroupsQuery query)
+        {
+            return Ok(await _mediator.Send(query));
+        }
+
     }
 }
