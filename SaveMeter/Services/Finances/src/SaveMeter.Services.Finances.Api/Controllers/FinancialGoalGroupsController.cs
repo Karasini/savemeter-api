@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SaveMeter.Services.Finances.Application.Commands.CreateFinancialGoal;
 using SaveMeter.Services.Finances.Application.Commands.CreateFinancialGoalGroup;
 using SaveMeter.Services.Finances.Application.Commands.CreateMoneySource;
+using SaveMeter.Services.Finances.Application.Commands.DeleteFinancialGoal;
 using SaveMeter.Services.Finances.Application.Commands.UpdateFinancialGoal;
 using SaveMeter.Services.Finances.Application.Commands.UpdateMoneySource;
 using SaveMeter.Services.Finances.Application.Queries;
@@ -44,6 +45,18 @@ namespace SaveMeter.Services.Finances.Api.Controllers
         {
             command.Id = id;
             command.GoalGroupId = goalGroupId;
+            return Ok(await _mediator.Send(command));
+        }
+
+        [HttpDelete("{goalGroupId:guid}/goals/{id:guid}")]
+        public async Task<IActionResult> DeleteFinancialGoal(Guid goalGroupId, Guid id)
+        {
+            var command = new DeleteFinancialGoalCommand
+            {
+                GoalGroupId = goalGroupId,
+                Id = id
+            };
+
             return Ok(await _mediator.Send(command));
         }
     }

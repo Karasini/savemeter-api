@@ -46,5 +46,11 @@ namespace SaveMeter.Services.Finances.Domain.Aggregates.FinancialGoal
             Goals[goalIndex] = goal;
             UpdateTotalAmount();
         }
+
+        public void RemoveGoal(Guid goalId)
+        {
+            Goals.RemoveAll(x => x.Id == goalId);
+            UpdateTotalAmount();
+        }
     }
 }
