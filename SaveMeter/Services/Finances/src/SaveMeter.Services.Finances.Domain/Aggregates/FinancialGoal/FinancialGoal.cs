@@ -12,10 +12,11 @@ namespace SaveMeter.Services.Finances.Domain.Aggregates.FinancialGoal
         public string Title { get; set; }
         public decimal Amount { get; set; }
 
-        public static FinancialGoal Create(string title, decimal amount)
+        public static FinancialGoal Create(string title, decimal amount, Guid? id = null)
         {
             return new FinancialGoal
             {
+                Id = id ?? Guid.NewGuid(),
                 Amount = amount,
                 Title = title,
                 CreatedAt = DateTime.UtcNow,

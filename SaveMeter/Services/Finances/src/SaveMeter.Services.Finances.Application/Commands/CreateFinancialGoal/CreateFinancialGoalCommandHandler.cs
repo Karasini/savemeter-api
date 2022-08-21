@@ -1,23 +1,22 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using Instapp.Common.Cqrs.Commands;
+﻿using Instapp.Common.Cqrs.Commands;
 using Instapp.Common.Exception.Guards;
 using SaveMeter.Services.Finances.Application.DTO;
 using SaveMeter.Services.Finances.Application.Exceptions;
 using SaveMeter.Services.Finances.Domain.Aggregates.FinancialGoal;
 using SaveMeter.Services.Finances.Domain.Repositories;
 
-namespace SaveMeter.Services.Finances.Application.Commands.AddFinancialGoal
+namespace SaveMeter.Services.Finances.Application.Commands.CreateFinancialGoal
 {
-    internal class AddFinancialGoalCommandHandler : ICommandHandler<AddFinancialGoalCommand, FinancialGoalGroupDto>
+    internal class CreateFinancialGoalCommandHandler : ICommandHandler<CreateFinancialGoalCommand, FinancialGoalGroupDto>
     {
         private readonly IFinancialGoalGroupRepository _repository;
 
-        public AddFinancialGoalCommandHandler(IFinancialGoalGroupRepository repository)
+        public CreateFinancialGoalCommandHandler(IFinancialGoalGroupRepository repository)
         {
             _repository = repository;
         }
 
-        public async Task<FinancialGoalGroupDto> Handle(AddFinancialGoalCommand request, CancellationToken cancellationToken)
+        public async Task<FinancialGoalGroupDto> Handle(CreateFinancialGoalCommand request, CancellationToken cancellationToken)
         {
             var goal = FinancialGoal.Create(request.Title, request.Amount);
             var goalGroup = await _repository.GetById(request.GoalGroupId);

@@ -32,7 +32,19 @@ namespace SaveMeter.Services.Finances.Domain.Aggregates.FinancialGoal
         public void AddGoal(FinancialGoal goal)
         {
             Goals.Add(goal);
+            UpdateTotalAmount();
+        }
+
+        private void UpdateTotalAmount()
+        {
             TotalAmount = Goals.Sum(x => x.Amount);
+        }
+
+        public void UpdateGoal(FinancialGoal goal)
+        {
+            var goalIndex = Goals.FindIndex(x => x.Id == goal.Id);
+            Goals[goalIndex] = goal;
+            UpdateTotalAmount();
         }
     }
 }

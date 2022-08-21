@@ -1,8 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using SaveMeter.Services.Finances.Application.Commands.AddFinancialGoal;
+using SaveMeter.Services.Finances.Application.Commands.CreateFinancialGoal;
 using SaveMeter.Services.Finances.Application.Commands.CreateFinancialGoalGroup;
 using SaveMeter.Services.Finances.Application.Commands.CreateMoneySource;
+using SaveMeter.Services.Finances.Application.Commands.UpdateFinancialGoal;
 using SaveMeter.Services.Finances.Application.Commands.UpdateMoneySource;
 using SaveMeter.Services.Finances.Application.Queries;
 
@@ -26,17 +27,24 @@ namespace SaveMeter.Services.Finances.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetMoneySources([FromQuery] GetFinancialGoalGroupsQuery query)
+        public async Task<IActionResult> GetFinancialGoalGroups([FromQuery] GetFinancialGoalGroupsQuery query)
         {
             return Ok(await _mediator.Send(query));
         }
 
-        [HttpPost("{id:guid}/goals")]
-        public async Task<IActionResult> UpdateTransaction([FromBody] AddFinancialGoalCommand command, Guid id)
+        [HttpPost("{goalGroupId:guid}/goals")]
+        public async Task<IActionResult> CreateFinancialGoal([FromBody] CreateFinancialGoalCommand command, Guid goalGroupId)
         {
-            command.GoalGroupId = id;
+            command.GoalGroupId = goalGroupId;
             return Ok(await _mediator.Send(command));
         }
 
+        [HttpPut("{goalGroupId:guid}/goals/{id:guid}")]
+        public async Task<IActionResult> UpdateFinancialGoal([FromBody] UpdateFinancialGoalCommand command, Guid goalGroupId, Guid id)
+        {
+            command.Id = id;
+            command.GoalGroupId = goalGroupId;
+            return Ok(await _mediator.Send(command));
+        }
     }
 }
