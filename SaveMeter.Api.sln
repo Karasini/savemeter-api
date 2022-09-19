@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32901.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{93AF3C12-103D-4535-AF2A-9B4B65FCB827}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveMeter.Bootstrapper", "src\SaveMeter.Bootstrapper\SaveMeter.Bootstrapper.csproj", "{16409693-30F2-451B-80AB-C1FE0D3929F6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{090677E6-445B-4532-B3BA-0CDAEF14A577}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{06E84F41-C092-4C56-9FBC-5598BBB36287}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveMeter.Shared.Abstractions", "src\Shared\SaveMeter.Shared.Abstractions\SaveMeter.Shared.Abstractions.csproj", "{A4BB1AC3-8C58-483B-B7FB-083CBE911027}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveMeter.Shared.Infrastructure", "src\Shared\SaveMeter.Shared.Infrastructure\SaveMeter.Shared.Infrastructure.csproj", "{04F4AE42-91E7-4A83-B335-85008076CFA9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{16409693-30F2-451B-80AB-C1FE0D3929F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16409693-30F2-451B-80AB-C1FE0D3929F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16409693-30F2-451B-80AB-C1FE0D3929F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16409693-30F2-451B-80AB-C1FE0D3929F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4BB1AC3-8C58-483B-B7FB-083CBE911027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4BB1AC3-8C58-483B-B7FB-083CBE911027}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4BB1AC3-8C58-483B-B7FB-083CBE911027}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4BB1AC3-8C58-483B-B7FB-083CBE911027}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04F4AE42-91E7-4A83-B335-85008076CFA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04F4AE42-91E7-4A83-B335-85008076CFA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04F4AE42-91E7-4A83-B335-85008076CFA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04F4AE42-91E7-4A83-B335-85008076CFA9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{16409693-30F2-451B-80AB-C1FE0D3929F6} = {93AF3C12-103D-4535-AF2A-9B4B65FCB827}
+		{090677E6-445B-4532-B3BA-0CDAEF14A577} = {93AF3C12-103D-4535-AF2A-9B4B65FCB827}
+		{06E84F41-C092-4C56-9FBC-5598BBB36287} = {93AF3C12-103D-4535-AF2A-9B4B65FCB827}
+		{A4BB1AC3-8C58-483B-B7FB-083CBE911027} = {06E84F41-C092-4C56-9FBC-5598BBB36287}
+		{04F4AE42-91E7-4A83-B335-85008076CFA9} = {06E84F41-C092-4C56-9FBC-5598BBB36287}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {88BDEAFC-20B5-4839-8751-4BD935945C02}
+	EndGlobalSection
+EndGlobal
