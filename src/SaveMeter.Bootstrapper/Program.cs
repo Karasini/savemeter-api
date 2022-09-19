@@ -1,3 +1,6 @@
+using SaveMeter.Shared.Infrastructure.Logging;
+using SaveMeter.Shared.Infrastructure.Modules;
+
 namespace SaveMeter.Bootstrapper;
 
 public class Program

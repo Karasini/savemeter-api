@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\SaveMeter.Shared.Abstractions\SaveMeter.Shared.Abstractions.csproj" />
+    <ProjectReference Include="..\Shared\SaveMeter.Shared.Infrastructure\SaveMeter.Shared.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

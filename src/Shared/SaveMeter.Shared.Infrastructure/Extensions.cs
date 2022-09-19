@@ -1,10 +1,32 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
+using SaveMeter.Shared.Abstractions.Dispatchers;
+using SaveMeter.Shared.Abstractions.Modules;
+using SaveMeter.Shared.Abstractions.Time;
+using SaveMeter.Shared.Infrastructure.Api;
+using SaveMeter.Shared.Infrastructure.Commands;
+using SaveMeter.Shared.Infrastructure.Contexts;
+using SaveMeter.Shared.Infrastructure.Contracts;
+using SaveMeter.Shared.Infrastructure.Dispatchers;
+using SaveMeter.Shared.Infrastructure.Events;
+using SaveMeter.Shared.Infrastructure.Exceptions;
+using SaveMeter.Shared.Infrastructure.Kernel;
+using SaveMeter.Shared.Infrastructure.Logging;
+using SaveMeter.Shared.Infrastructure.Messaging;
+using SaveMeter.Shared.Infrastructure.Modules;
+using SaveMeter.Shared.Infrastructure.Queries;
+using SaveMeter.Shared.Infrastructure.Security;
+using SaveMeter.Shared.Infrastructure.Serialization;
+using SaveMeter.Shared.Infrastructure.Time;
 
 namespace SaveMeter.Shared.Infrastructure;
 
@@ -53,12 +75,12 @@ public static class Extensions
 
         services.AddMemoryCache();
         services.AddHttpClient();
-        services.AddSingleton<IRequestStorage, RequestStorage>();
+        //services.AddSingleton<IRequestStorage, RequestStorage>(); CACHE
         services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         services.AddSingleton<IJsonSerializer, SystemTextJsonSerializer>();
         services.AddModuleInfo(modules);
         services.AddModuleRequests(assemblies);
-        services.AddAuth(modules);
+        //services.AddAuth(modules);
         services.AddErrorHandling();
         services.AddContext();
         services.AddCommands(assemblies);
@@ -70,9 +92,6 @@ public static class Extensions
         services.AddSingleton<IClock, UtcClock>();
         services.AddSingleton<IDispatcher, InMemoryDispatcher>();
         services.AddLoggingDecorators();
-        services.AddPostgres();
-        services.AddOutbox();
-        services.AddHostedService<DbContextAppInitializer>();
         services.AddContracts();
         services.AddControllers()
             .ConfigureApplicationPartManager(manager =>
@@ -112,7 +131,7 @@ public static class Extensions
             reDoc.SpecUrl("/swagger/v1/swagger.json");
             reDoc.DocumentTitle = "Modular API";
         });
-        app.UseAuth();
+        //app.UseAuth(); 
         app.UseContext();
         app.UseLogging();
         app.UseRouting();

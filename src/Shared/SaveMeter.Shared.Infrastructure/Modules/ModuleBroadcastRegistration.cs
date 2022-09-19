@@ -1,4 +1,8 @@
-﻿namespace SaveMeter.Shared.Infrastructure.Modules;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace SaveMeter.Shared.Infrastructure.Modules;
 
 internal sealed class ModuleBroadcastRegistration
 {

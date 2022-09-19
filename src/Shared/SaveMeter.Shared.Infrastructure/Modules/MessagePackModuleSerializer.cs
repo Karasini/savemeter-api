@@ -1,3 +1,6 @@
+using System;
+using MessagePack;
+
 namespace SaveMeter.Shared.Infrastructure.Modules;
 
 internal class MessagePackModuleSerializer : IModuleSerializer

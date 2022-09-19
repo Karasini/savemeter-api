@@ -1,4 +1,9 @@
-﻿namespace SaveMeter.Shared.Infrastructure.Modules;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace SaveMeter.Shared.Infrastructure.Modules;
 
 internal interface IModuleRegistry
 {

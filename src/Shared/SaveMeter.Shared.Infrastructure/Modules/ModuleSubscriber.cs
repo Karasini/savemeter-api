@@ -1,4 +1,10 @@
-﻿namespace SaveMeter.Shared.Infrastructure.Modules;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using SaveMeter.Shared.Abstractions.Modules;
+
+namespace SaveMeter.Shared.Infrastructure.Modules;
 
 internal sealed class ModuleSubscriber : IModuleSubscriber
 {

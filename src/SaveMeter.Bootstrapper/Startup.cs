@@ -1,5 +1,9 @@
 
 using System.Reflection;
+using SaveMeter.Shared.Abstractions.Modules;
+using SaveMeter.Shared.Infrastructure;
+using SaveMeter.Shared.Infrastructure.Contracts;
+using SaveMeter.Shared.Infrastructure.Modules;
 
 namespace SaveMeter.Bootstrapper;
 

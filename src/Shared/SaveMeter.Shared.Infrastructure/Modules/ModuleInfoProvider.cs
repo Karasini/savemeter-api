@@ -1,4 +1,6 @@
-﻿namespace SaveMeter.Shared.Infrastructure.Modules;
+﻿using System.Collections.Generic;
+
+namespace SaveMeter.Shared.Infrastructure.Modules;
 
 internal class ModuleInfoProvider
 {

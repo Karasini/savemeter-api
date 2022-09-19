@@ -1,4 +1,17 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using SaveMeter.Shared.Abstractions.Commands;
+using SaveMeter.Shared.Abstractions.Events;
+using SaveMeter.Shared.Abstractions.Modules;
 
 namespace SaveMeter.Shared.Infrastructure.Modules;
 
@@ -49,7 +62,6 @@ public static class Extensions
         services.AddSingleton<IModuleClient, ModuleClient>();
         services.AddSingleton<IModuleSubscriber, ModuleSubscriber>();
         services.AddSingleton<IModuleSerializer, JsonModuleSerializer>();
-        // services.AddSingleton<IModuleSerializer, MessagePackModuleSerializer>();
 
         return services;
     }

@@ -1,4 +1,6 @@
-﻿namespace SaveMeter.Shared.Infrastructure.Modules;
+﻿using System;
+
+namespace SaveMeter.Shared.Infrastructure.Modules;
 
 public interface IModuleSerializer
 {
