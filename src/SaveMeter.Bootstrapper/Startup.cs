@@ -1,5 +1,13 @@
 
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using SaveMeter.Shared.Abstractions.Modules;
 using SaveMeter.Shared.Infrastructure;
 using SaveMeter.Shared.Infrastructure.Contracts;
@@ -14,7 +22,7 @@ public class Startup
 
     public Startup(IConfiguration configuration)
     {
-        _assemblies = ModuleLoader.LoadAssemblies(configuration, "Inflow.Modules.");
+        _assemblies = ModuleLoader.LoadAssemblies(configuration, "SaveMeter.Modules.");
         _modules = ModuleLoader.LoadModules(_assemblies);
     }
 
@@ -40,7 +48,7 @@ public class Startup
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();
-            endpoints.MapGet("/", context => context.Response.WriteAsync("Inflow API"));
+            endpoints.MapGet("/", context => context.Response.WriteAsync("SaveMeter API"));
             endpoints.MapModuleInfo();
         });
 

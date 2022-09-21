@@ -120,7 +120,7 @@ internal sealed class ContractRegistry : IContractRegistry
         var module = messageAttribute.Module;
         var originalType = _types
             .Where(x => x.FullName is not null &&
-                        x.FullName.Contains($"Inflow.Modules.{module}", StringComparison.InvariantCultureIgnoreCase))
+                        x.FullName.Contains($"SaveMeter.Modules.{module}", StringComparison.InvariantCultureIgnoreCase))
             .SingleOrDefault(x => x.Name == contractName);
 
         if (originalType is null)

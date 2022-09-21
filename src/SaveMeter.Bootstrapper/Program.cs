@@ -1,3 +1,6 @@
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using SaveMeter.Shared.Infrastructure.Logging;
 using SaveMeter.Shared.Infrastructure.Modules;
 
