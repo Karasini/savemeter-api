@@ -13,6 +13,7 @@ using SaveMeter.Shared.Abstractions.Dispatchers;
 using SaveMeter.Shared.Abstractions.Modules;
 using SaveMeter.Shared.Abstractions.Time;
 using SaveMeter.Shared.Infrastructure.Api;
+using SaveMeter.Shared.Infrastructure.Auth;
 using SaveMeter.Shared.Infrastructure.Commands;
 using SaveMeter.Shared.Infrastructure.Contexts;
 using SaveMeter.Shared.Infrastructure.Contracts;
@@ -80,7 +81,7 @@ public static class Extensions
         services.AddSingleton<IJsonSerializer, SystemTextJsonSerializer>();
         services.AddModuleInfo(modules);
         services.AddModuleRequests(assemblies);
-        //services.AddAuth(modules);
+        services.AddAuth(modules);
         services.AddErrorHandling();
         services.AddContext();
         services.AddCommands(assemblies);
@@ -131,7 +132,7 @@ public static class Extensions
             reDoc.SpecUrl("/swagger/v1/swagger.json");
             reDoc.DocumentTitle = "Modular API";
         });
-        //app.UseAuth(); 
+        app.UseAuth();
         app.UseContext();
         app.UseLogging();
         app.UseRouting();

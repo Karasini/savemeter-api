@@ -34,4 +34,14 @@ internal class AccountController : ControllerBase
         await _dispatcher.SendAsync(command);
         return NoContent();
     }
+
+    [Authorize]
+    [HttpPost("test")]
+    [SwaggerOperation("Test")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult> SignUpAsync()
+    {
+        return NoContent();
+    }
 }
