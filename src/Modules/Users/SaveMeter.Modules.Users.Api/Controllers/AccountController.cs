@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SaveMeter.Modules.Users.Core.Commands;
+using SaveMeter.Modules.Users.Core.DTO;
 using SaveMeter.Shared.Abstractions.Contexts;
 using SaveMeter.Shared.Abstractions.Dispatchers;
 using SaveMeter.Shared.Infrastructure.Api;
@@ -33,8 +34,21 @@ internal class AccountController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> SignUpAsync(SignUp command)
     {
-        var result = await _dispatcher.SendAsync<SignUp, string>(command);
-        return Ok(result);
+        await _dispatcher.SendAsync(command);
+        return NoContent();
+    }
+
+    [HttpPost("sign-in")]
+    [SwaggerOperation("Sign in")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<UserDetailsDto>> SignInAsync(SignIn command)
+    {
+        await _dispatcher.SendAsync(command);
+        var jwt = _userRequestStorage.GetToken(command.Id);
+        var user = await _dispatcher.QueryAsync(new GetUser { UserId = jwt.UserId });
+        AddCookie(AccessTokenCookie, jwt.AccessToken);
+        return Ok(user);
     }
 
     [Authorize]

@@ -2,7 +2,7 @@
 
 namespace SaveMeter.Shared.Abstractions.Kernel.Exceptions;
 
-public class UnsupportedCurrencyException : SaveMeterException
+public class UnsupportedCurrencyException : BaseException
 {
     public string Currency { get; }
 

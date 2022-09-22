@@ -2,7 +2,7 @@ using SaveMeter.Shared.Abstractions.Exceptions;
 
 namespace SaveMeter.Shared.Abstractions.Kernel.Exceptions;
 
-public class InvalidEmailException : SaveMeterException
+public class InvalidEmailException : BaseException
 {
     public string Email { get; }
 

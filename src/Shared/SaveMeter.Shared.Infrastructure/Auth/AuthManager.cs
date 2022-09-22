@@ -4,11 +4,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using SaveMeter.Shared.Abstractions.Auth;
 using SaveMeter.Shared.Abstractions.Time;
-using JwtRegisteredClaimNames = System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames;
 
 namespace SaveMeter.Shared.Infrastructure.Auth;
 
@@ -30,11 +28,11 @@ public sealed class AuthManager : IAuthManager
 
         _options = options;
         _clock = clock;
-        _signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.IssuerSigningKey)),  SecurityAlgorithms.HmacSha256);
+        _signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.IssuerSigningKey)), SecurityAlgorithms.HmacSha256);
         _issuer = options.Issuer;
     }
 
-    public string CreateToken(Guid userId, string role = null, string audience = null,
+    public JsonWebToken CreateToken(Guid userId, string role = null, string audience = null,
         IDictionary<string, IEnumerable<string>> claims = null)
     {
         var now = _clock.CurrentDate();
@@ -76,6 +74,15 @@ public sealed class AuthManager : IAuthManager
             signingCredentials: _signingCredentials
         );
 
-        return new JwtSecurityTokenHandler().WriteToken(jwt);
+        var token = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+        return new JsonWebToken
+        {
+            AccessToken = token,
+            Expiry = new DateTimeOffset(expires).ToUnixTimeMilliseconds(),
+            UserId = userId,
+            Role = role ?? string.Empty,
+            Claims = claims ?? EmptyClaims
+        };
     }
 }

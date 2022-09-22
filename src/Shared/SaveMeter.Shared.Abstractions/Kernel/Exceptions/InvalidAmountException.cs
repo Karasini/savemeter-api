@@ -2,7 +2,7 @@
 
 namespace SaveMeter.Shared.Abstractions.Kernel.Exceptions;
 
-public class InvalidAmountException : SaveMeterException
+public class InvalidAmountException : BaseException
 {
     public decimal Amount { get; }
 
