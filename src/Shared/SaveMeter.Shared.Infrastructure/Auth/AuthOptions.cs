@@ -34,5 +34,13 @@ public class AuthOptions
     public string AuthenticationType { get; set; }
     public string NameClaimType { get; set; }
     public string RoleClaimType { get; set; }
+    public CookieOptions Cookie { get; set; }
+
+    public class CookieOptions
+    {
+        public bool HttpOnly { get; set; }
+        public bool Secure { get; set; }
+        public string SameSite { get; set; }
+    }
 
 }

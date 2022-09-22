@@ -26,6 +26,25 @@ public static class Extensions
         var options = services.GetOptions<AuthOptions>("auth");
         services.AddSingleton<IAuthManager, AuthManager>();
 
+        if (options.AuthenticationDisabled)
+        {
+            services.AddSingleton<IPolicyEvaluator, DisabledAuthenticationPolicyEvaluator>();
+        }
+
+        services.AddSingleton(new CookieOptions
+        {
+            HttpOnly = options.Cookie.HttpOnly,
+            Secure = options.Cookie.Secure,
+            SameSite = options.Cookie.SameSite?.ToLowerInvariant() switch
+            {
+                "strict" => SameSiteMode.Strict,
+                "lax" => SameSiteMode.Lax,
+                "none" => SameSiteMode.None,
+                "unspecified" => SameSiteMode.Unspecified,
+                _ => SameSiteMode.Unspecified
+            }
+        });
+
         var tokenValidationParameters = new TokenValidationParameters
         {
             RequireAudience = options.RequireAudience,
@@ -89,10 +108,24 @@ public static class Extensions
                     o.Challenge = options.Challenge;
                 }
 
+                o.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        if (context.Request.Cookies.TryGetValue(AccessTokenCookieName, out var token))
+                        {
+                            context.Token = token;
+                        }
+
+                        return Task.CompletedTask;
+                    },
+                };
+
                 optionsFactory?.Invoke(o);
             });
 
         services.AddSingleton(options);
+        services.AddSingleton(options.Cookie);
         services.AddSingleton(tokenValidationParameters);
 
         var policies = modules?.SelectMany(x => x.Policies ?? Enumerable.Empty<string>()) ??
@@ -111,7 +144,24 @@ public static class Extensions
     public static IApplicationBuilder UseAuth(this IApplicationBuilder app)
     {
         app.UseAuthentication();
-        app.UseAuthorization();
+        app.Use(async (ctx, next) =>
+        {
+            if (ctx.Request.Headers.ContainsKey(AuthorizationHeader))
+            {
+                ctx.Request.Headers.Remove(AuthorizationHeader);
+            }
+
+            if (ctx.Request.Cookies.ContainsKey(AccessTokenCookieName))
+            {
+                var authenticateResult = await ctx.AuthenticateAsync(JwtBearerDefaults.AuthenticationScheme);
+                if (authenticateResult.Succeeded && authenticateResult.Principal is not null)
+                {
+                    ctx.User = authenticateResult.Principal;
+                }
+            }
+
+            await next();
+        });
 
         return app;
     }
