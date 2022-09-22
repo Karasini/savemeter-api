@@ -27,6 +27,7 @@ public static class Extensions
     public static IServiceCollection AddLoggingDecorators(this IServiceCollection services)
     {
         services.TryDecorate(typeof(ICommandHandler<>), typeof(LoggingCommandHandlerDecorator<>));
+        services.TryDecorate(typeof(ICommandHandler<,>), typeof(LoggingCommandHandlerWithResultDecorator<,>));
         services.TryDecorate(typeof(IEventHandler<>), typeof(LoggingEventHandlerDecorator<>));
         services.TryDecorate(typeof(IQueryHandler<,>), typeof(LoggingQueryHandlerDecorator<,>));
 

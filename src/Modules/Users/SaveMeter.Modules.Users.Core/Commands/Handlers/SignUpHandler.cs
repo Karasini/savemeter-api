@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using SaveMeter.Shared.Abstractions.Commands;
 
 namespace SaveMeter.Modules.Users.Core.Commands.Handlers;
-internal sealed class SignUpHandler : ICommandHandler<SignUp>
+internal sealed class SignUpHandler : ICommandHandler<SignUp, string>
 {
-    public Task HandleAsync(SignUp command, CancellationToken cancellationToken = default)
+    public Task<string> HandleAsync(SignUp command, CancellationToken cancellationToken = default)
     {
-        return Task.CompletedTask;
+        return Task.FromResult("123");
     }
 }
