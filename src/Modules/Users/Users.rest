@@ -27,10 +27,9 @@ Content-Type: application/json
   "password": "{{password}}"
 }
 
-
 ###
 @authCookie = {{sign_in.response.headers.$.set-cookie}}
-@userId = {{sign_in.response.body.$.id}}
+@userId = {{sign_in.response.body.$.UserId}}
 
 ### Get user account
 GET {{url}}/account
@@ -85,3 +84,9 @@ Content-Type: application/json
 {
   "state": "active"
 }
+
+### Test Auth
+POST {{url}}/account/test
+
+### Sign out
+DELETE {{url}}/account/sign-out

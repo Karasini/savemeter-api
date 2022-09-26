@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SaveMeter.Modules.Users.Core.Commands;
 using SaveMeter.Modules.Users.Core.DTO;
+using SaveMeter.Shared.Abstractions.Auth;
 using SaveMeter.Shared.Abstractions.Contexts;
 using SaveMeter.Shared.Abstractions.Dispatchers;
 using SaveMeter.Shared.Infrastructure.Api;
@@ -44,11 +45,21 @@ internal class AccountController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<UserDetailsDto>> SignInAsync(SignIn command)
     {
-        await _dispatcher.SendAsync(command);
-        var jwt = _userRequestStorage.GetToken(command.Id);
-        var user = await _dispatcher.QueryAsync(new GetUser { UserId = jwt.UserId });
+        var jwt= await _dispatcher.SendAsync<SignIn, JsonWebToken>(command);
         AddCookie(AccessTokenCookie, jwt.AccessToken);
-        return Ok(user);
+        return Ok(jwt);
+    }
+
+    [Authorize]
+    [HttpDelete("sign-out")]
+    [SwaggerOperation("Sign out")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public Task<ActionResult> SignOutAsync()
+    {
+        DeleteCookie(AccessTokenCookie);
+        return Task.FromResult<ActionResult>(NoContent());
     }
 
     [Authorize]
@@ -60,4 +71,8 @@ internal class AccountController : ControllerBase
     {
         return NoContent();
     }
+
+    private void AddCookie(string key, string value) => Response.Cookies.Append(key, value, _cookieOptions);
+
+    private void DeleteCookie(string key) => Response.Cookies.Delete(key, _cookieOptions);
 }

@@ -9,7 +9,17 @@ using SaveMeter.Modules.Users.Core.Repositories;
 namespace SaveMeter.Modules.Users.Core.DAL.Repositories;
 internal class RoleRepository : IRoleRepository
 {
-    private readonly List<Role> _roles = new List<Role>();
+    private readonly List<Role> _roles = new List<Role>
+    {
+        new Role()
+        {
+            Name = "user",
+            Permissions = new List<string>
+            {
+                "users.crud"
+            }
+        }
+    };
 
     public Task<Role> GetAsync(string name)
     {
