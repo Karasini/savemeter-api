@@ -62,16 +62,6 @@ internal class AccountController : ControllerBase
         return Task.FromResult<ActionResult>(NoContent());
     }
 
-    [Authorize]
-    [HttpPost("test")]
-    [SwaggerOperation("Test")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> SignUpAsync()
-    {
-        return NoContent();
-    }
-
     private void AddCookie(string key, string value) => Response.Cookies.Append(key, value, _cookieOptions);
 
     private void DeleteCookie(string key) => Response.Cookies.Delete(key, _cookieOptions);

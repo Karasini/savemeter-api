@@ -5,7 +5,6 @@ GET {{url}}
 
 ###
 @email = user1@savemeter.io
-@adminEmail = admin1@savemeter.io
 @password = Secret123!
 
 ### Register as the regular user
@@ -31,62 +30,7 @@ Content-Type: application/json
 @authCookie = {{sign_in.response.headers.$.set-cookie}}
 @userId = {{sign_in.response.body.$.UserId}}
 
-### Get user account
-GET {{url}}/account
-Set-Cookie: {{authCookie}}
-
-### Change current password
-PUT {{url}}/password
-Set-Cookie: {{authCookie}}
-Content-Type: application/json
-
-{
-  "currentPassword": "{{password}}",
-  "newPassword": "Secret1234!"
-}
-
-### Register as the admin user
-POST {{url}}/account/sign-up
-Content-Type: application/json
-
-{
-  "email": "{{adminEmail}}",
-  "password": "{{password}}",
-  "role": "admin"
-}
-
-### Login as the admin user
-# @name sign_in
-POST {{url}}/account/sign-in
-Content-Type: application/json
-
-{
-  "email": "{{adminEmail}}",
-  "password": "{{password}}"
-}
-
-
-### Browse users as admin
-GET {{url}}/users
-Set-Cookie: {{authCookie}}
-
-@userId = 00000000-0000-0000-0000-000000000000
-
-### Get user details as admin
-GET {{url}}/users/{{userId}}
-Set-Cookie: {{authCookie}}
-
-### Change user state as admin
-PUT {{url}}/users/{{userId}}/state
-Set-Cookie: {{authCookie}}
-Content-Type: application/json
-
-{
-  "state": "active"
-}
-
-### Test Auth
-POST {{url}}/account/test
 
 ### Sign out
 DELETE {{url}}/account/sign-out
+Set-Cookie: {{authCookie}}
