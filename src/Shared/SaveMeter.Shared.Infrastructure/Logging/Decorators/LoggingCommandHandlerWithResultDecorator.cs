@@ -10,15 +10,15 @@ using SaveMeter.Shared.Abstractions.Messaging;
 namespace SaveMeter.Shared.Infrastructure.Logging.Decorators;
 
 [Decorator]
-internal sealed class LoggingCommandHandlerWithResultDecorator<T, TResult> : ICommandHandler<T, TResult> where T : class, ICommand
+internal sealed class LoggingCommandHandlerWithResultDecorator<TCommand, TResult> : ICommandHandler<TCommand, TResult> where TCommand : class, ICommand<TResult>
 {
-    private readonly ICommandHandler<T, TResult> _handler;
+    private readonly ICommandHandler<TCommand, TResult> _handler;
     private readonly IMessageContextProvider _messageContextProvider;
     private readonly IContext _context;
-    private readonly ILogger<LoggingCommandHandlerDecorator<T>> _logger;
+    private readonly ILogger<LoggingCommandHandlerDecorator<TCommand>> _logger;
 
-    public LoggingCommandHandlerWithResultDecorator(ICommandHandler<T, TResult> handler, IMessageContextProvider messageContextProvider,
-        IContext context, ILogger<LoggingCommandHandlerDecorator<T>> logger)
+    public LoggingCommandHandlerWithResultDecorator(ICommandHandler<TCommand, TResult> handler, IMessageContextProvider messageContextProvider,
+        IContext context, ILogger<LoggingCommandHandlerDecorator<TCommand>> logger)
     {
         _handler = handler;
         _messageContextProvider = messageContextProvider;
@@ -26,7 +26,7 @@ internal sealed class LoggingCommandHandlerWithResultDecorator<T, TResult> : ICo
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
-    public async Task<TResult> HandleAsync(T command, CancellationToken cancellationToken = default)
+    public async Task<TResult> HandleAsync(TCommand command, CancellationToken cancellationToken = default)
     {
         var module = command.GetModuleName();
         var name = command.GetType().Name.Underscore();

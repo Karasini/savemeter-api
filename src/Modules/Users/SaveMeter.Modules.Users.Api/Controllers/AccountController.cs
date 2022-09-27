@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using SaveMeter.Modules.Users.Core.Commands;
 using SaveMeter.Modules.Users.Core.DTO;
 using SaveMeter.Shared.Abstractions.Auth;
+using SaveMeter.Shared.Abstractions.Commands;
 using SaveMeter.Shared.Abstractions.Contexts;
 using SaveMeter.Shared.Abstractions.Dispatchers;
 using SaveMeter.Shared.Infrastructure.Api;
@@ -21,12 +22,14 @@ internal class AccountController : ControllerBase
     private readonly IDispatcher _dispatcher;
     private readonly IContext _context;
     private readonly CookieOptions _cookieOptions;
+    private readonly ICommandDispatcher commandDispatcher;
 
-    public AccountController(IDispatcher dispatcher, IContext context, CookieOptions cookieOptions)
+    public AccountController(IDispatcher dispatcher, IContext context, CookieOptions cookieOptions, ICommandDispatcher commandDispatcher)
     {
         _dispatcher = dispatcher;
         _context = context;
         _cookieOptions = cookieOptions;
+        this.commandDispatcher = commandDispatcher;
     }
 
     [HttpPost("sign-up")]
@@ -45,7 +48,7 @@ internal class AccountController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<UserDetailsDto>> SignInAsync(SignIn command)
     {
-        var jwt= await _dispatcher.SendAsync<SignIn, JsonWebToken>(command);
+        var jwt = await _dispatcher.SendAsync<JsonWebToken>(command);
         AddCookie(AccessTokenCookie, jwt.AccessToken);
         return Ok(jwt);
     }
