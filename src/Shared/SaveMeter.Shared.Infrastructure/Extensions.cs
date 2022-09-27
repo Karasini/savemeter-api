@@ -24,6 +24,7 @@ using SaveMeter.Shared.Infrastructure.Kernel;
 using SaveMeter.Shared.Infrastructure.Logging;
 using SaveMeter.Shared.Infrastructure.Messaging;
 using SaveMeter.Shared.Infrastructure.Modules;
+using SaveMeter.Shared.Infrastructure.Mongo;
 using SaveMeter.Shared.Infrastructure.Queries;
 using SaveMeter.Shared.Infrastructure.Security;
 using SaveMeter.Shared.Infrastructure.Serialization;
@@ -93,6 +94,7 @@ public static class Extensions
         services.AddSingleton<IClock, UtcClock>();
         services.AddSingleton<IDispatcher, InMemoryDispatcher>();
         services.AddLoggingDecorators();
+        services.AddMongoDb();
         services.AddContracts();
         services.AddControllers()
             .ConfigureApplicationPartManager(manager =>

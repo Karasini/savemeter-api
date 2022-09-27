@@ -7,16 +7,16 @@ using SaveMeter.Shared.Infrastructure.Mongo.UoW;
 namespace SaveMeter.Shared.Infrastructure.Mongo.Decorators;
 
 [Decorator]
-internal class UnitOfWorkDecoratorWithResult<TCommand, TResult> : ICommandHandler<TCommand, TResult> where TCommand : class, ICommand<TResult>
+internal sealed class UnitOfWorkDecoratorWithResult<TCommand, TResult> : ICommandHandler<TCommand, TResult> where TCommand : class, ICommand<TResult>
 {
 
     private readonly IUnitOfWork _unitOfWork;
     private readonly ICommandHandler<TCommand, TResult> _handler;
 
-
-    public UnitOfWorkDecoratorWithResult(IUnitOfWork unitOfWork)
+    public UnitOfWorkDecoratorWithResult(IUnitOfWork unitOfWork, ICommandHandler<TCommand, TResult> handler)
     {
         _unitOfWork = unitOfWork;
+        _handler = handler;
     }
 
     public async Task<TResult> HandleAsync(TCommand command, CancellationToken cancellationToken = default)
