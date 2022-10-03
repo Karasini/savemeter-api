@@ -31,13 +31,13 @@ namespace SaveMeter.Shared.Infrastructure.Mongo.Repository
             return entity;
         }
 
-        public virtual async Task<TEntity> GetById(Guid id)
+        public virtual async Task<TEntity> GetByIdAsync(Guid id)
         {
             var data = await DbCollection.FindAsync(Builders<TEntity>.Filter.Eq("_id", id));
             return data.SingleOrDefault();
         }
 
-        public virtual async Task<List<TEntity>> GetAll()
+        public virtual async Task<List<TEntity>> GetAllAsync()
         {
             return (await DbCollection.FindAsync(Builders<TEntity>.Filter.Empty)).ToList();
         }
@@ -59,6 +59,11 @@ namespace SaveMeter.Shared.Infrastructure.Mongo.Repository
         public virtual async Task<bool> Exists(Expression<Func<TEntity, bool>> filter)
         {
             return await DbCollection.Find(filter).AnyAsync();
+        }
+
+        public async Task<bool> AnyAsync()
+        {
+            return await DbCollection.Find(x => x.Id != Guid.Empty).AnyAsync();
         }
 
         public void Dispose()

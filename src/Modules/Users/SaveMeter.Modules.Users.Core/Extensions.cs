@@ -5,6 +5,7 @@ using SaveMeter.Modules.Users.Core.Entities;
 using SaveMeter.Modules.Users.Core.Repositories;
 using SaveMeter.Shared.Infrastructure;
 using System.Runtime.CompilerServices;
+using SaveMeter.Modules.Users.Core.DAL;
 
 [assembly: InternalsVisibleTo("SaveMeter.Modules.Users.Api")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]
@@ -19,8 +20,11 @@ internal static class Extensions
         services.AddSingleton(registrationOptions);
 
         return services
-            .AddSingleton<IRoleRepository, RoleRepository>()
-            .AddSingleton<IUserRepository, UserRepository>()
+            .AddScoped<IRoleRepository, RoleRepository>()
+            .AddScoped<IUserRepository, UserRepository>()
+            .AddSchemaInitializer<MongoEntitiesInitializer>()
+            .AddInitializer<RoleInitializer>()
+            .AddInitializer<UsersInitializer>()
             .AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
     }
 }

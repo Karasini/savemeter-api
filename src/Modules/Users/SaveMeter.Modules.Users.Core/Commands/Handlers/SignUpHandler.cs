@@ -77,7 +77,7 @@ internal sealed class SignUpHandler : ICommandHandler<SignUp>
             CreatedAt = now,
             State = UserState.Active,
         };
-        await _userRepository.AddAsync(user);
+        _userRepository.Add(user);
 
         _logger.LogInformation($"User with ID: '{user.Id}' has signed up.");
     }

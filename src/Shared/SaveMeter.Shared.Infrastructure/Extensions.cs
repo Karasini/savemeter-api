@@ -28,6 +28,7 @@ using SaveMeter.Shared.Infrastructure.Mongo;
 using SaveMeter.Shared.Infrastructure.Queries;
 using SaveMeter.Shared.Infrastructure.Security;
 using SaveMeter.Shared.Infrastructure.Serialization;
+using SaveMeter.Shared.Infrastructure.Services;
 using SaveMeter.Shared.Infrastructure.Time;
 
 namespace SaveMeter.Shared.Infrastructure;
@@ -38,7 +39,9 @@ public static class Extensions
         
     public static IServiceCollection AddInitializer<T>(this IServiceCollection services) where T : class, IInitializer
         => services.AddTransient<IInitializer, T>();
-        
+    public static IServiceCollection AddSchemaInitializer<T>(this IServiceCollection services) where T : class, ISchemaInitializer
+        => services.AddTransient<ISchemaInitializer, T>();
+
     public static IServiceCollection AddModularInfrastructure(this IServiceCollection services,
         IList<Assembly> assemblies, IList<IModule> modules) 
     {
@@ -82,6 +85,7 @@ public static class Extensions
         services.AddSingleton<IJsonSerializer, SystemTextJsonSerializer>();
         services.AddModuleInfo(modules);
         services.AddModuleRequests(assemblies);
+        services.AddHostedService<SchemaInitializer>();
         services.AddAuth(modules);
         services.AddErrorHandling();
         services.AddContext();
@@ -95,6 +99,7 @@ public static class Extensions
         services.AddSingleton<IDispatcher, InMemoryDispatcher>();
         services.AddLoggingDecorators();
         services.AddMongoDb();
+        services.AddHostedService<AppInitializer>();
         services.AddContracts();
         services.AddControllers()
             .ConfigureApplicationPartManager(manager =>

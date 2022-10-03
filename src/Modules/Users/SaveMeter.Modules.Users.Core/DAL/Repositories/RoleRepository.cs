@@ -3,37 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MongoDB.Driver;
 using SaveMeter.Modules.Users.Core.Entities;
 using SaveMeter.Modules.Users.Core.Repositories;
+using SaveMeter.Shared.Infrastructure.Mongo.Context;
+using SaveMeter.Shared.Infrastructure.Mongo.Repository;
 
 namespace SaveMeter.Modules.Users.Core.DAL.Repositories;
-internal class RoleRepository : IRoleRepository
+internal class RoleRepository : BaseRepository<Role>, IRoleRepository
 {
-    private readonly List<Role> _roles = new List<Role>
+    public RoleRepository(IMongoContext context) : base(context)
     {
-        new Role()
-        {
-            Name = "user",
-            Permissions = new List<string>
-            {
-                "users.crud"
-            }
-        }
-    };
-
-    public Task<Role> GetAsync(string name)
-    {
-        return Task.FromResult(_roles.FirstOrDefault(x => string.Equals(x.Name, name, StringComparison.OrdinalIgnoreCase)));
     }
 
-    public async Task<IReadOnlyList<Role>> GetAllAsync()
+    public async Task<Role> GetAsync(string name)
     {
-        return _roles;
-    }
-
-    public Task AddAsync(Role role)
-    {
-        _roles.Add(role);
-        return Task.CompletedTask;
+        return await DbCollection.Find(x => x.Name == name).SingleOrDefaultAsync();
     }
 }
