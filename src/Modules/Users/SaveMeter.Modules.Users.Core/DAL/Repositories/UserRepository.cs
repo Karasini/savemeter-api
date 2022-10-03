@@ -18,6 +18,6 @@ internal class UserRepository : BaseRepository<User>, IUserRepository
 
     public async Task<User> GetAsync(string email)
     {
-        return await DbCollection.Find(x => x.Email.Value == email).SingleOrDefaultAsync();
+        return await DbCollection.Find(x => x.Email == email).SingleOrDefaultAsync();
     }
 }

@@ -9,12 +9,15 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.IdGenerators;
 using MongoDB.Bson.Serialization.Serializers;
 using SaveMeter.Shared.Abstractions.Kernel.ValueObjects;
+using SaveMeter.Shared.Infrastructure.Mongo.Serializers;
 
 namespace SaveMeter.Shared.Infrastructure.Mongo;
 internal class MongoInitializer : ISchemaInitializer
 {
     public void Initialize()
     {
+        BsonSerializer.RegisterSerializer(new EmailSerializer());
+
         BsonClassMap.RegisterClassMap<Entity>(map =>
         {
             map.SetIsRootClass(true);

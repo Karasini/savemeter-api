@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 using SaveMeter.Modules.Users.Core.Entities;
 using SaveMeter.Shared.Infrastructure.Mongo;
 
@@ -17,7 +18,6 @@ internal class MongoEntitiesInitializer : ISchemaInitializer
         {
             map.AutoMap();
             map.SetIgnoreExtraElements(true);
-            map.MapMember(x => x.Email.Value).SetElementName("Email");
             map.UnmapMember(x => x.Role);
         });
 
