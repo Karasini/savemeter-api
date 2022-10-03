@@ -17,11 +17,12 @@ internal class MongoInitializer : ISchemaInitializer
     public void Initialize()
     {
         BsonSerializer.RegisterSerializer(new EmailSerializer());
+        BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
 
         BsonClassMap.RegisterClassMap<Entity>(map =>
         {
             map.SetIsRootClass(true);
-            map.MapIdMember(x => x.Id).SetSerializer(new GuidSerializer(GuidRepresentation.Standard));
+            map.MapIdMember(x => x.Id);
             map.MapMember(x => x.CreatedAt);
             map.MapMember(x => x.UpdatedAt);
         });

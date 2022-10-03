@@ -22,6 +22,7 @@ internal static class Extensions
         return services
             .AddScoped<IRoleRepository, RoleRepository>()
             .AddScoped<IUserRepository, UserRepository>()
+            .AddScoped<RoleReadRepository>()
             .AddSchemaInitializer<MongoEntitiesInitializer>()
             .AddInitializer<RoleInitializer>()
             .AddInitializer<UsersInitializer>()

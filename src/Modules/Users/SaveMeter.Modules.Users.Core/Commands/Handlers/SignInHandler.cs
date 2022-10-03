@@ -52,10 +52,10 @@ internal class SignInHandler : ICommandHandler<SignIn, JsonWebToken>
 
         var claims = new Dictionary<string, IEnumerable<string>>
         {
-            ["permissions"] = user.Role.Permissions
+            ["permissions"] = user.Roles.SelectMany(x => x.Permissions)
         };
 
-        var jwt = _authManager.CreateToken(user.Id, user.Role.Name, claims: claims);
+        var jwt = _authManager.CreateToken(user.Id, string.Join(' ', user.Roles.Select(x => x.Name)), claims: claims);
         jwt.Email = user.Email;
         _logger.LogInformation($"User with ID: '{user.Id}' has signed in.");
         return jwt;

@@ -12,12 +12,17 @@ using SaveMeter.Shared.Infrastructure.Mongo.Repository;
 namespace SaveMeter.Modules.Users.Core.DAL.Repositories;
 internal class UserRepository : BaseRepository<User>, IUserRepository
 {
-    public UserRepository(IMongoContext context) : base(context)
+    private readonly RoleReadRepository _roleRepository;
+
+    public UserRepository(IMongoContext context, RoleReadRepository roleRepository) : base(context)
     {
+        _roleRepository = roleRepository;
     }
 
     public async Task<User> GetAsync(string email)
     {
-        return await DbCollection.Find(x => x.Email == email).SingleOrDefaultAsync();
+        return await DbCollection.Aggregate().Match(x => x.Email == email)
+            .Lookup(_roleRepository.Collection, (x => x.RoleIds), (x => x.Id),
+                @as: (User eo) => eo.Roles).SingleOrDefaultAsync();
     }
 }

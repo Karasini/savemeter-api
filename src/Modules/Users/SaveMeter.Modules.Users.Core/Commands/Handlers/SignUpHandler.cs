@@ -73,7 +73,7 @@ internal sealed class SignUpHandler : ICommandHandler<SignUp>
             Id = Guid.NewGuid(),
             Email = email,
             Password = password,
-            Role = role,
+            Roles = new List<Role>{role},
             CreatedAt = now,
             State = UserState.Active,
         };

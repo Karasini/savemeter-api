@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Bson.Serialization;
@@ -18,7 +20,8 @@ internal class MongoEntitiesInitializer : ISchemaInitializer
         {
             map.AutoMap();
             map.SetIgnoreExtraElements(true);
-            map.UnmapMember(x => x.Role);
+            map.MapProperty(x => x.RoleIds);
+            map.GetMemberMap(x => x.Roles).SetShouldSerializeMethod(_ => false);
         });
 
         BsonClassMap.RegisterClassMap<Role>(map =>
