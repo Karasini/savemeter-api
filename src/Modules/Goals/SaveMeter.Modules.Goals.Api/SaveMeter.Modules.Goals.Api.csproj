@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="module.goals.development.json" />
+    <None Remove="module.goals.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="module.goals.development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="module.goals.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\SaveMeter.Shared.Abstractions\SaveMeter.Shared.Abstractions.csproj" />
+    <ProjectReference Include="..\SaveMeter.Modules.Goals.Core\SaveMeter.Modules.Goals.Core.csproj" />
+  </ItemGroup>
+
+</Project>
