@@ -1,7 +1,7 @@
 ﻿{
-  "goals": {
+  "moneySources": {
     "module": {
-      "name": "Goals",
+      "name": "MoneySources",
       "enabled": true
     }
   }
