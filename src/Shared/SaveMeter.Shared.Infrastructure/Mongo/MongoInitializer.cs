@@ -1,14 +1,8 @@
 ﻿using MongoDB.Bson.Serialization;
 using SaveMeter.Shared.Abstractions.Kernel.Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MongoDB.Bson;
-using MongoDB.Bson.Serialization.IdGenerators;
+using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Bson.Serialization.Serializers;
-using SaveMeter.Shared.Abstractions.Kernel.ValueObjects;
 using SaveMeter.Shared.Infrastructure.Mongo.Serializers;
 
 namespace SaveMeter.Shared.Infrastructure.Mongo;
@@ -18,6 +12,11 @@ internal class MongoInitializer : ISchemaInitializer
     {
         BsonSerializer.RegisterSerializer(new EmailSerializer());
         BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
+
+        ConventionRegistry.Register("EnumStringConvention", new ConventionPack
+        {
+            new EnumRepresentationConvention(BsonType.String)
+        }, t => true);
 
         BsonClassMap.RegisterClassMap<Entity>(map =>
         {
