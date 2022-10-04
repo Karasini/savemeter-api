@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="module.categories.development.json" />
+    <None Remove="module.categories.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="module.categories.development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="module.categories.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\SaveMeter.Shared.Abstractions\SaveMeter.Shared.Abstractions.csproj" />
+    <ProjectReference Include="..\SaveMeter.Modules.Categories.Core\SaveMeter.Modules.Categories.Core.csproj" />
+  </ItemGroup>
+
+</Project>

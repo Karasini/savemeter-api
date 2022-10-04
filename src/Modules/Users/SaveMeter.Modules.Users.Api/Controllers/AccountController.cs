@@ -22,14 +22,12 @@ internal class AccountController : ControllerBase
     private readonly IDispatcher _dispatcher;
     private readonly IContext _context;
     private readonly CookieOptions _cookieOptions;
-    private readonly ICommandDispatcher commandDispatcher;
 
-    public AccountController(IDispatcher dispatcher, IContext context, CookieOptions cookieOptions, ICommandDispatcher commandDispatcher)
+    public AccountController(IDispatcher dispatcher, IContext context, CookieOptions cookieOptions)
     {
         _dispatcher = dispatcher;
         _context = context;
         _cookieOptions = cookieOptions;
-        this.commandDispatcher = commandDispatcher;
     }
 
     [HttpPost("sign-up")]
