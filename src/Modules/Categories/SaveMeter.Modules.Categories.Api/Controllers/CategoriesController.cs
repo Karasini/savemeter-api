@@ -13,11 +13,11 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace SaveMeter.Modules.Categories.Api.Controllers;
 
-[Authorize(Policy)]
+[Authorize]
+[ApiController]
+[Route("[controller]")]
 internal class CategoriesController : ControllerBase
 {
-    private const string Policy = "categories";
-    
     private readonly IDispatcher _dispatcher;
 
     public CategoriesController(IDispatcher dispatcher)
@@ -26,6 +26,7 @@ internal class CategoriesController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(CategoryPolicies.CategoriesRead)]
     [SwaggerOperation("Get category list")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]

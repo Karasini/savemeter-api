@@ -12,7 +12,7 @@ internal class CategoriesModule : IModule
 
     public IEnumerable<string> Policies { get; } = new[]
     {
-        "categories"
+        CategoryPolicies.CategoriesCrud, CategoryPolicies.CategoriesRead
     };
 
     public void Register(IServiceCollection services)

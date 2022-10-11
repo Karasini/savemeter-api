@@ -16,6 +16,11 @@ internal class RoleInitializer : IInitializer
     private readonly IRoleRepository _roleRepository;
     private readonly IUnitOfWork _unitOfWork;
 
+    private readonly HashSet<string> _permissions = new()
+    {
+        "categories.crud", "categories.r"
+    };
+
     public RoleInitializer(IRoleRepository roleRepository, IUnitOfWork unitOfWork)
     {
         _roleRepository = roleRepository;
@@ -29,6 +34,7 @@ internal class RoleInitializer : IInitializer
             _roleRepository.Add(new Role
             {
                 Name = "user",
+                Permissions = _permissions,
             });
 
             await _unitOfWork.Commit();
