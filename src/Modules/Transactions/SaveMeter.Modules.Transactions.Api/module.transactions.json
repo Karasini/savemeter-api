@@ -1,0 +1,8 @@
+﻿{
+  "transactions": {
+    "module": {
+      "name": "Transactions",
+      "enabled": true
+    }
+  }
+}

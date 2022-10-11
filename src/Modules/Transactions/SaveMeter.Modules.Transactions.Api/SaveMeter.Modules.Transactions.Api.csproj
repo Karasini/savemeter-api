@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="module.transactions.development.json" />
+    <None Remove="module.transactions.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="module.transactions.development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="module.transactions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SaveMeter.Modules.Transactions.Core\SaveMeter.Modules.Transactions.Core.csproj" />
+  </ItemGroup>
+
+</Project>
