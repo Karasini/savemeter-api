@@ -27,7 +27,7 @@ internal class CategoriesController : ControllerBase
 
     [HttpGet]
     [Authorize(CategoryPolicies.CategoriesRead)]
-    [SwaggerOperation("Get category list")]
+    [SwaggerOperation("Get categories list")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]

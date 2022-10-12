@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 namespace SaveMeter.Modules.Categories.Api;
 internal class CategoryPolicies
 {
-    public const string CategoriesCrud = "categories.crud";
-    public const string CategoriesRead = "categories.r";
+    internal const string CategoriesCrud = "categories.crud";
+    internal const string CategoriesRead = "categories.r";
 }
