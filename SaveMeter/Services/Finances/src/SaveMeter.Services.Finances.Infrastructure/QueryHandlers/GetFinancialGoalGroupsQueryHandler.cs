@@ -25,7 +25,7 @@ namespace SaveMeter.Services.Finances.Infrastructure.QueryHandlers
         public async Task<List<FinancialGoalGroupDto>> Handle(GetFinancialGoalGroupsQuery request, CancellationToken cancellationToken)
         {
             return await _repository.Find(x => !string.IsNullOrEmpty(x.Title)).ProjectToFinancialGoalGroupDto()
-                .SortBy(x => x.TotalAmount).ToListAsync(cancellationToken: cancellationToken);
+                .SortBy(x => x.CreatedAt).ToListAsync(cancellationToken: cancellationToken);
         }
     }
 }

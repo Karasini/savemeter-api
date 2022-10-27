@@ -8,5 +8,6 @@ namespace SaveMeter.Services.Finances.Application.Commands.CreateFinancialGoal
         public Guid GoalGroupId { get; set; }
         public string Title { get; set; }
         public decimal Amount { get; set; }
+        public string Rank { get; set; }
     }
 }

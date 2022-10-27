@@ -18,7 +18,7 @@ namespace SaveMeter.Services.Finances.Application.Commands.CreateFinancialGoal
 
         public async Task<FinancialGoalGroupDto> Handle(CreateFinancialGoalCommand request, CancellationToken cancellationToken)
         {
-            var goal = FinancialGoal.Create(request.Title, request.Amount);
+            var goal = FinancialGoal.Create(request.Title, request.Amount, request.Rank);
             var goalGroup = await _repository.GetById(request.GoalGroupId);
 
             Guard.Against<FinancialGoalGroupNotFoundException>(goalGroup == null);
@@ -37,6 +37,7 @@ namespace SaveMeter.Services.Finances.Application.Commands.CreateFinancialGoal
                     Amount = x.Amount,
                     Title = x.Title,
                     Id = x.Id,
+                    Rank = x.Rank,
                 }).ToList()
             };
 

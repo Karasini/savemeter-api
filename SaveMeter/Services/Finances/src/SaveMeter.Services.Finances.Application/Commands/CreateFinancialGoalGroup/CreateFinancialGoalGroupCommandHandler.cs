@@ -17,7 +17,7 @@ namespace SaveMeter.Services.Finances.Application.Commands.CreateFinancialGoalGr
 
         public Task<FinancialGoalGroupDto> Handle(CreateFinancialGoalGroupCommand request, CancellationToken cancellationToken)
         {
-            var goals = request.Goals.Select(x => FinancialGoal.Create(x.Title, x.Amount)).ToList();
+            var goals = request.Goals.Select(x => FinancialGoal.Create(x.Title, x.Amount, x.Rank)).ToList();
             var goalGroup = FinancialGoalGroup.Create(request.Title, goals);
 
             _repository.Add(goalGroup);

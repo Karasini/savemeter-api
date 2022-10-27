@@ -22,6 +22,7 @@ namespace SaveMeter.Services.Finances.Infrastructure.Mongo
                     Title = x.Title,
                     Amount = x.Amount,
                     Id = x.Id,
+                    Rank = x.Rank,
                 }).ToList()
             });
 
