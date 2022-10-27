@@ -37,7 +37,7 @@ internal class TransactionsController : ControllerBase
 
     [HttpPost("csv")]
     [Authorize(TransactionsPolicies.TransactionsCrud)]
-    [SwaggerOperation("Get transactions list")]
+    [SwaggerOperation("Import list of transactions in csv format")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> PostCsv(List<IFormFile> file)
     {
@@ -60,7 +60,7 @@ internal class TransactionsController : ControllerBase
 
     [HttpGet]
     [Authorize(TransactionsPolicies.TransactionsRead)]
-    [SwaggerOperation("Import transactions")]
+    [SwaggerOperation("Get transactions list")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetBankTransactionsByFilter([FromQuery] GetBankTransactionsByFilter query)
     {

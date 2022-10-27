@@ -12,6 +12,7 @@ internal class MongoInitializer : ISchemaInitializer
     {
         BsonSerializer.RegisterSerializer(new EmailSerializer());
         BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
+        BsonDefaults.GuidRepresentationMode = GuidRepresentationMode.V3;
 
         ConventionRegistry.Register("EnumStringConvention", new ConventionPack
         {

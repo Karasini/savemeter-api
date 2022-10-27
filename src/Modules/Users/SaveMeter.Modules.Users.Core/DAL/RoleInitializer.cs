@@ -18,7 +18,8 @@ internal class RoleInitializer : IInitializer
 
     private readonly HashSet<string> _permissions = new()
     {
-        "categories.crud", "categories.r"
+        "categories.crud", "categories.r",
+        "transactions.crud", "transactions.r"
     };
 
     public RoleInitializer(IRoleRepository roleRepository, IUnitOfWork unitOfWork)
@@ -36,9 +37,15 @@ internal class RoleInitializer : IInitializer
                 Name = "user",
                 Permissions = _permissions,
             });
+        }
+        else
+        {
+            var role = await _roleRepository.GetAsync(Role.Default);
+            role.Permissions = _permissions;
 
-            await _unitOfWork.Commit();
+            _roleRepository.Update(role);
         }
 
+        await _unitOfWork.Commit();
     }
 }

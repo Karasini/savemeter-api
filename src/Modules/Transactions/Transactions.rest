@@ -1,0 +1,7 @@
+@url = https://localhost:7170
+
+###
+GET {{url}}/categories
+
+###
+GET {{url}}/transactions
