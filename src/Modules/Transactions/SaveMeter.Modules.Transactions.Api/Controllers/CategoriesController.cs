@@ -7,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using SaveMeter.Modules.Categories.Core.DTO;
-using SaveMeter.Modules.Categories.Core.Queries;
+using SaveMeter.Modules.Transactions.Api;
+using SaveMeter.Modules.Transactions.Core.DTO;
+using SaveMeter.Modules.Transactions.Core.Queries;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace SaveMeter.Modules.Categories.Api.Controllers;
@@ -26,7 +27,7 @@ internal class CategoriesController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(CategoryPolicies.CategoriesRead)]
+    [Authorize(TransactionsPolicies.CategoriesRead)]
     [SwaggerOperation("Get categories list")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]

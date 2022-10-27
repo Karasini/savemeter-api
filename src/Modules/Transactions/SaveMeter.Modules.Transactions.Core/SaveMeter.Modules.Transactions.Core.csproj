@@ -10,6 +10,7 @@
 
 	<ItemGroup>
 	  <PackageReference Include="LinqKit.Core" Version="1.2.2" />
+	  <PackageReference Include="Microsoft.ML" Version="1.7.1" />
 	</ItemGroup>
 
 </Project>

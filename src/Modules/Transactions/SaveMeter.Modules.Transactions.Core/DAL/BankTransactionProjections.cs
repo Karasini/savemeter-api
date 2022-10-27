@@ -4,16 +4,15 @@ using SaveMeter.Modules.Transactions.Core.Entities;
 
 namespace SaveMeter.Modules.Transactions.Core.DAL
 {
-    static class BankTransactionProjections
+    internal static class BankTransactionProjections
     {
-        public static ProjectionDefinition<BankTransaction, BankTransactionDto> Projection =>
+        private static ProjectionDefinition<BankTransaction, BankTransactionDto> Projection =>
     Builders<BankTransaction>.Projection.Expression(bankTransaction => new BankTransactionDto
     {
         Id = bankTransaction.Id,
         CategoryId = bankTransaction.CategoryId,
         Customer = bankTransaction.Customer,
         Description = bankTransaction.Description,
-        SkipAnalysis = bankTransaction.SkipAnalysis,
         TransactionDate = bankTransaction.TransactionDate,
         Value = bankTransaction.Value,
     });

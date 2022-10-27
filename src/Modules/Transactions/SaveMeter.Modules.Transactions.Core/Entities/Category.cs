@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SaveMeter.Shared.Abstractions.Kernel.Types;
 
-namespace SaveMeter.Modules.Categories.Core.Entities;
+namespace SaveMeter.Modules.Transactions.Core.Entities;
 
 internal class Category : Entity
 {

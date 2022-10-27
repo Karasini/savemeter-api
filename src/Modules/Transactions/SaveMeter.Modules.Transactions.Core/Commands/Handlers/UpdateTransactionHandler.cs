@@ -30,7 +30,6 @@ internal class UpdateTransactionHandler : ICommandHandler<UpdateTransaction, Ban
         transaction.CategoryId = command.CategoryId;
         transaction.Customer = command.Customer;
         transaction.Description = command.Description;
-        transaction.SkipAnalysis = command.SkipAnalysis;
 
         _transactionRepository.Update(transaction);
 

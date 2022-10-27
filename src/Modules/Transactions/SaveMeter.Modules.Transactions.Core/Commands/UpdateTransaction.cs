@@ -13,5 +13,4 @@ internal record UpdateTransaction : ICommand<BankTransactionDto>
     public string Customer { get; init; }
     public string Description { get; init; }
     public Guid? CategoryId { get; init; }
-    public bool SkipAnalysis { get; init; }
 }

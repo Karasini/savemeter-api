@@ -12,7 +12,8 @@ internal class TransactionsModule : IModule
 
     public IEnumerable<string> Policies { get; } = new[]
     {
-        "transactions.crud", "transactions.r"
+        TransactionsPolicies.TransactionsCrud, TransactionsPolicies.TransactionsRead,
+        TransactionsPolicies.CategoriesCrud, TransactionsPolicies.CategoriesRead
     };
 
     public void Register(IServiceCollection services)

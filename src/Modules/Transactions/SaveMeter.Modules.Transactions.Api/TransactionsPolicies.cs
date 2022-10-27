@@ -9,4 +9,6 @@ internal class TransactionsPolicies
 {
     internal const string TransactionsCrud = "transactions.crud";
     internal const string TransactionsRead = "transactions.read";
+    internal const string CategoriesCrud = "categories.crud";
+    internal const string CategoriesRead = "categories.r";
 }

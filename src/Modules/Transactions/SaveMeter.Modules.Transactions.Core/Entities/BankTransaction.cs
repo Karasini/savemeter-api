@@ -11,7 +11,6 @@ namespace SaveMeter.Modules.Transactions.Core.Entities
         public string Description { get; set; }
         public decimal Value { get; set; }
         public Guid? CategoryId { get; set; }
-        public bool SkipAnalysis { get; set; }
         public string BankName { get; set; }
     }
 }

@@ -1,12 +1,12 @@
 ﻿using MongoDB.Driver;
-using SaveMeter.Modules.Categories.Core.DTO;
-using SaveMeter.Modules.Categories.Core.Entities;
+using SaveMeter.Modules.Transactions.Core.DTO;
+using SaveMeter.Modules.Transactions.Core.Entities;
 
-namespace SaveMeter.Modules.Categories.Core.DAL
+namespace SaveMeter.Modules.Transactions.Core.DAL
 {
     static class CategoryProjection
     {
-        public static ProjectionDefinition<Category, CategoryDto> Projection =>
+        private static ProjectionDefinition<Category, CategoryDto> Projection =>
             Builders<Category>.Projection.Expression(category => new CategoryDto
             {
                 Id = category.Id,

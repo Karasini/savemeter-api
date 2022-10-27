@@ -1,13 +1,10 @@
-﻿using SaveMeter.Shared.Infrastructure;
-using SaveMeter.Shared.Infrastructure.Mongo.UoW;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using SaveMeter.Modules.Categories.Core.Repositories;
+using SaveMeter.Modules.Transactions.Core.Repositories;
+using SaveMeter.Shared.Infrastructure;
+using SaveMeter.Shared.Infrastructure.Mongo.UoW;
 
-namespace SaveMeter.Modules.Categories.Core.DAL;
+namespace SaveMeter.Modules.Transactions.Core.DAL;
 internal class CategoryInitializer : IInitializer
 {
     private readonly IUnitOfWork _unitOfWork;

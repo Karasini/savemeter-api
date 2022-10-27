@@ -1,16 +1,13 @@
-﻿using SaveMeter.Shared.Abstractions.Queries;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using MongoDB.Driver;
-using SaveMeter.Modules.Categories.Core.DAL;
-using SaveMeter.Modules.Categories.Core.DTO;
-using SaveMeter.Modules.Categories.Core.DAL.Repositories;
+using SaveMeter.Modules.Transactions.Core.DAL;
+using SaveMeter.Modules.Transactions.Core.DAL.Repositories;
+using SaveMeter.Modules.Transactions.Core.DTO;
+using SaveMeter.Shared.Abstractions.Queries;
 
-namespace SaveMeter.Modules.Categories.Core.Queries.Handlers;
+namespace SaveMeter.Modules.Transactions.Core.Queries.Handlers;
 internal class GetCategoriesHandler : IQueryHandler<GetCategories, List<CategoryDto>>
 {
     private readonly CategoryReadRepository _repository;

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using SaveMeter.Modules.Categories.Core.Entities;
+using SaveMeter.Modules.Transactions.Core.Entities;
 
-namespace SaveMeter.Modules.Categories.Core.DAL
+namespace SaveMeter.Modules.Transactions.Core.DAL
 {
-    class CategoriesSeed
+    static class CategoriesSeed
     {
         public const string Bus = "Autobus/Taxi";
         public const string Hairdresser = "Fryzjer";

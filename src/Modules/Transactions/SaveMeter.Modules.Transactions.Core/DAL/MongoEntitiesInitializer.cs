@@ -9,6 +9,12 @@ internal class MongoEntitiesInitializer : ISchemaInitializer
 {
     public void Initialize()
     {
+        BsonClassMap.RegisterClassMap<Category>(map =>
+        {
+            map.AutoMap();
+            map.SetIgnoreExtraElements(true);
+        });
+        
         BsonClassMap.RegisterClassMap<BankTransaction>(map =>
         {
             map.AutoMap();
