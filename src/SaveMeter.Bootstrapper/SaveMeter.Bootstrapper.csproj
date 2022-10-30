@@ -13,4 +13,10 @@
     <ProjectReference Include="..\Shared\SaveMeter.Shared.Infrastructure\SaveMeter.Shared.Infrastructure.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+	  <None Update="mlModel.zip">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 </Project>

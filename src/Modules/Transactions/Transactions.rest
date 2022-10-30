@@ -3,5 +3,17 @@
 ###
 GET {{url}}/categories
 
-###
+### Get list of transactions
 GET {{url}}/transactions
+
+### Create bank transaction
+POST {{url}}/transactions
+Content-Type: application/json
+
+{
+  "transactionDateUtc": "2022-01-17T21:20",
+  "customer": "Customer 1",
+  "description": "Description 1",
+  "value": 123.53,
+  "bankName": ""
+}

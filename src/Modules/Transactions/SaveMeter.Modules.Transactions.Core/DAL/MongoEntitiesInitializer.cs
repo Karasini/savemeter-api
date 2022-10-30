@@ -20,6 +20,7 @@ internal class MongoEntitiesInitializer : ISchemaInitializer
             map.AutoMap();
             map.SetIgnoreExtraElements(true);
             map.MapMember(x => x.Value).SetSerializer(new DecimalSerializer(BsonType.Decimal128));
+            map.GetMemberMap(x => x.Category).SetShouldSerializeMethod(_ => false);
         });
     }
 }

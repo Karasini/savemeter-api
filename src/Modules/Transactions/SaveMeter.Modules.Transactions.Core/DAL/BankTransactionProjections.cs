@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using System.Linq;
+using MongoDB.Driver;
 using SaveMeter.Modules.Transactions.Core.DTO;
 using SaveMeter.Modules.Transactions.Core.Entities;
 
@@ -11,6 +12,7 @@ namespace SaveMeter.Modules.Transactions.Core.DAL
     {
         Id = bankTransaction.Id,
         CategoryId = bankTransaction.CategoryId,
+        CategoryName = bankTransaction.Category.Name,
         Customer = bankTransaction.Customer,
         Description = bankTransaction.Description,
         TransactionDate = bankTransaction.TransactionDate,

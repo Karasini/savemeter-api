@@ -10,10 +10,8 @@ namespace SaveMeter.Modules.Transactions.Core.Commands;
 internal record CreateTransaction : ICommand<BankTransactionDto>
 {
     public DateTime TransactionDateUtc { get; set; }
-    public string RelatedAccountNumber { get; set; }
     public string Customer { get; set; }
     public string Description { get; set; }
     public decimal Value { get; set; }
-    public decimal AccountBalance { get; set; }
     public string BankName { get; set; }
 }

@@ -16,10 +16,12 @@ namespace SaveMeter.Modules.Transactions.Core.Queries.Handlers
     internal class GetBankTransactionsByFilterHandler : IQueryHandler<GetBankTransactionsByFilter, PaginatedDto<BankTransactionDto>>
     {
         private readonly BankTransactionReadRepository _repository;
+        private readonly CategoryReadRepository _categoryRepository;
 
-        public GetBankTransactionsByFilterHandler(BankTransactionReadRepository bankTransactionReadRepository)
+        public GetBankTransactionsByFilterHandler(BankTransactionReadRepository bankTransactionReadRepository, CategoryReadRepository categoryRepository)
         {
             _repository = bankTransactionReadRepository;
+            _categoryRepository = categoryRepository;
         }
 
 
@@ -74,16 +76,19 @@ namespace SaveMeter.Modules.Transactions.Core.Queries.Handlers
             //var data = aggregation.First()
             //    .Facets.First(x => x.Name == "projectFacet")
             //    .Output<BankTransactionDto>();
+            // .Unwind("items.vendor", new AggregateUnwindOptions<VendorDetail>() { PreserveNullAndEmptyArrays = true })
 
             var bankTransactions = await _repository.Collection.Aggregate()
                 .Match(filter.Expand())
+                .Lookup(_categoryRepository.Collection, (x => x.CategoryId), 
+                    (x => x.Id), @as: (BankTransaction t) => t.Category)
+                .Unwind(x => x.Category, new AggregateUnwindOptions<BankTransaction>(){PreserveNullAndEmptyArrays = true})
                 .SortByDescending(x => x.TransactionDate)
                 .Skip((pageNumber - 1) * pageSize)
                 .Limit(pageSize)
                 .ProjectToBankTransactionDto()
                 .ToListAsync(cancellationToken: cancellationToken);
-
-
+            
             return new PaginatedDto<BankTransactionDto>
             {
                 CurrentPage = pageNumber,

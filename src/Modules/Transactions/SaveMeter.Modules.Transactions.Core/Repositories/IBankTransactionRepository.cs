@@ -5,7 +5,7 @@ using SaveMeter.Shared.Abstractions.DAL;
 
 namespace SaveMeter.Modules.Transactions.Core.Repositories
 {
-    public interface IBankTransactionRepository : IRepository<BankTransaction>
+    internal interface IBankTransactionRepository : IRepository<BankTransaction>
     {
         Task<bool> TransactionExists(DateTime transactionDate, decimal value);
     }
