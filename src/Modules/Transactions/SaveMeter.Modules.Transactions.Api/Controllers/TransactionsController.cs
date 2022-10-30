@@ -48,13 +48,23 @@ internal class TransactionsController : ControllerBase
 
         return Ok();
     }
+
+    [HttpPost]
+    [Authorize(TransactionsPolicies.TransactionsCrud)]
+    [SwaggerOperation("Train ML model")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> TrainModel(TrainModel model)
+    {
+        await _dispatcher.SendAsync(model);
+        return NoContent();
+    }
     
-    [HttpPost()]
+    [HttpPost]
     [Authorize(TransactionsPolicies.TransactionsCrud)]
     [SwaggerOperation("Create bank transaction")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult> CreateTransaction(CreateTransaction command)
+    public async Task<IActionResult> CreateTransaction(CreateTransaction command)
     {
         var result = await _dispatcher.SendAsync<BankTransactionDto>(command.Bind(x => x.UserId, _context.Identity.Id));
         return Created("", result);
