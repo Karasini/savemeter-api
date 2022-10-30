@@ -13,4 +13,5 @@ internal class BankTransaction : Entity
     public Guid? CategoryId { get; set; }
     public Category Category { get; set; }
     public string BankName { get; set; }
+    public Guid UserId { get; set; }
 }

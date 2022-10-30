@@ -56,7 +56,7 @@ internal class TransactionsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult> CreateTransaction(CreateTransaction command)
     {
-        var result = await _dispatcher.SendAsync<BankTransactionDto>(command);
+        var result = await _dispatcher.SendAsync<BankTransactionDto>(command.Bind(x => x.UserId, _context.Identity.Id));
         return Created("", result);
     }
 
@@ -66,7 +66,9 @@ internal class TransactionsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> UpdateTransaction([FromBody] UpdateTransaction command, Guid id)
     {
-        return Ok(await _dispatcher.SendAsync<BankTransactionDto>(command).Bind(x => x.Id, id));
+        return Ok(await _dispatcher.SendAsync<BankTransactionDto>(command
+            .Bind(x => x.Id, id)
+            .Bind(x => x.UserId, _context.Identity.Id)));
     }
 
     [HttpGet]
@@ -75,7 +77,7 @@ internal class TransactionsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetBankTransactionsByFilter([FromQuery] GetBankTransactionsByFilter query)
     {
-        return Ok(await _dispatcher.QueryAsync(query));
+        return Ok(await _dispatcher.QueryAsync(query.Bind(x => x.UserId, _context.Identity.Id)));
     }
 
     private async Task TransactionsFromFile(IFormFile obj)

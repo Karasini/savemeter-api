@@ -12,8 +12,8 @@ Content-Type: application/json
 
 {
   "transactionDateUtc": "2022-01-17T21:20",
-  "customer": "Customer 1",
-  "description": "Description 1",
-  "value": 123.53,
+  "customer": "Customer 2",
+  "description": "Description 2",
+  "value": 223.53,
   "bankName": ""
 }

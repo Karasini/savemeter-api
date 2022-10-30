@@ -14,4 +14,5 @@ internal record CreateTransaction : ICommand<BankTransactionDto>
     public string Description { get; set; }
     public decimal Value { get; set; }
     public string BankName { get; set; }
+    public Guid UserId { get; set; }
 }
