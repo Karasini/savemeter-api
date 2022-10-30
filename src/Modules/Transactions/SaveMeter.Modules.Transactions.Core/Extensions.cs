@@ -22,6 +22,7 @@ internal static class Extensions
             .AddScoped<CategoryReadRepository>()
             .AddScoped<BankTransactionReadRepository>()
             .AddSchemaInitializer<MongoEntitiesInitializer>()
-            .AddInitializer<CategoryInitializer>();
+            .AddInitializer<CategoryInitializer>()
+            .AddInitializer<TransactionsInitializer>();
     }
 }
