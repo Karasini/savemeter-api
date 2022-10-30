@@ -14,10 +14,11 @@ namespace SaveMeter.Modules.Transactions.Core.Commands.Handlers;
 internal class UpdateTransactionHandler : ICommandHandler<UpdateTransaction, BankTransactionDto>
 {
     private readonly IBankTransactionRepository _transactionRepository;
-
-    public UpdateTransactionHandler(IBankTransactionRepository transactionRepository)
+    private readonly ICategoryRepository _categoryRepository;
+    public UpdateTransactionHandler(IBankTransactionRepository transactionRepository, ICategoryRepository categoryRepository)
     {
         _transactionRepository = transactionRepository;
+        _categoryRepository = categoryRepository;
     }
 
     public async Task<BankTransactionDto> HandleAsync(UpdateTransaction command, CancellationToken cancellationToken = default)
@@ -25,7 +26,7 @@ internal class UpdateTransactionHandler : ICommandHandler<UpdateTransaction, Ban
         var transaction = await _transactionRepository.GetByIdAsync(command.Id);
 
         Guard.Against<BankTransactionNotFoundException>(transaction == null);
-        //Guard.Against<CategoryNotFoundException>(!await _categoryRepository.Exists(x => x.Id == command.CategoryId));
+        Guard.Against(!await _categoryRepository.Exists(x => x.Id == command.CategoryId), new CategoryNotFoundException(command.CategoryId));
 
         transaction.CategoryId = command.CategoryId;
         transaction.Customer = command.Customer;

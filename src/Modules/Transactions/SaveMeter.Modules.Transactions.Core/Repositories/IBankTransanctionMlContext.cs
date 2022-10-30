@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SaveMeter.Modules.Transactions.Core.Entities;
 
 namespace SaveMeter.Modules.Transactions.Core.Repositories
@@ -7,6 +8,6 @@ namespace SaveMeter.Modules.Transactions.Core.Repositories
     {
         void TrainModel(IEnumerable<BankTransaction> bankTransactions);
 
-        string Predicate(string customer, string description);
+        Guid Predicate(string customer, string description);
     }
 }

@@ -58,7 +58,7 @@ namespace SaveMeter.Modules.Transactions.Core.MachineLearning
             EvaluateAndSave(trainingDataView.Schema);
         }
 
-        public string Predicate(string customer, string description)
+        public Guid Predicate(string customer, string description)
         {
             _mlContext = new MLContext(seed: 0);
             var loadedModel = _mlContext.Model.Load(_modelPath, out var modelInputSchema);
@@ -70,7 +70,7 @@ namespace SaveMeter.Modules.Transactions.Core.MachineLearning
 
             _predEngine = _mlContext.Model.CreatePredictionEngine<BankTransactionForNetwork, CategoryPrediction>(loadedModel);
 
-            return _predEngine.Predict(bankTransactionForNetwork).Category;
+            return Guid.Parse(_predEngine.Predict(bankTransactionForNetwork).Category);
         }
 
         IEstimator<ITransformer> ProcessData()

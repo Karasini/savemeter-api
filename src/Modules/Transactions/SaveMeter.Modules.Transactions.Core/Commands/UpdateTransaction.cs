@@ -12,6 +12,6 @@ internal record UpdateTransaction : ICommand<BankTransactionDto>
     public Guid Id { get; set; }
     public string Customer { get; init; }
     public string Description { get; init; }
-    public Guid? CategoryId { get; init; }
+    public Guid CategoryId { get; init; }
     public Guid UserId { get; set; }
 }

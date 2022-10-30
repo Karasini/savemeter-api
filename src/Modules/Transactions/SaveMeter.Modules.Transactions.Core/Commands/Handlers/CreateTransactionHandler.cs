@@ -1,8 +1,4 @@
 ﻿using SaveMeter.Shared.Abstractions.Commands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using SaveMeter.Modules.Transactions.Core.DTO;
@@ -31,7 +27,7 @@ internal class CreateTransactionHandler : ICommandHandler<CreateTransaction, Ban
         Guard.Against(transactionExists, new BankTransactionAlreadyExistsException(command.TransactionDateUtc, command.Value));
         //TODO? Validate user ?
         
-        var categoryId = Guid.Parse(_mlContext.Predicate(command.Customer, command.Description));
+        var categoryId = _mlContext.Predicate(command.Customer, command.Description);
 
         var transaction = new BankTransaction()
         {
@@ -40,7 +36,8 @@ internal class CreateTransactionHandler : ICommandHandler<CreateTransaction, Ban
             Description = command.Description,
             TransactionDate = command.TransactionDateUtc,
             CategoryId = categoryId,
-            BankName = command.BankName
+            BankName = command.BankName,
+            UserId = command.UserId
         };
         _transactionRepository.Add(transaction);
 
