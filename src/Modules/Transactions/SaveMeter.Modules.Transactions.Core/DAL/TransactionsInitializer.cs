@@ -43,9 +43,8 @@ internal class TransactionsInitializer : IInitializer
 
     public async Task InitAsync()
     {
-        var userId = new Guid("2ca9a7fc-9fd1-457f-978b-1cec3fc2ed54");
+        var userId = new Guid("c0287dd3-8448-42e6-9673-253fa01c0de5");
         if (userId == Guid.Empty) return;
-
         if (await _repository.AnyAsync())
         {
             return;
