@@ -7,6 +7,7 @@ namespace SaveMeter.Modules.MoneySources.Core.Commands;
 internal class UpdateMoneySource : ICommand<MoneySourceDto>
 {
     public Guid Id { get; set; }
+    public Guid UserId { get; set; }
     public string Title { get; set; }
     public decimal Amount { get; set; }
     public string Currency { get; set; }

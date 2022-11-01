@@ -12,7 +12,7 @@ internal class MoneySourcesModule : IModule
 
     public IEnumerable<string> Policies { get; } = new[]
     {
-        "moneySources"
+        Claims.MoneySourcesCrud, Claims.MoneySourcesRead
     };
 
     public void Register(IServiceCollection services)

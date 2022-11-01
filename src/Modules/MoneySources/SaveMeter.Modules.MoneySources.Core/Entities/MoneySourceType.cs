@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SaveMeter.Services.Finances.Domain.Aggregates.MoneySourceAggregate
+namespace SaveMeter.Services.Finances.Domain.Aggregates.MoneySourceAggregate;
+
+public enum MoneySourceType
 {
-    public enum MoneySourceType
-    {
-        Ing,
-        Millennium,
-        Custom
-    }
+    Ing,
+    Millennium,
+    Custom
 }

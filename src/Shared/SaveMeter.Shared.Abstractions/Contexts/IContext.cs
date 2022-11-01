@@ -10,4 +10,9 @@ public interface IContext
     string IpAddress { get; }
     string UserAgent { get; }
     IIdentityContext Identity { get; }
+
+    Guid GetUserId()
+    {
+        return Identity.Id;
+    }
 }

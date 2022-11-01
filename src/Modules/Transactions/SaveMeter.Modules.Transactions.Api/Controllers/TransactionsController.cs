@@ -49,7 +49,7 @@ internal class TransactionsController : ControllerBase
         return Ok();
     }
 
-    [HttpPost]
+    [HttpPost("train")]
     [Authorize(TransactionsPolicies.TransactionsCrud)]
     [SwaggerOperation("Train ML model")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -78,7 +78,7 @@ internal class TransactionsController : ControllerBase
     {
         return Ok(await _dispatcher.SendAsync<BankTransactionDto>(command
             .Bind(x => x.Id, id)
-            .Bind(x => x.UserId, _context.Identity.Id)));
+            .Bind(x => x.UserId, _context.GetUserId())));
     }
 
     [HttpGet]

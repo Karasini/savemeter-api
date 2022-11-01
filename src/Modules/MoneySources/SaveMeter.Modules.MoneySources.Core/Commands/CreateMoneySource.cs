@@ -6,6 +6,7 @@ namespace SaveMeter.Modules.MoneySources.Core.Commands;
 
 internal class CreateMoneySource : ICommand<MoneySourceDto>
 {
+    public Guid UserId { get; set; }
     public string Title { get; set; }
     public decimal Amount { get; set; }
     public string Currency { get; set; }

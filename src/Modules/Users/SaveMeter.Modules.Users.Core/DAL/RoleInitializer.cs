@@ -19,7 +19,8 @@ internal class RoleInitializer : IInitializer
     private readonly HashSet<string> _permissions = new()
     {
         "categories.crud", "categories.r",
-        "transactions.crud", "transactions.r"
+        "transactions.crud", "transactions.r",
+        "moneySources.crud", "moneySources.r"
     };
 
     public RoleInitializer(IRoleRepository roleRepository, IUnitOfWork unitOfWork)
