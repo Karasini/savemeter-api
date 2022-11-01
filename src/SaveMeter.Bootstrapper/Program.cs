@@ -6,7 +6,7 @@ using SaveMeter.Shared.Infrastructure.Modules;
 
 namespace SaveMeter.Bootstrapper;
 
-public class Program
+internal class Program
 {
     public static Task Main(string[] args)
         => CreateHostBuilder(args).Build().RunAsync();

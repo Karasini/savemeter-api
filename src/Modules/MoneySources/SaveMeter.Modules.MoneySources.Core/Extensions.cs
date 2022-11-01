@@ -17,7 +17,6 @@ internal static class Extensions
         return services
             .AddScoped<MoneySourceReadRepository>()
             .AddScoped<IMoneySourceRepository, MoneySourceRepository>()
-            .AddSchemaInitializer<MongoEntitiesInitializer>()
-            .AddInitializer<MoneySourceInitializer>();
+            .AddSchemaInitializer<MongoEntitiesInitializer>();
     }
 }

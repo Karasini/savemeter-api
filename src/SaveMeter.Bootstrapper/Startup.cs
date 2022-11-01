@@ -15,7 +15,7 @@ using SaveMeter.Shared.Infrastructure.Modules;
 
 namespace SaveMeter.Bootstrapper;
 
-public class Startup
+internal class Startup
 {
     private readonly IList<Assembly> _assemblies;
     private readonly IList<IModule> _modules;

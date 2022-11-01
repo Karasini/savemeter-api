@@ -12,7 +12,7 @@ internal class GoalsModule : IModule
 
     public IEnumerable<string> Policies { get; } = new[]
     {
-        "goals"
+        Claims.GoalsCrud, Claims.GoalsRead
     };
 
     public void Register(IServiceCollection services)

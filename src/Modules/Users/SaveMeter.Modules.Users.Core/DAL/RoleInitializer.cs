@@ -20,7 +20,8 @@ internal class RoleInitializer : IInitializer
     {
         "categories.crud", "categories.r",
         "transactions.crud", "transactions.r",
-        "moneySources.crud", "moneySources.r"
+        "moneySources.crud", "moneySources.r",
+        "goals.crud", "goals.r"
     };
 
     public RoleInitializer(IRoleRepository roleRepository, IUnitOfWork unitOfWork)
