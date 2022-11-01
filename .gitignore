@@ -37,3 +37,6 @@ msbuild.wrn
 .vs/
 .vscode
 /src/SaveMeter.Bootstrapper/logs
+
+#Project
+*.csv
