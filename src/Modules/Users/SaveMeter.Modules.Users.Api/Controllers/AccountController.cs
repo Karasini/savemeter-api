@@ -4,8 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SaveMeter.Modules.Users.Core.Commands;
 using SaveMeter.Modules.Users.Core.DTO;
-using SaveMeter.Shared.Abstractions.Auth;
-using SaveMeter.Shared.Abstractions.Commands;
+using SaveMeter.Modules.Users.Core.Queries;
 using SaveMeter.Shared.Abstractions.Contexts;
 using SaveMeter.Shared.Abstractions.Dispatchers;
 using SaveMeter.Shared.Infrastructure.Api;
@@ -30,6 +29,21 @@ internal class AccountController : ControllerBase
         _cookieOptions = cookieOptions;
     }
 
+    [HttpGet]
+    [Authorize]
+    [SwaggerOperation("Get account of logged user")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<UserDetailsDto>> GetAccount()
+    {
+        var user = await _dispatcher.QueryAsync(new GetUser { UserId = _context.GetUserId() });
+        if (user != null)
+        {
+            return Ok(user.Bind(x => x.ExpirationTime, _context.Identity.ExpirationTime.UtcDateTime));
+        }
+        return NotFound();
+    }
+
     [HttpPost("sign-up")]
     [SwaggerOperation("Sign up")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -48,7 +62,8 @@ internal class AccountController : ControllerBase
     {
         var jwt = await _dispatcher.RequestAsync(command);
         AddCookie(AccessTokenCookie, jwt.AccessToken);
-        return Ok(jwt);
+        
+        return NoContent();
     }
 
     [Authorize]

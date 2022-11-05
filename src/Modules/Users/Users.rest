@@ -34,3 +34,7 @@ Content-Type: application/json
 ### Sign out
 DELETE {{url}}/account/sign-out
 Set-Cookie: {{authCookie}}
+
+### Get account
+GET {{url}}/account
+Set-Cookie: {{authCookie}}

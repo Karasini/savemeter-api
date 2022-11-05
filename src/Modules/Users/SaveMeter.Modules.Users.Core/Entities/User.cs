@@ -11,7 +11,7 @@ internal class User : Entity
 {
     public Email Email { get; set; }
     public string Password { get; set; }
-    public List<Role> Roles { get; set; }
+    public List<Role> Roles { get; set; } = new();
     public List<Guid> RoleIds => Roles.Select(x => x.Id).ToList();
     public UserState State { get; set; }
 }
