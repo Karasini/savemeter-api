@@ -44,7 +44,7 @@ internal class MoneySourcesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateMoneySource([FromBody] CreateMoneySource command)
     {
-        return Ok(await _dispatcher.SendAsync<MoneySourceDto>(command
+        return Ok(await _dispatcher.RequestAsync(command
             .Bind(x => x.UserId, _context.GetUserId())));
     }
 
@@ -54,7 +54,7 @@ internal class MoneySourcesController : ControllerBase
     [ProducesResponseType(typeof(MoneySourceDto), StatusCodes.Status200OK)]
     public async Task<IActionResult> UpdateTransaction([FromBody] UpdateMoneySource command, Guid id)
     {
-        return Ok(await _dispatcher.SendAsync<MoneySourceDto>(command
+        return Ok(await _dispatcher.RequestAsync(command
             .Bind(x => x.Id, id)
             .Bind(x => x.UserId, _context.GetUserId())));
     }

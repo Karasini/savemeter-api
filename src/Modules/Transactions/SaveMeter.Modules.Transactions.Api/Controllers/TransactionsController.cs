@@ -66,7 +66,7 @@ internal class TransactionsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateTransaction(CreateTransaction command)
     {
-        var result = await _dispatcher.SendAsync<BankTransactionDto>(command.Bind(x => x.UserId, _context.Identity.Id));
+        var result = await _dispatcher.RequestAsync(command.Bind(x => x.UserId, _context.Identity.Id));
         return Created("", result);
     }
 
@@ -76,7 +76,7 @@ internal class TransactionsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> UpdateTransaction([FromBody] UpdateTransaction command, Guid id)
     {
-        return Ok(await _dispatcher.SendAsync<BankTransactionDto>(command
+        return Ok(await _dispatcher.RequestAsync(command
             .Bind(x => x.Id, id)
             .Bind(x => x.UserId, _context.GetUserId())));
     }

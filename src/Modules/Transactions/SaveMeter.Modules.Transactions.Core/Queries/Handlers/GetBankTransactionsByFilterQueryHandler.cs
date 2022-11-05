@@ -31,7 +31,7 @@ namespace SaveMeter.Modules.Transactions.Core.Queries.Handlers
             var pageSize = query.PageSize ?? 100;
             var filter = FilterBuilder.True<BankTransaction>().
                 AndIfAcceptable(query.StartDate.HasValue, x => x.TransactionDate >= query.StartDate!.Value)
-                .AndIfAcceptable(query.EndDate.HasValue, x => x.TransactionDate <= query.EndDate!.Value)
+                .AndIfAcceptable(query.EndDate.HasValue, x => x.TransactionDate < query.EndDate!.Value.AddDays(1))
                 .And(x => x.UserId == query.UserId);
 
             var count = await _repository.Find(filter.Expand()).CountDocumentsAsync(cancellationToken);

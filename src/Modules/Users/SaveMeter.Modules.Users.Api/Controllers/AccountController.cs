@@ -46,7 +46,7 @@ internal class AccountController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<UserDetailsDto>> SignInAsync(SignIn command)
     {
-        var jwt = await _dispatcher.SendAsync<JsonWebToken>(command);
+        var jwt = await _dispatcher.RequestAsync(command);
         AddCookie(AccessTokenCookie, jwt.AccessToken);
         return Ok(jwt);
     }

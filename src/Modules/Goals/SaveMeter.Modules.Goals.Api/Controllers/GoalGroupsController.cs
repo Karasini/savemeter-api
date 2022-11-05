@@ -34,7 +34,7 @@ internal class GoalGroupsController : ControllerBase
     [ProducesResponseType(typeof(FinancialGoalGroupDto), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateFinancialGoalGroup([FromBody] CreateFinancialGoalGroup command)
     {
-        return Ok(await _dispatcher.SendAsync<FinancialGoalGroupDto>(command));
+        return Ok(await _dispatcher.RequestAsync(command));
     }
 
     [HttpGet]
@@ -55,7 +55,7 @@ internal class GoalGroupsController : ControllerBase
     public async Task<IActionResult> CreateFinancialGoal([FromBody] CreateFinancialGoal command, Guid goalGroupId)
     {
         command.GoalGroupId = goalGroupId;
-        return Ok(await _dispatcher.SendAsync<FinancialGoalGroupDto>(command));
+        return Ok(await _dispatcher.RequestAsync(command));
     }
 
     [HttpPut("{goalGroupId:guid}/goals/{id:guid}")]
@@ -67,7 +67,7 @@ internal class GoalGroupsController : ControllerBase
     {
         command.Id = id;
         command.GoalGroupId = goalGroupId;
-        return Ok(await _dispatcher.SendAsync<FinancialGoalGroupDto>(command));
+        return Ok(await _dispatcher.RequestAsync(command));
     }
 
     [HttpDelete("{goalGroupId:guid}/goals/{id:guid}")]
