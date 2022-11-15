@@ -1,8 +1,6 @@
 ﻿using CsvHelper.Configuration;
-using SaveMeter.Modules.Transactions.Core.Commands;
-using System;
 
-namespace SaveMeter.Modules.Transactions.Api.Csv
+namespace SaveMeter.Modules.Transactions.Api.Csv.Mappers
 {
     internal record IngTransaction : CsvTransaction
     {

@@ -1,8 +1,7 @@
-﻿using System;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using CsvHelper.Configuration;
 
-namespace SaveMeter.Modules.Transactions.Api.Csv
+namespace SaveMeter.Modules.Transactions.Api.Csv.Mappers
 {
     internal record MillenniumTransaction : CsvTransaction
     {

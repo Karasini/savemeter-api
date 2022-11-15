@@ -1,18 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using SaveMeter.Shared.Abstractions.Dispatchers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using SaveMeter.Modules.Transactions.Api;
+using Microsoft.AspNetCore.Mvc;
 using SaveMeter.Modules.Transactions.Core.DTO;
 using SaveMeter.Modules.Transactions.Core.Queries;
+using SaveMeter.Shared.Abstractions.Dispatchers;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace SaveMeter.Modules.Categories.Api.Controllers;
+namespace SaveMeter.Modules.Transactions.Api.Controllers;
 
 [Authorize]
 [ApiController]
