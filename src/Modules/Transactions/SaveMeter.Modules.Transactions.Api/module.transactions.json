@@ -3,6 +3,9 @@
     "module": {
       "name": "Transactions",
       "enabled": true
+    },
+    "csv": {
+      "delimiter": ";"
     }
   }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SaveMeter.Shared.Abstractions.Commands;
+using SaveMeter.Shared.Abstractions.Events;
 
 namespace SaveMeter.Modules.Transactions.Core.Commands;
 internal record ImportTransactions : ICommand

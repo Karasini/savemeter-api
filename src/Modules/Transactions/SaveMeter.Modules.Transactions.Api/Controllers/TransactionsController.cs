@@ -28,11 +28,13 @@ internal class TransactionsController : ControllerBase
 {
     private readonly IDispatcher _dispatcher;
     private readonly IContext _context;
+    private readonly ITransactionImporter _importer;
 
-    public TransactionsController(IDispatcher dispatcher, IContext context)
+    public TransactionsController(IDispatcher dispatcher, IContext context, ITransactionImporter importer)
     {
         _dispatcher = dispatcher;
         _context = context;
+        _importer = importer;
     }
 
     [HttpPost("csv")]
@@ -43,7 +45,23 @@ internal class TransactionsController : ControllerBase
     {
         foreach (var formFile in file)
         {
-            await TransactionsFromFile(formFile);
+            var transactions = await _importer.Import(formFile.OpenReadStream());
+            var importTransactionCommand = new ImportTransactions
+            {
+                Transactions = transactions.Select(command => new ImportTransactions.Transaction
+                {
+                    TransactionDateUtc = DateTime.SpecifyKind(command.TransactionDateUtc, DateTimeKind.Utc),
+                    RelatedAccountNumber = command.RelatedAccountNumber,
+                    Customer = command.Customer,
+                    Description = command.Description,
+                    Value = command.Value,
+                    AccountBalance = command.AccountBalance,
+                    BankName = command.BankName,
+                    UserId = _context.Identity.Id
+                }).ToList()
+            };
+
+            await _dispatcher.SendAsync(importTransactionCommand);
         }
 
         return Ok();
@@ -58,7 +76,7 @@ internal class TransactionsController : ControllerBase
         await _dispatcher.SendAsync(model);
         return NoContent();
     }
-    
+
     [HttpPost]
     [Authorize(TransactionsPolicies.TransactionsCrud)]
     [SwaggerOperation("Create bank transaction")]
@@ -88,76 +106,5 @@ internal class TransactionsController : ControllerBase
     public async Task<IActionResult> GetBankTransactionsByFilter([FromQuery] GetBankTransactionsByFilter query)
     {
         return Ok(await _dispatcher.QueryAsync(query.Bind(x => x.UserId, _context.Identity.Id)));
-    }
-
-    private async Task TransactionsFromFile(IFormFile obj)
-    {
-        var encodingType = CharsetDetector.DetectFromStream(obj.OpenReadStream());
-        using var reader = new StreamReader(obj.OpenReadStream(), encodingType.Detected.Encoding);
-        using var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture) { BadDataFound = null, DetectDelimiter = true });
-        csv.Context.RegisterClassMap<IngCsvMapper>();
-        csv.Context.RegisterClassMap<MillenniumCsvMapper>();
-        var fooRecords = new List<CsvTransaction>();
-
-        var reading = true;
-        while (reading)
-        {
-            await csv.ReadAsync();
-            csv.ReadHeader();
-
-            if (csv.CanRead<IngCsvMapper>())
-            {
-                var r = csv.GetRecordsAsync<IngTransaction>();
-                try
-                {
-                    await foreach (var record in r)
-                    {
-                        fooRecords.Add(record);
-                    }
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
-
-                reading = false;
-            }
-
-            if (csv.CanRead<MillenniumCsvMapper>())
-            {
-                var r = csv.GetRecordsAsync<MillenniumTransaction>();
-                try
-                {
-                    await foreach (var record in r)
-                    {
-                        fooRecords.Add(record);
-                    }
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
-
-                reading = false;
-            }
-        }
-
-        var importTransactionCommand = new ImportTransactions
-        {
-            Transactions = fooRecords.Select(command => new ImportTransactions.Transaction
-            {
-                TransactionDateUtc = DateTime.SpecifyKind(command.TransactionDateUtc, DateTimeKind.Utc),
-                RelatedAccountNumber = command.RelatedAccountNumber,
-                Customer = command.Customer,
-                Description = command.Description,
-                Value = command.Value,
-                AccountBalance = command.AccountBalance,
-                BankName = command.BankName,
-                UserId = _context.Identity.Id
-            }).ToList()
-        };
-
-        await _dispatcher.SendAsync(importTransactionCommand);
-
     }
 }

@@ -4,7 +4,7 @@
 GET {{url}}/categories
 
 ### Get list of transactions
-GET {{url}}/transactions?pageSize=10000&pageNumber=1&startDate=2022-10-01&endDate=2022-10-31
+GET {{url}}/transactions?pageSize=100
 
 ### Create bank transaction
 POST {{url}}/transactions
