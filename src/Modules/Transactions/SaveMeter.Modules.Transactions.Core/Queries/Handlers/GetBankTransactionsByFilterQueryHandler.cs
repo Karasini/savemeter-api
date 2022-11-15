@@ -33,67 +33,65 @@ namespace SaveMeter.Modules.Transactions.Core.Queries.Handlers
                 AndIfAcceptable(query.StartDate.HasValue, x => x.TransactionDate >= query.StartDate!.Value)
                 .AndIfAcceptable(query.EndDate.HasValue, x => x.TransactionDate < query.EndDate!.Value.AddDays(1))
                 .And(x => x.UserId == query.UserId);
-
-            var count = await _repository.Find(filter.Expand()).CountDocumentsAsync(cancellationToken);
-
-            //TODO: Optimize getting count off all documents
-            //var countFacet = AggregateFacet.Create("count", PipelineDefinition<BankTransaction, AggregateCountResult>.Create(new[]
-            //{
-            //    PipelineStageDefinitionBuilder.Count<BankTransaction>()
-            //}));
-
-            //var dataFacet = AggregateFacet.Create("dataFacet",
-            //PipelineDefinition<BankTransaction, BankTransaction>.Create(new[]
-            //{
-            //    PipelineStageDefinitionBuilder.Sort(Builders<BankTransaction>.Sort.Ascending(x => x.TransactionDateUtc)),
-            //    PipelineStageDefinitionBuilder.Skip<BankTransaction>((pageNumber - 1) * pageSize),
-            //    PipelineStageDefinitionBuilder.Limit<BankTransaction>(pageSize),
-            //}));
-
-            //var lookupFacet = AggregateFacet.Create("lookupFacet",
-            //PipelineDefinition<BankTransaction, BankTransactionDto>.Create(new[]
-            //{
-            //    PipelineStageDefinitionBuilder.Lookup<BankTransaction, Category, BankTransaction>(_categoryReadRepository.Collection, x => x.CategoryId, x => x.Id, x => x.Categories).,
-            //    PipelineStageDefinitionBuilder.Project(BankTransactionProjections.Projection),
-            //}));
-
-            //var projectFacet = AggregateFacet.Create("projectFacet",
-            //PipelineDefinition<BankTransaction, BankTransactionDto>.Create(new[]
-            //{
-            //    PipelineStageDefinitionBuilder.Project(BankTransactionProjections.Projection),
-            //}));
-
-            //var aggregation = await _repository.Collection.Aggregate()
-            //    .Match(filter.Expand())
-            //    .Facet(countFacet, dataFacet, lookupFacet, projectFacet)
-            //    .ToListAsync();
-
-            //var count = aggregation.First()
-            //    .Facets.First(x => x.Name == "count")
-            //    .Output<AggregateCountResult>()
-            //    ?.FirstOrDefault()
-            //    ?.Count ?? 0;
-
-            //var data = aggregation.First()
-            //    .Facets.First(x => x.Name == "projectFacet")
-            //    .Output<BankTransactionDto>();
-            // .Unwind("items.vendor", new AggregateUnwindOptions<VendorDetail>() { PreserveNullAndEmptyArrays = true })
-
-            var bankTransactions = await _repository.Collection.Aggregate()
-                .Match(filter.Expand())
-                .Lookup(_categoryRepository.Collection, (x => x.CategoryId), 
-                    (x => x.Id), @as: (BankTransaction t) => t.Category)
-                .Unwind(x => x.Category, new AggregateUnwindOptions<BankTransaction>(){PreserveNullAndEmptyArrays = true})
-                .SortByDescending(x => x.TransactionDate)
-                .Skip((pageNumber - 1) * pageSize)
-                .Limit(pageSize)
-                .ProjectToBankTransactionDto()
-                .ToListAsync(cancellationToken: cancellationToken);
             
+            var countFacet = AggregateFacet.Create("count",
+                PipelineDefinition<BankTransaction, AggregateCountResult>.Create(new[]
+                {
+                    PipelineStageDefinitionBuilder.Count<BankTransaction>()
+                }));
+
+            var dataFacet = AggregateFacet.Create("data",
+                PipelineDefinition<BankTransaction, BankTransaction>.Create(new IPipelineStageDefinition[]
+                {
+                    PipelineStageDefinitionBuilder.Skip<BankTransaction>((pageNumber - 1) * pageSize),
+                    PipelineStageDefinitionBuilder.Limit<BankTransaction>(pageSize),
+                    // PipelineStageDefinitionBuilder.Project<BankTransaction, BankTransactionDto>(x => new BankTransactionDto
+                    // {
+                    //     Id = x.Id,
+                    //     TransactionDate = x.TransactionDate,
+                    //     Customer = x.Customer,
+                    //     Description = x.Description,
+                    //     Value = x.Value,
+                    //     CategoryId = x.CategoryId,
+                    //     CategoryName = x.Category.Name
+                    // }),
+                }));
+
+            var aggregation = _repository.Collection
+                .Aggregate()
+                .Match(filter.Expand())
+                .Lookup(_categoryRepository.Collection, (x => x.CategoryId),
+                    (x => x.Id), @as: (BankTransaction t) => t.Category)
+                .Unwind(x => x.Category,
+                    new AggregateUnwindOptions<BankTransaction>() { PreserveNullAndEmptyArrays = true })
+                .SortByDescending(x => x.TransactionDate)
+                .Facet(countFacet, dataFacet);
+
+            var result = await aggregation.FirstAsync(cancellationToken: cancellationToken);
+            
+            var count = result
+                .Facets.First(x => x.Name == "count")
+                .Output<AggregateCountResult>()
+                .FirstOrDefault()!
+                .Count;
+            
+            var data = result
+                .Facets.First(x => x.Name == "data")
+                .Output<BankTransaction>();
+
             return new PaginatedDto<BankTransactionDto>
             {
                 CurrentPage = pageNumber,
-                Items = bankTransactions.ToList(),
+                Items = data.Select(x => new BankTransactionDto
+                {
+                    Id = x.Id,
+                    TransactionDate = x.TransactionDate,
+                    Customer = x.Customer,
+                    Description = x.Description,
+                    Value = x.Value,
+                    CategoryId = x.CategoryId,
+                    CategoryName = x.Category.Name
+                }).ToArray(),
                 PageSize = pageSize,
                 TotalCount = count,
                 TotalPages = (int)Math.Ceiling(count / (double)pageSize)

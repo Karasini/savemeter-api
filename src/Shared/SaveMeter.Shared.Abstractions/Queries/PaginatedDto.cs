@@ -10,5 +10,5 @@ public record PaginatedDto<T>
     public long TotalCount { get; init; }
     public bool HasPrevious => CurrentPage > 1;
     public bool HasNext => CurrentPage < TotalPages;
-    public List<T> Items { get; init; }
+    public IReadOnlyList<T> Items { get; init; }
 }

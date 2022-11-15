@@ -10,5 +10,5 @@ public record BankTransactionDto
     public string Description { get; init; }
     public decimal Value { get; init; }
     public Guid? CategoryId { get; init; }
-    public string? CategoryName { get; init; }
+    public string CategoryName { get; init; }
 }
