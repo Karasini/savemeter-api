@@ -45,16 +45,6 @@ namespace SaveMeter.Modules.Transactions.Core.Queries.Handlers
                 {
                     PipelineStageDefinitionBuilder.Skip<BankTransaction>((pageNumber - 1) * pageSize),
                     PipelineStageDefinitionBuilder.Limit<BankTransaction>(pageSize),
-                    // PipelineStageDefinitionBuilder.Project<BankTransaction, BankTransactionDto>(x => new BankTransactionDto
-                    // {
-                    //     Id = x.Id,
-                    //     TransactionDate = x.TransactionDate,
-                    //     Customer = x.Customer,
-                    //     Description = x.Description,
-                    //     Value = x.Value,
-                    //     CategoryId = x.CategoryId,
-                    //     CategoryName = x.Category.Name
-                    // }),
                 }));
 
             var aggregation = _repository.Collection
