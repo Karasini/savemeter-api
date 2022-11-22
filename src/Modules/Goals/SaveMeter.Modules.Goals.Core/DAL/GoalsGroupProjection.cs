@@ -5,15 +5,15 @@ using SaveMeter.Modules.Goals.Core.Entities;
 
 namespace SaveMeter.Modules.Goals.Core.DAL;
 
-internal static class FinancialGoalGroupProjection
+internal static class GoalsGroupProjection
 {
-    private static ProjectionDefinition<FinancialGoalGroup, FinancialGoalGroupDto> Projection =>
-        Builders<FinancialGoalGroup>.Projection.Expression(entity => new FinancialGoalGroupDto
+    private static ProjectionDefinition<GoalsGroup, GoalsGroupDto> Projection =>
+        Builders<GoalsGroup>.Projection.Expression(entity => new GoalsGroupDto
         {
             Id = entity.Id,
             TotalAmount = entity.TotalAmount,
             Title = entity.Title,
-            Goals = entity.Goals.Select(x => new FinancialGoalDto
+            Goals = entity.Goals.Select(x => new GoalDto
             {
                 Title = x.Title,
                 Amount = x.Amount,
@@ -22,7 +22,7 @@ internal static class FinancialGoalGroupProjection
             }).ToList()
         });
 
-    public static IFindFluent<FinancialGoalGroup, FinancialGoalGroupDto> ProjectToFinancialGoalGroupDto(this IFindFluent<FinancialGoalGroup, FinancialGoalGroup> fluent)
+    public static IFindFluent<GoalsGroup, GoalsGroupDto> ProjectToGoalsGroupDto(this IFindFluent<GoalsGroup, GoalsGroup> fluent)
     {
         return fluent.Project(Projection);
     }

@@ -5,21 +5,21 @@ using SaveMeter.Shared.Abstractions.Kernel.Types;
 
 namespace SaveMeter.Modules.Goals.Core.Entities;
 
-internal class FinancialGoalGroup : Entity
+internal class GoalsGroup : Entity
 {
     public string Title { get; private set; }
     public decimal TotalAmount { get; private set; }
-    private List<FinancialGoal> _goals;
-    public IEnumerable<FinancialGoal> Goals => _goals;
+    private List<Goal> _goals;
+    public IEnumerable<Goal> Goals => _goals;
     
-    private FinancialGoalGroup()
+    private GoalsGroup()
     {
-        _goals = new List<FinancialGoal>();
+        _goals = new List<Goal>();
     }
 
-    public static FinancialGoalGroup Create(string title, List<FinancialGoal> goals)
+    public static GoalsGroup Create(string title, List<Goal> goals)
     {
-        return new FinancialGoalGroup
+        return new GoalsGroup
         {
             Title = title,
             _goals = goals,
@@ -27,7 +27,7 @@ internal class FinancialGoalGroup : Entity
         };
     }
 
-    public void AddGoal(FinancialGoal goal)
+    public void AddGoal(Goal goal)
     {
         _goals.Add(goal);
         UpdateTotalAmount();
@@ -38,7 +38,7 @@ internal class FinancialGoalGroup : Entity
         TotalAmount = _goals.Sum(x => x.Amount);
     }
 
-    public void UpdateGoal(FinancialGoal goal)
+    public void UpdateGoal(Goal goal)
     {
         var goalIndex = _goals.FindIndex(x => x.Id == goal.Id);
         _goals[goalIndex] = goal;

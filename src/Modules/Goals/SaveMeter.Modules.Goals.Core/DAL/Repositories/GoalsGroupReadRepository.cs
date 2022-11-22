@@ -4,9 +4,9 @@ using SaveMeter.Shared.Infrastructure.Mongo.Repository;
 
 namespace SaveMeter.Modules.Goals.Core.DAL.Repositories
 {
-    internal class FinancialGoalGroupReadRepository : ReadBaseRepository<FinancialGoalGroup>
+    internal class GoalsGroupReadRepository : ReadBaseRepository<GoalsGroup>
     {
-        public FinancialGoalGroupReadRepository(IMongoContext context) : base(context)
+        public GoalsGroupReadRepository(IMongoContext context) : base(context)
         {
         }
     }

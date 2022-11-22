@@ -4,7 +4,7 @@ using SaveMeter.Shared.Abstractions.Queries;
 
 namespace SaveMeter.Modules.Goals.Core.Queries
 {
-    public class GetFinancialGoalGroups : IQuery<List<FinancialGoalGroupDto>>
+    public class GetGoalsGroups : IQuery<List<GoalsGroupDto>>
     {
     }
 }

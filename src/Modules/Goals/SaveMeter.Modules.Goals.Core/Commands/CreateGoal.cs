@@ -4,7 +4,7 @@ using SaveMeter.Shared.Abstractions.Commands;
 
 namespace SaveMeter.Modules.Goals.Core.Commands;
 
-internal class CreateFinancialGoal : ICommand<FinancialGoalGroupDto>
+internal class CreateGoal : ICommand<GoalsGroupDto>
 {
     public Guid GoalGroupId { get; set; }
     public string Title { get; set; }

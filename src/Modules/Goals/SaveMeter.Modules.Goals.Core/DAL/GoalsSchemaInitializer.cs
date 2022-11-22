@@ -11,7 +11,7 @@ internal class GoalsSchemaInitializer : ISchemaInitializer
     public void Initialize()
     {
         
-        BsonClassMap.RegisterClassMap<FinancialGoalGroup>(map =>
+        BsonClassMap.RegisterClassMap<GoalsGroup>(map =>
         {
             map.AutoMap();
             map.SetIgnoreExtraElements(true);
@@ -19,7 +19,7 @@ internal class GoalsSchemaInitializer : ISchemaInitializer
             map.MapField("_goals").SetElementName("Goals");
         });
 
-        BsonClassMap.RegisterClassMap<FinancialGoal>(map =>
+        BsonClassMap.RegisterClassMap<Goal>(map =>
         {
             map.AutoMap();
             map.SetIgnoreExtraElements(true);
