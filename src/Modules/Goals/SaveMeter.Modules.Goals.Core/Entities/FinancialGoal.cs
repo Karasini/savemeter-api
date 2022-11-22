@@ -5,9 +5,9 @@ namespace SaveMeter.Modules.Goals.Core.Entities;
 
 internal class FinancialGoal : Entity
 {
-    public string Title { get; set; }
-    public decimal Amount { get; set; }
-    public string Rank { get; set; }
+    public string Title { get; private set; }
+    public decimal Amount { get; private set; }
+    public string Rank { get; private set; }
 
     public static FinancialGoal Create(string title, decimal amount, string rank, Guid? id = null)
     {

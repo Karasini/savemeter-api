@@ -7,13 +7,14 @@ namespace SaveMeter.Modules.Goals.Core.Entities;
 
 internal class FinancialGoalGroup : Entity
 {
-    public string Title { get; set; }
-    public decimal TotalAmount { get; set; }
-    public List<FinancialGoal> Goals { get; set; }
-
+    public string Title { get; private set; }
+    public decimal TotalAmount { get; private set; }
+    private List<FinancialGoal> _goals;
+    public IEnumerable<FinancialGoal> Goals => _goals;
+    
     private FinancialGoalGroup()
     {
-        Goals = new List<FinancialGoal>();
+        _goals = new List<FinancialGoal>();
     }
 
     public static FinancialGoalGroup Create(string title, List<FinancialGoal> goals)
@@ -21,32 +22,32 @@ internal class FinancialGoalGroup : Entity
         return new FinancialGoalGroup
         {
             Title = title,
-            Goals = goals,
+            _goals = goals,
             TotalAmount = goals.Sum(x => x.Amount)
         };
     }
 
     public void AddGoal(FinancialGoal goal)
     {
-        Goals.Add(goal);
+        _goals.Add(goal);
         UpdateTotalAmount();
     }
 
     private void UpdateTotalAmount()
     {
-        TotalAmount = Goals.Sum(x => x.Amount);
+        TotalAmount = _goals.Sum(x => x.Amount);
     }
 
     public void UpdateGoal(FinancialGoal goal)
     {
-        var goalIndex = Goals.FindIndex(x => x.Id == goal.Id);
-        Goals[goalIndex] = goal;
+        var goalIndex = _goals.FindIndex(x => x.Id == goal.Id);
+        _goals[goalIndex] = goal;
         UpdateTotalAmount();
     }
 
     public void RemoveGoal(Guid goalId)
     {
-        Goals.RemoveAll(x => x.Id == goalId);
+        _goals.RemoveAll(x => x.Id == goalId);
         UpdateTotalAmount();
     }
 }

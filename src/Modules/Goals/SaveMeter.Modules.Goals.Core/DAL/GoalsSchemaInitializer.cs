@@ -15,14 +15,15 @@ internal class GoalsSchemaInitializer : ISchemaInitializer
         {
             map.AutoMap();
             map.SetIgnoreExtraElements(true);
-            map.MapMember(x => x.TotalAmount).SetSerializer(new DecimalSerializer(BsonType.Decimal128));
+            map.MapProperty(x => x.TotalAmount).SetSerializer(new DecimalSerializer(BsonType.Decimal128));
+            map.MapField("_goals").SetElementName("Goals");
         });
 
         BsonClassMap.RegisterClassMap<FinancialGoal>(map =>
         {
             map.AutoMap();
             map.SetIgnoreExtraElements(true);
-            map.MapMember(x => x.Amount).SetSerializer(new DecimalSerializer(BsonType.Decimal128));
+            map.MapProperty(x => x.Amount).SetSerializer(new DecimalSerializer(BsonType.Decimal128));
         });
     }
 }
