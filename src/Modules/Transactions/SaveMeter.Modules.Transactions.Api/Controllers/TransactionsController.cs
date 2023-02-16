@@ -107,4 +107,13 @@ internal class TransactionsController : ControllerBase
     {
         return Ok(await _dispatcher.QueryAsync(query.Bind(x => x.UserId, _context.Identity.Id)));
     }
+    
+    [HttpGet("groupedTransactions")]
+    [Authorize(TransactionsPolicies.TransactionsRead)]
+    [SwaggerOperation("Get grouped transactions list")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetBankTransactionsByFilter([FromQuery] GetGroupedBankTransactions query)
+    {
+        return Ok(await _dispatcher.QueryAsync(query.Bind(x => x.UserId, _context.Identity.Id)));
+    }
 }

@@ -6,6 +6,10 @@ GET {{url}}/categories
 ### Get list of transactions
 GET {{url}}/transactions?pageSize=100
 
+
+### Get list of transactions
+GET {{url}}/transactions/groupedTransactions
+
 ### Create bank transaction
 POST {{url}}/transactions
 Content-Type: application/json
