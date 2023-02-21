@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\Shared\SaveMeter.Shared.Infrastructure\SaveMeter.Shared.Infrastructure.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="CsvHelper" Version="30.0.1" />
+	  <PackageReference Include="LinqKit.Core" Version="1.2.2" />
+	  <PackageReference Include="Microsoft.ML" Version="1.7.1" />
+	</ItemGroup>
+
+</Project>

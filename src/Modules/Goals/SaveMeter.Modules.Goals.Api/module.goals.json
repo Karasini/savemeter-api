@@ -1,0 +1,8 @@
+﻿{
+  "goals": {
+    "module": {
+      "name": "Goals",
+      "enabled": true
+    }
+  }
+}

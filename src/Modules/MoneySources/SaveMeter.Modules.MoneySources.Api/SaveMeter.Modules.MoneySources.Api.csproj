@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="module.moneySources.development.json" />
+    <None Remove="module.moneySources.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="module.moneySources.development.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="module.moneySources.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\SaveMeter.Shared.Abstractions\SaveMeter.Shared.Abstractions.csproj" />
+    <ProjectReference Include="..\SaveMeter.Modules.MoneySources.Core\SaveMeter.Modules.MoneySources.Core.csproj" />
+  </ItemGroup>
+
+</Project>

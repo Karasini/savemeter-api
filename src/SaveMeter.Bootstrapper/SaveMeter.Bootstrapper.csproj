@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+	<ItemGroup>
+    <ProjectReference Include="..\Modules\Goals\SaveMeter.Modules.Goals.Api\SaveMeter.Modules.Goals.Api.csproj" />
+    <ProjectReference Include="..\Modules\MoneySources\SaveMeter.Modules.MoneySources.Api\SaveMeter.Modules.MoneySources.Api.csproj" />
+    <ProjectReference Include="..\Modules\Transactions\SaveMeter.Modules.Transactions.Api\SaveMeter.Modules.Transactions.Api.csproj" />
+    <ProjectReference Include="..\Modules\Users\SaveMeter.Modules.Users.Api\SaveMeter.Modules.Users.Api.csproj" />
+    <ProjectReference Include="..\Shared\SaveMeter.Shared.Abstractions\SaveMeter.Shared.Abstractions.csproj" />
+    <ProjectReference Include="..\Shared\SaveMeter.Shared.Infrastructure\SaveMeter.Shared.Infrastructure.csproj" />
+  </ItemGroup>
+
+	<ItemGroup>
+	  <None Update="mlModel.zip">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+</Project>

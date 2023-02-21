@@ -1,0 +1,8 @@
+﻿{
+  "moneySources": {
+    "module": {
+      "name": "MoneySources",
+      "enabled": true
+    }
+  }
+}

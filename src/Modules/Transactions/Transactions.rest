@@ -1,0 +1,23 @@
+@url = https://localhost:7170
+
+###
+GET {{url}}/categories
+
+### Get list of transactions
+GET {{url}}/transactions?pageSize=100
+
+
+### Get list of transactions
+GET {{url}}/transactions/groupedTransactions
+
+### Create bank transaction
+POST {{url}}/transactions
+Content-Type: application/json
+
+{
+  "transactionDateUtc": "2022-01-17T21:20",
+  "customer": "Customer 2",
+  "description": "Description 2",
+  "value": 223.53,
+  "bankName": ""
+}

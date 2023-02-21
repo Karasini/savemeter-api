@@ -36,5 +36,7 @@ msbuild.wrn
 # Visual Studio 2015
 .vs/
 .vscode
-InstappApi/InstappApi/logs/
-InstappApi/InstappApi/appsettings.Development.json
+/src/SaveMeter.Bootstrapper/logs
+
+#Project
+*.csv

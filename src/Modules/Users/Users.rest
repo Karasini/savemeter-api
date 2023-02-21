@@ -1,0 +1,40 @@
+@url = https://localhost:7170
+
+###
+GET {{url}}
+
+###
+@email = user1@savemeter.io
+@password = Secret123!
+
+### Register as the regular user
+POST {{url}}/account/sign-up
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### Login as the regular user
+# @name sign_in
+POST {{url}}/account/sign-in
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+###
+@authCookie = {{sign_in.response.headers.$.set-cookie}}
+@userId = {{sign_in.response.body.$.UserId}}
+
+
+### Sign out
+DELETE {{url}}/account/sign-out
+Set-Cookie: {{authCookie}}
+
+### Get account
+GET {{url}}/account
+Set-Cookie: {{authCookie}}
