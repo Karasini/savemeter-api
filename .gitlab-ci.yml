@@ -19,6 +19,5 @@ build_image:
     - docker build -t $REGISTRY/$IMAGE_NAME:$IMAGE_TAG . # Use IMAGE_TAG as the image tag
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $REGISTRY
     - docker push $REGISTRY/$IMAGE_NAME:$IMAGE_TAG
-  rules:
-    # Only build the image when a Git tag is created
-    - if: $CI_COMMIT_TAG
+  only:
+  - tags
