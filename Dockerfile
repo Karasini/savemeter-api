@@ -17,6 +17,6 @@ RUN dotnet publish --no-restore -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /src
-COPY --from=build-env /src/*/out .
+COPY --from=build-env /src/out .
 
 ENTRYPOINT ["dotnet", "SaveMeter.Bootstrapper.dll"]
