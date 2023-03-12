@@ -1,3 +1,4 @@
+# @url = https://savemeter-api.azurewebsites.net
 @url = https://localhost:7170
 
 ###
@@ -9,6 +10,14 @@ GET {{url}}/transactions?pageSize=100
 
 ### Get list of transactions
 GET {{url}}/transactions/groupedTransactions
+
+### Train ML model
+POST {{url}}/transactions/train
+Content-Type: application/json
+
+{
+  
+}
 
 ### Create bank transaction
 POST {{url}}/transactions

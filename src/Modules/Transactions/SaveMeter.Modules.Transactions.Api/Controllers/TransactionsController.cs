@@ -73,7 +73,7 @@ internal class TransactionsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> TrainModel(TrainModel model)
     {
-        await _dispatcher.SendAsync(model);
+        await _dispatcher.SendAsync(model.Bind(x => x.UserId, _context.Identity.Id));
         return NoContent();
     }
 

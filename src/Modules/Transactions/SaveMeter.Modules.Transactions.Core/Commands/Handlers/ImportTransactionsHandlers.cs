@@ -32,7 +32,7 @@ internal class ImportTransactionsHandlers : ICommandHandler<ImportTransactions>
         var transactionExists = await _transactionRepository.TransactionExists(command.TransactionDateUtc, command.Value);
         if (transactionExists) return;
         
-        var categoryId = _mlContext.Predicate(command.Customer, command.Description);
+        var categoryId = await _mlContext.Predicate(command.Customer, command.Description, command.UserId);
         var transaction = new BankTransaction()
         {
             Value = command.Value,

@@ -22,5 +22,11 @@ internal class MongoEntitiesInitializer : ISchemaInitializer
             map.MapMember(x => x.Value).SetSerializer(new DecimalSerializer(BsonType.Decimal128));
             map.GetMemberMap(x => x.Category).SetShouldSerializeMethod(_ => false);
         });
+        
+        BsonClassMap.RegisterClassMap<PredictionModel>(map =>
+        {
+            map.AutoMap();
+            map.SetIgnoreExtraElements(true);
+        });
     }
 }

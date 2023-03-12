@@ -40,3 +40,6 @@ msbuild.wrn
 
 #Project
 *.csv
+
+/dump
+mongoConfig.yaml

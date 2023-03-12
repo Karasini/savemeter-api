@@ -27,7 +27,7 @@ internal class CreateTransactionHandler : ICommandHandler<CreateTransaction, Ban
         Guard.Against(transactionExists, new BankTransactionAlreadyExistsException(command.TransactionDateUtc, command.Value));
         //TODO? Validate user ?
         
-        var categoryId = _mlContext.Predicate(command.Customer, command.Description);
+        var categoryId = await _mlContext.Predicate(command.Customer, command.Description, command.UserId);
 
         var transaction = new BankTransaction()
         {

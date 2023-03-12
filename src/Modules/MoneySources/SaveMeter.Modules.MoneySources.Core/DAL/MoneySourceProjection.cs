@@ -12,8 +12,8 @@ static class MoneySourceProjection
             Id = category.Id,
             NativeAmount = category.NativeAmount,
             StatusDate = category.StatusDate,
-            Amount = category.Amount == 0 ? category.NativeAmount : category.Amount,
-            Currency = string.IsNullOrEmpty(category.Currency) ? category.NativeCurrency : category.Currency,
+            Amount = category.Amount,
+            Currency = category.Currency,
             NativeCurrency = category.NativeCurrency,
             Title = category.Title,
             Type = category.Type.ToString()

@@ -46,7 +46,9 @@ namespace SaveMeter.Shared.Infrastructure.Mongo.Repository
         public virtual TEntity Update(TEntity entity)
         {
             entity.UpdatedAt = DateTime.UtcNow;
-            Context.AddCommand(() => DbCollection.ReplaceOneAsync(Builders<TEntity>.Filter.Eq("_id", entity.Id), entity), entity);
+            Context.AddCommand(
+                () => DbCollection.ReplaceOneAsync(Builders<TEntity>.Filter.Eq("_id", entity.Id), entity,
+                    new ReplaceOptions { IsUpsert = true }), entity);
 
             return entity;
         }

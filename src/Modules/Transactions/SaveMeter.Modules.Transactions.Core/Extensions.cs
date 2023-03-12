@@ -19,6 +19,7 @@ internal static class Extensions
             .AddScoped<ICategoryRepository, CategoryRepository>()
             .AddScoped<IBankTransactionRepository, BankTransactionRepository>()
             .AddScoped<IBankTransactionMlContext, BankTransactionMlContext>()
+            .AddScoped<IPredictionModelRepository, PredictionModelRepository>()
             .AddScoped<CategoryReadRepository>()
             .AddScoped<BankTransactionReadRepository>()
             .AddSchemaInitializer<MongoEntitiesInitializer>()

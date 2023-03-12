@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using SaveMeter.Modules.Transactions.Core.Entities;
 
 namespace SaveMeter.Modules.Transactions.Core.Repositories
 {
     internal interface IBankTransactionMlContext
     {
-        void TrainModel(IEnumerable<BankTransaction> bankTransactions);
+        byte[] TrainModel(IEnumerable<BankTransaction> bankTransactions);
 
-        Guid Predicate(string customer, string description);
+        Task<Guid> Predicate(string customer, string description, Guid userId);
     }
 }
+    

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -62,8 +63,13 @@ namespace SaveMeter.Modules.Transactions.Core.Queries.Handlers
             var count = result
                 .Facets.First(x => x.Name == "count")
                 .Output<AggregateCountResult>()
-                .FirstOrDefault()!
+                .FirstOrDefault()?
                 .Count;
+
+            if (!count.HasValue)
+            {
+                return CreateEmptyResponse(pageNumber, pageSize);
+            }
             
             var data = result
                 .Facets.First(x => x.Name == "data")
@@ -83,8 +89,20 @@ namespace SaveMeter.Modules.Transactions.Core.Queries.Handlers
                     CategoryName = x.Category.Name
                 }).ToArray(),
                 PageSize = pageSize,
-                TotalCount = count,
-                TotalPages = (int)Math.Ceiling(count / (double)pageSize)
+                TotalCount = count.Value,
+                TotalPages = (int)Math.Ceiling(count.Value / (double)pageSize)
+            };
+        }
+
+        private static PaginatedDto<BankTransactionDto> CreateEmptyResponse(int pageNumber, int pageSize)
+        {
+            return new PaginatedDto<BankTransactionDto>
+            {
+                CurrentPage = pageNumber,
+                Items = new List<BankTransactionDto>(),
+                PageSize = pageSize,
+                TotalCount = 0,
+                TotalPages = 0,
             };
         }
     }

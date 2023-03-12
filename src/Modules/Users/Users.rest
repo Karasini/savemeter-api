@@ -1,3 +1,4 @@
+# @url = https://savemeter-api.azurewebsites.net/
 @url = https://localhost:7170
 
 ###

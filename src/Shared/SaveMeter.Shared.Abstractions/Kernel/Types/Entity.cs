@@ -12,6 +12,7 @@ namespace SaveMeter.Shared.Abstractions.Kernel.Types
         protected Entity()
         {
             Id = Guid.NewGuid();
+            CreatedAt = DateTime.UtcNow;
         }
 
         protected Entity(Guid id)
