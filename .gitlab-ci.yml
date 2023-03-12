@@ -10,9 +10,9 @@ stages:
   - deploy
 
 # Define the job to build the Docker image
-build_image:
+build_and_push:
   stage: build
-  image: docker:stable
+  image: docker:latest
   services:
     - docker:dind
   script:
@@ -23,9 +23,9 @@ build_image:
   only:
     - tags
 
-deploy_image:
+deploy:
   stage: deploy
-  image: docker:stable
+  image: docker:latest
   services:
     - docker:dind
   before_script:
