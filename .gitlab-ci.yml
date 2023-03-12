@@ -19,7 +19,7 @@ build_image:
     - IMAGE_TAG=$CI_COMMIT_TAG # Set IMAGE_TAG to the Git tag name
     - docker build -t $REGISTRY/$IMAGE_NAME:$IMAGE_TAG -t $REGISTRY/$IMAGE_NAME:latest . # Use IMAGE_TAG as the image tag
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $REGISTRY
-    - docker push $REGISTRY/$IMAGE_NAME:$IMAGE_TAG
+    - docker push $REGISTRY/$IMAGE_NAME --all-tags
   only:
     - tags
 
