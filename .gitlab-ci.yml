@@ -12,7 +12,7 @@ stages:
 # Define the job to build the Docker image
 build_image:
   stage: build
-  image: docker:latest
+  image: docker:stable
   services:
     - docker:dind
   script:
@@ -25,7 +25,11 @@ build_image:
 
 deploy_image:
   stage: deploy
-  image: docker:latest
+  image: docker:stable
+  services:
+    - docker:dind
+  before_script:
+    - apk add --update curl && rm -rf /var/cache/apk/*
   script:
     - curl $AZURE_WEBHOOK -H "" -d ""
   only:
