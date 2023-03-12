@@ -7,6 +7,7 @@ variables:
 # Define the stages of the pipeline
 stages:
   - build
+  - deploy
 
 # Define the job to build the Docker image
 build_image:
@@ -19,6 +20,13 @@ build_image:
     - docker build -t $REGISTRY/$IMAGE_NAME:$IMAGE_TAG -t latest . # Use IMAGE_TAG as the image tag
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $REGISTRY
     - docker push $REGISTRY/$IMAGE_NAME:$IMAGE_TAG
+  only:
+    - tags
+
+deploy_image:
+  stage: deploy
+  image: docker:latest
+  script:
     - curl $AZURE_WEBHOOK -H "" -d ""
   only:
     - tags
