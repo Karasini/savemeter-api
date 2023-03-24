@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -69,6 +70,8 @@ public static class Extensions
 
             var appOptions = context.Configuration.GetOptions<AppOptions>(appSectionName);
             var loggerOptions = context.Configuration.GetOptions<LoggerOptions>(loggerSectionName);
+            var appVersion = context.Configuration.GetValue<string>("appVersion");
+            appOptions.Version = appVersion;
 
             MapOptions(loggerOptions, appOptions, loggerConfiguration, context.HostingEnvironment.EnvironmentName);
             configure?.Invoke(loggerConfiguration);

@@ -8,7 +8,7 @@ using SaveMeter.Shared.Abstractions.Queries;
 
 namespace SaveMeter.Modules.Transactions.Core.Queries;
 
-internal record GetGroupedBankTransactions : IQuery<GroupedTransactionsListDto>
+internal record GetGroupedBankTransactions : IQuery<List<GroupedTransactionsDto>>
 {
     public DateTime? StartDate { get; set; }
     public DateTime? EndDate { get; set; }

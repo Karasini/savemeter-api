@@ -17,11 +17,13 @@ namespace SaveMeter.Bootstrapper;
 
 internal class Startup
 {
+    private readonly IConfiguration _configuration;
     private readonly IList<Assembly> _assemblies;
     private readonly IList<IModule> _modules;
 
     public Startup(IConfiguration configuration)
     {
+        _configuration = configuration;
         _assemblies = ModuleLoader.LoadAssemblies(configuration, "SaveMeter.Modules.");
         _modules = ModuleLoader.LoadModules(_assemblies);
     }
@@ -37,6 +39,8 @@ internal class Startup
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
     {
+        var appVersion = _configuration.GetValue<bool>("appVersion");
+        logger.LogInformation($"App version: {appVersion}");
         logger.LogInformation($"Modules: {string.Join(", ", _modules.Select(x => x.Name))}");
         app.UseModularInfrastructure();
         foreach (var module in _modules)

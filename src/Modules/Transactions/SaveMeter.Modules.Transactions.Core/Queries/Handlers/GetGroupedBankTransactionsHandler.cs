@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ using SaveMeter.Shared.Abstractions.Queries;
 
 namespace SaveMeter.Modules.Transactions.Core.Queries.Handlers;
 
-internal class GetGroupedBankTransactionsHandler : IQueryHandler<GetGroupedBankTransactions, GroupedTransactionsListDto>
+internal class GetGroupedBankTransactionsHandler : IQueryHandler<GetGroupedBankTransactions, List<GroupedTransactionsDto>>
 {
     private readonly BankTransactionReadRepository _transactionRepository;
     private readonly CategoryReadRepository _categoryRepository;
@@ -23,7 +24,7 @@ internal class GetGroupedBankTransactionsHandler : IQueryHandler<GetGroupedBankT
         _categoryRepository = categoryRepository;
     }
 
-    public async Task<GroupedTransactionsListDto> HandleAsync(GetGroupedBankTransactions query,
+    public async Task<List<GroupedTransactionsDto>> HandleAsync(GetGroupedBankTransactions query,
         CancellationToken cancellationToken = default)
     {
         var filter = FilterBuilder.True<BankTransaction>()
@@ -58,11 +59,11 @@ internal class GetGroupedBankTransactionsHandler : IQueryHandler<GetGroupedBankT
             {
                 x.Year,
                 x.Month
-            }, group => new GroupedTransactionsListDto.GroupedTransactions
+            }, group => new GroupedTransactionsDto
             {
                 Year = group.Key.Year,
                 Month = group.Key.Month,
-                Transactions = group.Select(x => new GroupedTransactionsListDto.TransactionsByCategory
+                Transactions = group.Select(x => new GroupedTransactionsDto.TransactionsByCategory
                 {
                     CategoryId = x.CategoryId,
                     CategoryName = categories.First(y => y.Id == x.CategoryId).Name,
@@ -74,9 +75,6 @@ internal class GetGroupedBankTransactionsHandler : IQueryHandler<GetGroupedBankT
             .SortByDescending(x => x.Year).ThenByDescending(x => x.Month)
             .ToListAsync(cancellationToken: cancellationToken);
 
-        return new GroupedTransactionsListDto
-        {
-            Transactions = result
-        };
+        return result;
     }
 }

@@ -38,7 +38,7 @@ public static class Extensions
         });
     }
         
-    public static IHostBuilder ConfigureModules(this IHostBuilder builder)
+    public static IHostBuilder ConfigureModules(this IHostBuilder builder, string[] args)
         => builder.ConfigureAppConfiguration((ctx, cfg) =>
         {
             foreach (var settings in GetSettings("*"))
@@ -50,10 +50,12 @@ public static class Extensions
             {
                 cfg.AddJsonFile(settings);
             }
-
+            
             IEnumerable<string> GetSettings(string pattern)
                 => Directory.EnumerateFiles(ctx.HostingEnvironment.ContentRootPath,
                     $"module.{pattern}.json", SearchOption.AllDirectories);
+
+            cfg.AddCommandLine(args);
         });
         
     public static IServiceCollection AddModuleRequests(this IServiceCollection services, IList<Assembly> assemblies)
